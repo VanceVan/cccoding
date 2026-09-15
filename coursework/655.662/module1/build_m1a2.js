@@ -1,4 +1,5 @@
 // M1A2: Context Diagram — builds standalone SVG + a print-ready HTML for Chromium PDF.
+// System of interest: Peritoneal Dialysis Remote Patient Monitoring System (PD-RPM).
 const fs = require('fs');
 
 /* ----------------------------- diagram model ----------------------------- */
@@ -13,38 +14,37 @@ const PALETTE = {
 const SOI_X = 370, SOI_Y = 320, SOI_W = 320, SOI_H = 140;
 const SOI_R = SOI_X + SOI_W, SOI_B = SOI_Y + SOI_H;
 
-// [x, y, w, h, domain, lines[], flowLines[], mode, anchorFrom[x,y], anchorTo[x,y]]
 const ENTITIES = [
   // LEFT — patient domain
   { x: 25,  y: 175, w: 190, h: 76, d: 'patient',
-    name: ['Patient', '(HF, post-discharge)'],
-    flow: ['vital signs, weight,', 'symptom responses'], mode: 'in',
+    name: ['Patient', '(ESKD, home PD)'],
+    flow: ['weight, BP, fluid balance,', 'symptom & exit-site reports'], mode: 'in',
     from: [219, 213], to: [SOI_X, 350] },
   { x: 25,  y: 350, w: 190, h: 76, d: 'patient',
-    name: ['Home Caregiver /', 'Family Member'],
-    flow: ['measurement assistance;', 'prompts, escalation'], mode: 'bi',
+    name: ['Care Partner /', 'Family Member'],
+    flow: ['setup assistance;', 'prompts, escalation'], mode: 'bi',
     from: [219, 388], to: [SOI_X, 390] },
   { x: 25,  y: 525, w: 190, h: 76, d: 'patient',
-    name: ['Home Environment &', 'Daily Activities'],
-    flow: ['activity context,', 'usage conditions'], mode: 'in',
+    name: ['Home Environment,', 'Power & Connectivity'],
+    flow: ['dwelling, storage,', 'mains power, network'], mode: 'in',
     from: [219, 563], to: [SOI_X, 430] },
 
   // RIGHT — clinical domain
   { x: 845, y: 150, w: 190, h: 68, d: 'clinical',
-    name: ['HF Nurse Navigator /', 'Monitoring Clinician'],
-    flow: ['trends, alerts, triage queue;', 'thresholds, dispositions'], mode: 'bi',
+    name: ['Home Dialysis Nurse /', 'PD Care Coordinator'],
+    flow: ['adherence, alarms, trends;', 'thresholds, dispositions'], mode: 'bi',
     from: [SOI_R, 350], to: [841, 184] },
   { x: 845, y: 275, w: 190, h: 68, d: 'clinical',
-    name: ['Cardiologist /', 'Prescribing Clinician'],
-    flow: ['escalation summaries;', 'medication titration'], mode: 'bi',
+    name: ['Nephrologist', '(prescribing)'],
+    flow: ['adequacy & volume trends;', 'PD prescription changes'], mode: 'bi',
     from: [SOI_R, 375], to: [841, 309] },
   { x: 845, y: 400, w: 190, h: 68, d: 'clinical',
-    name: ['EMS / Emergency', 'Department'],
-    flow: ['critical-threshold', 'escalation notice'], mode: 'out',
+    name: ['Dialysis Center /', 'Urgent Escalation'],
+    flow: ['suspected peritonitis', 'or access escalation'], mode: 'out',
     from: [SOI_R, 405], to: [841, 434] },
   { x: 845, y: 525, w: 190, h: 68, d: 'clinical',
-    name: ['Population Health', '& Analytics'],
-    flow: ['de-identified', 'trend data'], mode: 'out',
+    name: ['Population Health', '& Quality Analytics'],
+    flow: ['de-identified trends,', 'QIP measures'], mode: 'out',
     from: [SOI_R, 430], to: [841, 559] },
 
   // TOP — governance domain
@@ -57,22 +57,22 @@ const ENTITIES = [
     flow: ['privacy, security,', 'practice constraints'], mode: 'in',
     from: [555, 98], to: [530, SOI_Y] },
   { x: 670, y: 30, w: 190, h: 64, d: 'govern',
-    name: ['Payer', '(CMS / commercial)'],
-    flow: ['coverage rules;', 'RPM billing data'], mode: 'bi',
+    name: ['CMS ESRD Program', '(benefit, ETC model)'],
+    flow: ['coverage & ETC rules;', 'billing, quality data'], mode: 'bi',
     from: [765, 98], to: [610, SOI_Y] },
 
   // BOTTOM — infrastructure domain
   { x: 250, y: 690, w: 190, h: 64, d: 'infra',
-    name: ['Home Connectivity', '& Electrical Power'],
-    flow: ['broadband / cellular,', 'mains power'], mode: 'in',
+    name: ['PD Cycler &', 'Home Devices'],
+    flow: ['treatment logs, UF, alarms;', 'prescription push'], mode: 'bi',
     from: [345, 686], to: [450, SOI_B] },
   { x: 460, y: 690, w: 190, h: 64, d: 'infra',
-    name: ['EHR / Health', 'System IT'],
-    flow: ['demographics, meds, orders;', 'observations, flowsheets'], mode: 'bi',
+    name: ['EHR / Dialysis', 'Organization IT'],
+    flow: ['demographics, labs, orders;', 'observations, notes'], mode: 'bi',
     from: [555, 686], to: [530, SOI_B] },
   { x: 670, y: 690, w: 190, h: 64, d: 'infra',
-    name: ['Device Logistics', '& Field Support'],
-    flow: ['devices, consumables;', 'fault & calibration status'], mode: 'bi',
+    name: ['Solution Supply Chain', '& Field Support'],
+    flow: ['consumable burn, faults;', 'deliveries, field support'], mode: 'bi',
     from: [765, 686], to: [610, SOI_B] },
 ];
 
@@ -97,7 +97,7 @@ function entityBox(e) {
 function flowArrow(e) {
   const [x1, y1] = e.from;
   const [x2, y2] = e.to;
-  const ms = e.mode === 'bi' || e.mode === 'out' && false ? ' marker-start="url(#as)"' : '';
+  const ms = e.mode === 'bi' ? ' marker-start="url(#as)"' : '';
   const me = ' marker-end="url(#ae)"';
   // 'out' flows originate at the SoI, so from/to already encode direction.
   const line = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#5A5A5A"
@@ -158,7 +158,7 @@ const svg = `<svg viewBox="0 0 1060 790" xmlns="http://www.w3.org/2000/svg"
 
   <text x="25" y="42" font-size="15" font-weight="700" fill="#1F3864">Figure 1.</text>
   <text x="25" y="62" font-size="12.5" fill="#333">Context diagram —</text>
-  <text x="25" y="79" font-size="12.5" fill="#333">HF-RPM System</text>
+  <text x="25" y="79" font-size="12.5" fill="#333">PD-RPM System</text>
 
   ${ENTITIES.map(flowArrow).join('')}
 
@@ -171,11 +171,11 @@ const svg = `<svg viewBox="0 0 1060 790" xmlns="http://www.w3.org/2000/svg"
   <rect x="${SOI_X}" y="${SOI_Y}" width="${SOI_W}" height="${SOI_H}" rx="10"
         fill="#1F3864" stroke="#0F1F3D" stroke-width="2"/>
   <text x="${SOI_X + SOI_W / 2}" y="${SOI_Y + 42}" text-anchor="middle" font-size="16"
-        font-weight="700" fill="#FFFFFF">Heart Failure Remote</text>
+        font-weight="700" fill="#FFFFFF">Peritoneal Dialysis Remote</text>
   <text x="${SOI_X + SOI_W / 2}" y="${SOI_Y + 63}" text-anchor="middle" font-size="16"
         font-weight="700" fill="#FFFFFF">Patient Monitoring System</text>
   <text x="${SOI_X + SOI_W / 2}" y="${SOI_Y + 83}" text-anchor="middle" font-size="14"
-        font-weight="700" fill="#AFC6E9">(HF-RPM)</text>
+        font-weight="700" fill="#AFC6E9">(PD-RPM)</text>
   <text x="${SOI_X + SOI_W / 2}" y="${SOI_Y + 108}" text-anchor="middle" font-size="11"
         font-style="italic" fill="#C9D8F0">system of interest — black box;</text>
   <text x="${SOI_X + SOI_W / 2}" y="${SOI_Y + 122}" text-anchor="middle" font-size="11"
@@ -189,51 +189,53 @@ const svg = `<svg viewBox="0 0 1060 790" xmlns="http://www.w3.org/2000/svg"
   </text>
 </svg>`;
 
-fs.writeFileSync('HF-RPM_context_diagram.svg',
+fs.writeFileSync('PD-RPM_context_diagram.svg',
   svg.replace('<svg ', '<svg width="1060" height="790" '));
 
 /* ------------------------------ interface table --------------------------- */
 
 const TABLE = [
-  ['Patient (HF, post-discharge)', 'Patient', 'In',
-   'Daily weight, blood pressure, heart rate, SpO₂, and structured symptom-survey responses (dyspnea, orthopnea, edema).'],
-  ['Home Caregiver / Family Member', 'Patient', 'Bi',
-   'In: assistance with measurement, confirmation of readings. Out: adherence prompts, plain-language guidance, escalation notification.'],
-  ['Home Environment & Daily Activities', 'Patient', 'In',
-   'Ambient conditions, measurement timing and routine, competing devices, physical layout and network placement.'],
-  ['HF Nurse Navigator / Monitoring Clinician', 'Clinical', 'Bi',
-   'Out: trended physiologic data, threshold and trajectory alerts, prioritized triage queue, adherence status. In: patient-specific thresholds, care-plan updates, alert dispositions.'],
-  ['Cardiologist / Prescribing Clinician', 'Clinical', 'Bi',
-   'Out: escalation summaries and longitudinal trend reports. In: medication titration decisions, revised monitoring intent.'],
-  ['EMS / Emergency Department', 'Clinical', 'Out',
-   'Critical-threshold escalation notice with recent trend context, at the point where remote management is no longer sufficient.'],
-  ['Population Health & Analytics', 'Clinical', 'Out',
-   'De-identified longitudinal trend data supporting cohort analysis, program evaluation, and algorithm performance monitoring.'],
+  ['Patient (ESKD, home PD)', 'Patient', 'In',
+   'Daily weight, blood pressure, self-reported fluid balance, structured symptom responses, and exit-site condition reports (including images where supported).'],
+  ['Care Partner / Family Member', 'Patient', 'Bi',
+   'In: assistance with cycler setup and measurement, confirmation of readings. Out: exchange reminders, plain-language guidance, escalation notification.'],
+  ['Home Environment, Power & Connectivity', 'Patient', 'In',
+   'Dwelling conditions and solution storage space, mains power (the cycler runs overnight), and broadband or cellular service of variable reliability. Given conditions, not design choices.'],
+  ['Home Dialysis Nurse / PD Care Coordinator', 'Clinical', 'Bi',
+   'Out: session adherence, cycler alarm history, ultrafiltration and volume trends, prioritized triage queue. In: patient-specific thresholds, care-plan updates, alert dispositions.'],
+  ['Nephrologist (prescribing)', 'Clinical', 'Bi',
+   'Out: adequacy and volume-status trends, escalation summaries, technique-failure risk indicators. In: PD prescription changes (dwell, fill volume, dextrose concentration, cycle count).'],
+  ['Dialysis Center / Urgent Escalation', 'Clinical', 'Out',
+   'Suspected-peritonitis alert (effluent cloudiness, abdominal pain, fever) or catheter/exit-site access alert, with recent trend context, at the point where remote management is no longer sufficient.'],
+  ['Population Health & Quality Analytics', 'Clinical', 'Out',
+   'De-identified longitudinal data supporting technique-survival analysis, home-program evaluation, and ESRD Quality Incentive Program measure reporting.'],
   ['FDA (SaMD / device regulation)', 'Governance', 'In',
    'Device classification, software-as-a-medical-device constraints, clinical-decision-support boundaries, labeling and change-control obligations.'],
   ['HIPAA / HITECH, State Licensure', 'Governance', 'In',
    'PHI privacy and security obligations, audit-logging requirements, breach-notification duties, cross-state telehealth practice constraints.'],
-  ['Payer (CMS / commercial)', 'Governance', 'Bi',
-   'In: coverage criteria and RPM billing rules (e.g., minimum transmission days, interactive-communication time). Out: billing-qualifying data and time documentation.'],
-  ['Home Connectivity & Electrical Power', 'Infrastructure', 'In',
-   'Broadband or cellular service of variable reliability; mains power subject to outage. Both are given conditions, not design choices.'],
-  ['EHR / Health System IT', 'Infrastructure', 'Bi',
-   'In: patient demographics, problem list, medication list, discharge orders, identity and access control. Out: observations, flowsheet entries, alerts, documentation.'],
-  ['Device Logistics & Field Support', 'Infrastructure', 'Bi',
-   'Out: device fault status, battery and calibration state, return triggers. In: enrolled kits, consumables, replacements, on-site or remote technical support.'],
+  ['CMS ESRD Program (benefit, ETC model)', 'Governance', 'Bi',
+   'In: Medicare ESRD benefit coverage rules, ETC model home-dialysis incentives, RPM billing criteria, QIP measure definitions. Out: billing-qualifying data, time documentation, quality measure submissions.'],
+  ['PD Cycler & Home Devices', 'Infrastructure', 'Bi',
+   'In: per-session treatment logs (fill and drain volumes, dwell times, net ultrafiltration), alarm records, device state; plus BP cuff and scale readings. Out: prescription updates pushed to the cycler.'],
+  ['EHR / Dialysis Organization IT', 'Infrastructure', 'Bi',
+   'In: patient demographics, problem list, medications, laboratory results (Kt/V, albumin, potassium), orders, identity and access control. Out: observations, flowsheet entries, alerts, documentation.'],
+  ['Solution Supply Chain & Field Support', 'Infrastructure', 'Bi',
+   'Out: consumable burn rate, projected solution shortfall, device fault and service triggers. In: dialysate and supply deliveries, cycler replacement, on-site or remote technical support.'],
 ];
 
 const OUT_OF_SCOPE = [
-  ['The patient’s implanted or wearable cardiac devices',
-   'Separate regulated systems with their own manufacturers and data pathways; HF-RPM may receive their data but does not control or maintain them.'],
-  ['The EHR itself',
-   'HF-RPM exchanges data with it across a defined interface. Absorbing the EHR into the boundary would make the project unbounded.'],
-  ['Inpatient care and the index hospitalization',
-   'HF-RPM begins at discharge. The hospitalization is the triggering event, not part of the system.'],
-  ['Clinical decision-making authority',
-   'The system surfaces information and escalates; licensed clinicians decide. This boundary is a regulatory constraint, not a preference.'],
-  ['Payer adjudication and claims processing',
-   'HF-RPM supplies documentation; adjudication happens outside the boundary.'],
+  ['The PD cycler itself',
+   'A separately regulated Class II device with its own manufacturer, clearance, and control loop. PD-RPM consumes its telemetry and pushes prescription updates across a defined interface, but does not deliver or modulate therapy.'],
+  ['Home hemodialysis',
+   'A distinct modality carrying water treatment, vascular access, and a different alarm set as whole subsystems. Excluded to keep the SoI bounded; a candidate for a later increment rather than this one.'],
+  ['In-center hemodialysis',
+   'Not remote care. The center is a destination the system escalates to, not part of the monitored system.'],
+  ['The EHR / dialysis organization clinical information system',
+   'PD-RPM exchanges data with it across a defined interface. Absorbing it into the boundary would make the project unbounded.'],
+  ['Clinical decision authority over the PD prescription',
+   'The system surfaces trends and escalates; the nephrologist prescribes. This boundary is a regulatory constraint, not a preference.'],
+  ['Solution manufacturing and distribution logistics',
+   'PD-RPM signals consumption and faults; the supply organization fulfills. The interface is in scope, the logistics operation is not.'],
 ];
 
 /* --------------------------------- html ---------------------------------- */
@@ -241,7 +243,7 @@ const OUT_OF_SCOPE = [
 const html = `<!doctype html>
 <meta charset="utf-8">
 <style>
-  @page { size: letter portrait; margin: 0.7in 0.85in; }
+  @page { size: letter portrait; margin: 0.62in 0.85in; }
   @page land { size: letter landscape; margin: 0.4in 0.45in; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { font-family: Calibri, Carlito, "Segoe UI", sans-serif; font-size: 10.5pt;
@@ -272,7 +274,7 @@ const html = `<!doctype html>
 <div class="meta">655.662 — Introduction to Healthcare Systems Engineering</div>
 <div class="meta rule">Module 1 | M1A2: Context Diagram</div>
 
-<h1>Context Diagram — Heart Failure Remote Patient Monitoring System (HF-RPM)</h1>
+<h1>Context Diagram — Peritoneal Dialysis Remote Patient Monitoring System (PD-RPM)</h1>
 
 <h2>What Is a Context Diagram?</h2>
 <p>A context diagram is the highest-level model of a system. It represents the system of interest (SoI) as a
@@ -283,9 +285,9 @@ internal components, functions, or architecture. INCOSE defines the system bound
 demarcation” between the system under consideration and its greater context, and states that the boundary
 determines what belongs to the system and what does not. The context diagram is the artifact that makes
 that line explicit, visible, and reviewable by people who would otherwise each assume a different one.</p>
-<p>Its notation is intentionally minimal — one box for the SoI, one box per external entity, one labeled
-arrow per flow. That economy is the point. Because the diagram cannot express internal design, it cannot be
-used to argue about internal design, which forces a team to finish the question of scope before opening the
+<p>Its notation is intentionally minimal — one box for the SoI, one box per external entity, one labeled arrow
+per flow. That economy is the point. Because the diagram cannot express internal design, it cannot be used
+to argue about internal design, which forces a team to finish the question of scope before opening the
 question of solution.</p>
 
 <h2>What Is Its Purpose?</h2>
@@ -296,32 +298,36 @@ question of solution.</p>
   drew them.</li>
   <li><strong>Enumerate the full stakeholder set.</strong> Building the diagram forces the question “who or
   what else touches this?” until the answers run out. It routinely surfaces entities no single stakeholder
-  would have volunteered — the payer, device logistics, EMS — which is a structural remedy for the
-  blind-men-and-the-elephant problem, where each participant describes only the part of the system they can
-  personally see.</li>
+  would have volunteered — the supply chain, the payer, the care partner — a structural remedy for the
+  blind-men-and-the-elephant problem, in which each participant describes only the part they can see.</li>
   <li><strong>Identify every external interface.</strong> Each arrow crossing the boundary is a future
   interface requirement. Interfaces are where systems most often fail and where integration cost concentrates,
   so enumerating them at the beginning is disproportionately valuable relative to the effort involved.</li>
   <li><strong>Seed operational needs and requirements.</strong> The flows are the raw material for the needs
   and requirements developed later in the lifecycle: what the system must accept, what it must produce, at
-  what rate, and under what conditions. The diagram is therefore the first input to the systems engineering method.</li>
+  what rate, and under what conditions. The diagram is therefore the first input to the systems engineering
+  method.</li>
   <li><strong>Expose constraints that are not negotiable.</strong> Laws, regulations, reimbursement rules,
   and existing infrastructure are not design choices; they are givens that the design must satisfy. Placing
   them on the diagram prevents a team from discovering them late, when accommodating them is most expensive.</li>
-  <li><strong>Create a shared mental model.</strong> A single page a clinician, an engineer, a compliance officer,
-  and an executive can all read and correct is how a systems view becomes shared rather than privately held.</li>
+  <li><strong>Create a shared mental model.</strong> A single page a clinician, an engineer, a compliance
+  officer, and an executive can all read and correct is how a systems view becomes shared rather than
+  privately held.</li>
 </ol>
 
 <h2>Selected Remote Healthcare System</h2>
-<p>The system of interest is a <strong>heart failure remote patient monitoring system (HF-RPM)</strong>: a
-home-based capability that monitors recently discharged heart failure patients for early signs of
-decompensation — principally weight gain from fluid retention, together with blood pressure, heart rate,
-oxygen saturation, and structured symptom reporting — and escalates to a clinical team in time for outpatient
-intervention rather than readmission. Heart failure patients carry roughly a 40% readmission rate at 90 days, and the physiologic signal that precedes
-decompensation typically appears days before the patient presents. The gap is not diagnostic knowledge but a
-sensing-and-escalation capability operating in the home. The environment spans the tiers introduced in this
-module: primarily home-based care, with a clinical monitoring node and, at the escalation limit, emergency
-response.</p>
+<p>The system of interest is a <strong>peritoneal dialysis remote patient monitoring system (PD-RPM)</strong>:
+a home-based capability that monitors adults with end-stage kidney disease performing peritoneal dialysis at
+home and escalates to the home dialysis care team when the data indicate the therapy is failing. National
+policy has pushed to expand home dialysis — the 2019 Advancing American Kidney Health initiative and CMS’s
+ESRD Treatment Choices model both incentivize it — yet home PD carries a persistent technique-failure
+problem, with peritonitis and inadequate ultrafiltration among the leading causes of transfer back to
+in-center hemodialysis. The signals preceding those failures are generated nightly: declining ultrafiltration
+volumes, missed or shortened exchanges, recurring cycler alarms, rising weight and blood pressure, early
+exit-site changes. They are frequently reviewed only at a monthly clinic visit. The gap is not therapy or
+diagnostic knowledge; it is a sensing-and-escalation capability operating in the interval between visits. The
+environment spans this module’s tiers: home-based care, a clinical monitoring node at the dialysis
+organization, and urgent in-center or emergency response at the escalation limit.</p>
 
 <div class="diagram">${svg}</div>
 
@@ -337,7 +343,7 @@ Bi: bidirectional.</em></p>
 
 <h2>Boundary Decisions — What Is Deliberately Outside the Box</h2>
 <p>A boundary is only meaningful if the exclusions are stated as explicitly as the inclusions. The following
-are outside the HF-RPM boundary by decision, not by oversight.</p>
+are outside the PD-RPM boundary by decision, not by oversight.</p>
 <table>
   <tr><th class="c-os1">Excluded from the SoI</th><th>Rationale</th></tr>
   ${OUT_OF_SCOPE.map(([a, b]) => `<tr><td class="c-os1">${esc(a)}</td><td>${esc(b)}</td></tr>`).join('\n  ')}
@@ -345,21 +351,25 @@ are outside the HF-RPM boundary by decision, not by oversight.</p>
 
 <h2>Assumptions</h2>
 <ul>
-  <li>The deployment setting is home-based care in the United States, with a clinical monitoring node
-  operated by the discharging health system.</li>
-  <li>Enrollment is post-discharge and time-bounded (on the order of 30–90 days), not lifelong monitoring.</li>
-  <li>The system is informational and escalatory; it does not deliver therapy and does not exercise
-  autonomous clinical decision authority.</li>
-  <li>Patients may have limited technical proficiency, intermittent connectivity, and variable caregiver
-  support. These are context conditions the design must tolerate, not assumptions to be engineered away.</li>
+  <li>The deployment setting is home peritoneal dialysis in the United States, for adult ESKD patients
+  enrolled in a dialysis organization’s home program.</li>
+  <li>Monitoring is continuous for the duration of home PD therapy rather than time-bounded, and ends at
+  modality change, transplant, or death.</li>
+  <li>The system is informational and escalatory. It does not deliver therapy and does not exercise
+  autonomous clinical decision authority over the PD prescription.</li>
+  <li>Patients and care partners may have limited technical proficiency, intermittent connectivity, and
+  variable support at home. These are context conditions the design must tolerate, not assumptions to be
+  engineered away.</li>
+  <li>Early detection of peritonitis and of declining ultrafiltration is taken as the core value hypothesis,
+  since both are leading contributors to technique failure.</li>
 </ul>
 
 <h2>References</h2>
 <p style="font-size:8.5pt;">INCOSE. (2023). <em>Systems engineering handbook</em> (5th ed.). INCOSE-TP-2003-002-05. ·
 Kossiakoff, A., Biemer, S. M., Seymour, S. J., &amp; Flanigan, D. A. (2020). <em>Systems engineering
 principles and practice</em> (3rd ed.). Wiley. · Montoya, M. Module 1: Framework, context, and motivation
-[Course lecture]. Johns Hopkins University. · Pronovost, P. (2019). <em>New narratives for health care</em>
-[Address]. The City Club of Cleveland.</p>
+[Course lecture]. Johns Hopkins University. · Executive Order 13879, Advancing American Kidney Health (2019). ·
+Centers for Medicare &amp; Medicaid Services, ESRD Treatment Choices (ETC) Model.</p>
 `;
 
 fs.writeFileSync('m1a2.html', html);

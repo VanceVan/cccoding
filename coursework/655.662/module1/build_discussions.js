@@ -86,58 +86,38 @@ const m1d2 = page({
   assignment: 'M1D2: Healthcare Organizations',
   title: 'Which Organizational Learning Disability Does Healthcare Suffer From Most?',
   paras: [
-    'The prompt makes a strong case for “I am my position,” and I do not think it is wrong — but I would argue it ' +
-    'is a symptom rather than the root. The disability healthcare suffers from most is **the delusion of learning ' +
-    'from experience**, and it is the one that generates most of the others.',
+    'The prompt makes a strong case for “I am my position,” and it is not wrong — but I would argue it is a ' +
+    'symptom. The disability healthcare suffers from most is **the delusion of learning from experience**, and it ' +
+    'generates the others.',
 
-    'Senge’s point is that we learn best from experience, but we never directly experience the consequences of our ' +
-    'most important decisions. Every organization has a **learning horizon** — a span in time and space within ' +
-    'which we can actually observe the results of what we did. When consequences fall outside that horizon, the ' +
-    'feedback loop that would let us learn never closes. We keep acting, we keep accumulating “experience,” and ' +
-    'none of it teaches us anything.',
+    'Senge’s point is that we learn best from experience, yet we never directly experience the consequences of our ' +
+    'most important decisions. Every organization has a **learning horizon**: the span in time and space within ' +
+    'which results are observable. Healthcare’s is unusually short relative to how its decisions actually resolve. ' +
+    'A nephrologist adjusts a peritoneal dialysis prescription at a monthly visit; the cycler records the answer ' +
+    'nightly for the next four weeks, and no one reads it until the following visit. Pronovost’s figure of roughly ' +
+    'a 40% heart-failure readmission rate at 90 days is the same failure at scale — an enormous signal that is ' +
+    'nearly invisible to the people generating it.',
 
-    'Healthcare’s learning horizons are unusually short relative to the timescale on which its decisions actually ' +
-    'resolve. A hospitalist makes a discharge decision on Tuesday; the consequence surfaces as a readmission weeks ' +
-    'later, in a different unit, attributed to a different clinician, and never travels back to the person who made ' +
-    'the call. Pronovost notes that heart failure patients carry roughly a 40% readmission rate at 90 days — an ' +
-    'enormous signal that is almost perfectly invisible to the individuals generating it. The same structure holds ' +
-    'across the industry. A nephrologist adjusts a peritoneal dialysis prescription at a monthly visit, and the ' +
-    'cycler writes the answer into its logs every night for four weeks, where no one reads it until the following ' +
-    'visit. A device designer never watches sterile processing struggle with their geometry. In each case the actor ' +
-    'behaves rationally on the information they can see, and that information is systematically incomplete.',
+    'This is why it sits underneath the other disabilities rather than beside them. “I am my position” is what a ' +
+    'short learning horizon feels like from the inside: if you can only observe your own slice, defining yourself ' +
+    'by that slice is a rational adaptation. “Fixation on events” follows, because trends never return to you. The ' +
+    'boiled frog is the terminal case.',
 
-    'This is why I think it sits underneath the other disabilities rather than beside them. “I am my position” is ' +
-    'what a short learning horizon feels like from the inside — if you can only observe your own slice, defining ' +
-    'yourself by that slice is the reasonable adaptation. “Fixation on events” follows too: when you cannot see ' +
-    'trends because the data never returns to you, discrete events are genuinely all you have. And the boiled frog ' +
-    'is the terminal case — degradation slow enough to fall outside everyone’s horizon is degradation nobody is ' +
-    'positioned to notice.',
+    '**A pathway.** The fix is not training or better attitudes; it is engineering the feedback loop so that ' +
+    'consequences reach the decision-maker while they can still teach. Pronovost’s catheter-infection work is the ' +
+    'existence proof — unit-level rates fed back to the clinicians producing them, on a cadence short enough to ' +
+    'connect action to outcome. Systems engineering formalizes exactly this: verification and validation are ' +
+    'institutionalized feedback loops, and requirements traceability carries a consequence back to the decision ' +
+    'that caused it. Concretely, for any recurring decision, find where its consequence actually lands and build a ' +
+    'route back — and measure trends rather than incidents.',
 
-    '**A pathway.** The intervention is not more training or better attitudes; it is engineering the feedback loop ' +
-    'so that consequences return to the decision-maker while they can still learn from them. Pronovost’s work on ' +
-    'catheter-related bloodstream infections is an existence proof: the checklist gets the attention, but the ' +
-    'mechanism that mattered was feeding unit-level infection rates back to the specific clinicians producing them, ' +
-    'on a cadence short enough to connect action to outcome. A problem the size of breast cancer was largely ' +
-    'eliminated by closing a learning loop, not by generating new science.',
-
-    'Systems engineering formalizes exactly this. Verification and validation are institutionalized feedback loops, ' +
-    'and requirements traceability is a mechanism for carrying consequences backward to the decision that caused ' +
-    'them. Even the context diagram is a learning-horizon tool — drawing the boundary and enumerating what crosses ' +
-    'it is a structured admission that effects will land outside your view, and a way to name them before they ' +
-    'surprise you.',
-
-    'Three concrete moves follow. First, for any recurring decision, identify where its consequence materializes and ' +
-    'build a route back. Second, measure trends rather than incidents, so boiled-frog cases become visible. Third, ' +
-    'attach outcomes to decisions rather than departments — blame fragments learning, traceability preserves it.',
-
-    '**Question for the group:** in your own setting, what is a decision you make routinely whose consequence you ' +
-    'have genuinely never observed? I suspect naming those is harder than it sounds, which is rather the point.',
+    '**For the group:** what decision do you make routinely whose consequence you have genuinely never observed?',
   ],
   refs:
     'Senge, P. M. (2006). *The fifth discipline* (ch. 2). Doubleday/Currency. · Kossiakoff, A., et al. (2020). ' +
     '*Systems engineering principles and practice* (3rd ed., ch. 1–3). Wiley. · INCOSE. (2023). *Systems ' +
     'engineering handbook* (5th ed.), §§1.1–1.5. · Pronovost, P. (2019). *New narratives for health care* ' +
-    '[Address]. City Club of Cleveland. · Montoya, M. Module 1 [Course lecture]. Johns Hopkins University.',
+    '[Address]. City Club of Cleveland.',
 });
 
 fs.writeFileSync('m1d1.html', m1d1);

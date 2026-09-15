@@ -8,44 +8,69 @@
   </defs>
   <rect width="1280" height="720" fill="#FFFFFF"/>
 
-  <text x="70" y="98" font-size="46" font-weight="700" fill="#1F3864">PD Remote Monitoring System</text>
-  <rect x="70" y="116" width="108" height="13" fill="#8AB6E0"/>
-  <text x="1210" y="58" text-anchor="end" font-size="31" font-style="italic"
+  <text x="70" y="92" font-size="42" font-weight="700" fill="#1F3864">PD Remote Monitoring System</text>
+  <rect x="70" y="108" width="100" height="12" fill="#8AB6E0"/>
+  <text x="1215" y="54" text-anchor="end" font-size="29" font-style="italic"
         font-weight="600" fill="#000">Context Diagram</text>
 
-  <text x="316" y="356" text-anchor="end" font-size="22" fill="#000">Patient</text>
-  <line x1="336" y1="348" x2="446" y2="348" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="316" y="403" text-anchor="end" font-size="22" fill="#000">PD Cycler</text>
-  <line x1="336" y1="395" x2="446" y2="395" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="316" y="450" text-anchor="end" font-size="22" fill="#000">Care Partner</text>
-  <line x1="336" y1="442" x2="446" y2="442" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <line x1="774" y1="348" x2="892" y2="348" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="908" y="356" text-anchor="start" font-size="22" fill="#000">Patient Dialysis Vitals</text>
-  <line x1="774" y1="395" x2="892" y2="395" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="908" y="403" text-anchor="start" font-size="22" fill="#000">Monitoring System Status</text>
-  <line x1="774" y1="442" x2="892" y2="442" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="908" y="450" text-anchor="start" font-size="22" fill="#000">Clinical Alerts &amp; Escalation</text>
-  <text x="470" y="132" text-anchor="middle" font-size="22" fill="#000">Health</text>
-  <text x="470" y="160" text-anchor="middle" font-size="22" fill="#000">Policies</text>
-  <line x1="470" y1="178" x2="470" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="610" y="132" text-anchor="middle" font-size="22" fill="#000">Health</text>
-  <text x="610" y="160" text-anchor="middle" font-size="22" fill="#000">Laws</text>
-  <line x1="610" y1="178" x2="610" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="750" y="132" text-anchor="middle" font-size="22" fill="#000">FDA Device</text>
-  <text x="750" y="160" text-anchor="middle" font-size="22" fill="#000">Regulations</text>
-  <line x1="750" y1="178" x2="750" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <line x1="470" y1="592" x2="470" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="470" y="622" text-anchor="middle" font-size="22" fill="#000">Infrastructure</text>
-  <line x1="610" y1="592" x2="610" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="610" y="622" text-anchor="middle" font-size="22" fill="#000">Home Layout</text>
-  <line x1="750" y1="592" x2="750" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
-  <text x="750" y="622" text-anchor="middle" font-size="22" fill="#000">Personnel</text>
+  <text x="220" y="338" text-anchor="end" font-size="22" fill="#000">Patient</text>
+  <line x1="235" y1="330" x2="486" y2="330" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="360" y="307" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">weight, BP, symptoms,</text>
+  <text x="360" y="321" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">exit-site reports</text>
+  <text x="220" y="396" text-anchor="end" font-size="22" fill="#000">PD Cycler</text>
+  <line x1="235" y1="388" x2="486" y2="388" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="360" y="365" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">fill/drain volumes,</text>
+  <text x="360" y="379" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">dwell times, UF, alarms</text>
+  <text x="220" y="454" text-anchor="end" font-size="22" fill="#000">Care Partner</text>
+  <line x1="235" y1="446" x2="486" y2="446" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="360" y="423" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">setup assistance,</text>
+  <text x="360" y="437" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">confirmations</text>
+  <line x1="794" y1="330" x2="1045" y2="330" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="920" y="307" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">adherence, alarms,</text>
+  <text x="920" y="321" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">trend summaries</text>
+  <text x="1060" y="338" text-anchor="start" font-size="22" fill="#000">Home Dialysis Nurse</text>
+  <line x1="794" y1="388" x2="1045" y2="388" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="920" y="365" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">adequacy &amp; volume</text>
+  <text x="920" y="379" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">trends</text>
+  <text x="1060" y="396" text-anchor="start" font-size="22" fill="#000">Nephrologist</text>
+  <line x1="794" y1="446" x2="1045" y2="446" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="920" y="423" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">peritonitis / access</text>
+  <text x="920" y="437" text-anchor="middle" font-size="13.5" font-style="italic" fill="#333">escalation</text>
+  <text x="1060" y="454" text-anchor="start" font-size="22" fill="#000">Dialysis Center</text>
+  <text x="515" y="134" text-anchor="middle" font-size="22" fill="#000">Health</text>
+  <text x="515" y="162" text-anchor="middle" font-size="22" fill="#000">Policies</text>
+  <line x1="515" y1="180" x2="515" y2="286" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="524" y="224" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">CMS ESRD &amp;</text>
+  <text x="524" y="239" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">ETC rules</text>
+  <text x="640" y="134" text-anchor="middle" font-size="22" fill="#000">Health</text>
+  <text x="640" y="162" text-anchor="middle" font-size="22" fill="#000">Laws</text>
+  <line x1="640" y1="180" x2="640" y2="286" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="649" y="224" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">HIPAA privacy</text>
+  <text x="649" y="239" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">&amp; security</text>
+  <text x="765" y="134" text-anchor="middle" font-size="22" fill="#000">FDA Device</text>
+  <text x="765" y="162" text-anchor="middle" font-size="22" fill="#000">Regulations</text>
+  <line x1="765" y1="180" x2="765" y2="286" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="774" y="224" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">SaMD device</text>
+  <text x="774" y="239" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">classification</text>
+  <line x1="515" y1="586" x2="515" y2="484" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="524" y="524" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">power,</text>
+  <text x="524" y="539" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">broadband</text>
+  <text x="515" y="618" text-anchor="middle" font-size="22" fill="#000">Infrastructure</text>
+  <line x1="640" y1="586" x2="640" y2="484" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="649" y="524" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">storage,</text>
+  <text x="649" y="539" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">cycler space</text>
+  <text x="640" y="618" text-anchor="middle" font-size="22" fill="#000">Home</text>
+  <text x="640" y="646" text-anchor="middle" font-size="22" fill="#000">Layout</text>
+  <line x1="765" y1="586" x2="765" y2="484" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="774" y="524" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">training,</text>
+  <text x="774" y="539" text-anchor="start" font-size="13.5" font-style="italic" fill="#333">field support</text>
+  <text x="765" y="618" text-anchor="middle" font-size="22" fill="#000">Personnel</text>
 
-  <rect x="460" y="308" width="300" height="174" fill="#000000" stroke="#1F3864" stroke-width="3"/>
-  <text x="610" y="366" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">Peritoneal Dialysis</text>
-  <text x="610" y="401" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">Remote Monitoring</text>
-  <text x="610" y="436" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">System</text>
+  <rect x="500" y="300" width="280" height="170" fill="#000000" stroke="#1F3864" stroke-width="3"/>
+  <text x="640" y="356" text-anchor="middle" font-size="25" font-weight="700" fill="#FFF">Peritoneal Dialysis</text>
+  <text x="640" y="389" text-anchor="middle" font-size="25" font-weight="700" fill="#FFF">Remote Monitoring</text>
+  <text x="640" y="422" text-anchor="middle" font-size="25" font-weight="700" fill="#FFF">System</text>
 
-  <rect x="948" y="646" width="302" height="42" fill="#E4E4E4"/>
-  <text x="1099" y="673" text-anchor="middle" font-size="18" font-weight="700" fill="#000">Context Diagram is a “black box”</text>
+  <rect x="960" y="656" width="290" height="40" fill="#E4E4E4"/>
+  <text x="1105" y="682" text-anchor="middle" font-size="17" font-weight="700" fill="#000">Context Diagram is a “black box”</text>
 </svg>

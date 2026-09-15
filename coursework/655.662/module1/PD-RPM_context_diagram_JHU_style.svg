@@ -1,0 +1,51 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg"
+     font-family="'Segoe UI', Calibri, Carlito, Arial, sans-serif">
+  <defs>
+    <marker id="a" markerWidth="12" markerHeight="10" refX="11" refY="4"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M0,0 L12,4 L0,8 z" fill="#000"/>
+    </marker>
+  </defs>
+  <rect width="1280" height="720" fill="#FFFFFF"/>
+
+  <text x="70" y="98" font-size="46" font-weight="700" fill="#1F3864">PD Remote Monitoring System</text>
+  <rect x="70" y="116" width="108" height="13" fill="#8AB6E0"/>
+  <text x="1210" y="58" text-anchor="end" font-size="31" font-style="italic"
+        font-weight="600" fill="#000">Context Diagram</text>
+
+  <text x="316" y="356" text-anchor="end" font-size="22" fill="#000">Patient</text>
+  <line x1="336" y1="348" x2="446" y2="348" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="316" y="403" text-anchor="end" font-size="22" fill="#000">PD Cycler</text>
+  <line x1="336" y1="395" x2="446" y2="395" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="316" y="450" text-anchor="end" font-size="22" fill="#000">Care Partner</text>
+  <line x1="336" y1="442" x2="446" y2="442" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <line x1="774" y1="348" x2="892" y2="348" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="908" y="356" text-anchor="start" font-size="22" fill="#000">Patient Dialysis Vitals</text>
+  <line x1="774" y1="395" x2="892" y2="395" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="908" y="403" text-anchor="start" font-size="22" fill="#000">Monitoring System Status</text>
+  <line x1="774" y1="442" x2="892" y2="442" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="908" y="450" text-anchor="start" font-size="22" fill="#000">Clinical Alerts &amp; Escalation</text>
+  <text x="470" y="132" text-anchor="middle" font-size="22" fill="#000">Health</text>
+  <text x="470" y="160" text-anchor="middle" font-size="22" fill="#000">Policies</text>
+  <line x1="470" y1="178" x2="470" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="610" y="132" text-anchor="middle" font-size="22" fill="#000">Health</text>
+  <text x="610" y="160" text-anchor="middle" font-size="22" fill="#000">Laws</text>
+  <line x1="610" y1="178" x2="610" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="750" y="132" text-anchor="middle" font-size="22" fill="#000">FDA Device</text>
+  <text x="750" y="160" text-anchor="middle" font-size="22" fill="#000">Regulations</text>
+  <line x1="750" y1="178" x2="750" y2="294" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <line x1="470" y1="592" x2="470" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="470" y="622" text-anchor="middle" font-size="22" fill="#000">Infrastructure</text>
+  <line x1="610" y1="592" x2="610" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="610" y="622" text-anchor="middle" font-size="22" fill="#000">Home Layout</text>
+  <line x1="750" y1="592" x2="750" y2="496" stroke="#000" stroke-width="2.2" marker-end="url(#a)"/>
+  <text x="750" y="622" text-anchor="middle" font-size="22" fill="#000">Personnel</text>
+
+  <rect x="460" y="308" width="300" height="174" fill="#000000" stroke="#1F3864" stroke-width="3"/>
+  <text x="610" y="366" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">Peritoneal Dialysis</text>
+  <text x="610" y="401" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">Remote Monitoring</text>
+  <text x="610" y="436" text-anchor="middle" font-size="27" font-weight="700" fill="#FFF">System</text>
+
+  <rect x="948" y="646" width="302" height="42" fill="#E4E4E4"/>
+  <text x="1099" y="673" text-anchor="middle" font-size="18" font-weight="700" fill="#000">Context Diagram is a “black box”</text>
+</svg>

@@ -25,3 +25,9 @@
 - Confirm Part B falls within the 2–3 page limit in your copy of Word (Part A and the reference page
   are separate deliverables and sit outside that count).
 - Verify the edition years of the ISO 7176 parts cited in [5] against the current published editions.
+
+## Rendering
+
+PDF rendered from the .docx with LibreOffice (`soffice --headless --convert-to pdf`).
+Part A ends mid-page 1; Part B runs from page 1 to the top of page 4 (~3 pages, within the
+2-3 page limit); references occupy the remainder of page 4.

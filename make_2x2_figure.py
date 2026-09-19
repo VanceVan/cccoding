@@ -21,13 +21,15 @@ from mtl_data import MTL_VOLUMES, REGIONS, SUBJECT_IDS
 
 # Categorical hues validated for all-pairs CVD separation (dataviz palette,
 # slots blue/yellow/magenta/green/violet: CVD dE 13.0, normal-vision dE 16.3).
-SUBJECT_STYLE = {
-    "1155": ("#2a78d6", "o"),
-    "4799": ("#eda100", "s"),
-    "4713": ("#e87ba4", "^"),
-    "4272": ("#008300", "D"),
-    "2389": ("#4a3aa7", "v"),
+# That clears the gate on colour alone, so one marker shape is enough.
+SUBJECT_COLOR = {
+    "1155": "#2a78d6",
+    "4799": "#eda100",
+    "4713": "#e87ba4",
+    "4272": "#008300",
+    "2389": "#4a3aa7",
 }
+MARKER = "o"
 SUBJECT_ORDER = ["1155", "4799", "4713", "4272", "2389"]
 
 BAR_HUE      = "#2a78d6"
@@ -69,11 +71,11 @@ def main():
     for ax, region in zip(axes.flat[:3], REGIONS):
         style_axis(ax)
         for subject in SUBJECT_ORDER:
-            color, marker = SUBJECT_STYLE[subject]
+            color = SUBJECT_COLOR[subject]
             b1, b0, ages, vols, _, _ = fits[subject][region]
-            ax.scatter(ages, vols, s=70, color=color, marker=marker,
+            ax.scatter(ages, vols, s=70, color=color, marker=MARKER,
                        edgecolor="white", linewidth=1.2, zorder=3,
-                       label=SUBJECT_IDS[subject])
+                       label=subject)
             # fitted line across the observed range only
             span = np.array([ages.min(), ages.max()])
             ax.plot(span, b1 * span + b0, color=color, linewidth=2.0,
@@ -98,12 +100,7 @@ def main():
     ax.errorbar(xs, means, yerr=sds, fmt="none", ecolor=INK_SECOND,
                 elinewidth=1.5, capsize=6, capthick=1.5, zorder=3)
     ax.axhline(0, color=INK_SECOND, linewidth=1.0, zorder=1)
-    # Labels sit beside the bar end so they never collide with the error bar.
-    for x, m in zip(xs, means):
-        ax.annotate(f"{m:+.2f}", (x + 0.30, m), textcoords="offset points",
-                    xytext=(4, 0), ha="left", va="center",
-                    fontsize=10, color=INK_PRIMARY, fontweight="bold")
-    ax.set_xlim(-0.65, len(REGIONS) - 0.15)   # headroom for the value labels
+    ax.set_xlim(-0.6, len(REGIONS) - 0.4)
     ax.set_xticks(xs)
     ax.set_xticklabels(["Amygdala", "Entorhinal\ncortex", "Hippocampus"])
     ax.set_ylabel("Mean annualized atrophy rate (%/year)\n(positive = shrinkage)",

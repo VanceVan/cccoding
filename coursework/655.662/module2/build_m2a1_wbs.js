@@ -1,136 +1,121 @@
 // M2A1 — Work Breakdown Structure for the PD-RPM remote care system.
-// One page, US Letter landscape, Arial.
+// Document format: one page, US Letter portrait, Times New Roman 11pt.
 const fs = require('fs');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-const W = 960, H = 720;
-
-const LEFT_COL = [
+const WBS = [
   { id: '1.1', name: 'Home Data Acquisition', kids: [
-    '1.1.1  Cycler Data Interface Module',
-    '1.1.2  Patient Vitals Peripherals (BP, scale)',
-    '1.1.3  Patient App — Symptoms & Exit Site',
-    '1.1.4  Home Gateway & Store-Forward',
+    ['1.1.1', 'Cycler Data Interface Module'],
+    ['1.1.2', 'Vitals Peripherals (BP, scale)'],
+    ['1.1.3', 'Patient Symptom & Exit-Site App'],
+    ['1.1.4', 'Home Gateway & Store-Forward'],
   ]},
   { id: '1.2', name: 'Data Transport & Integration', kids: [
-    '1.2.1  Secure Transport & Encryption',
-    '1.2.2  EHR Integration Interface (HL7/FHIR)',
-    '1.2.3  Ingestion & Data Normalization',
+    ['1.2.1', 'Secure Transport & Encryption'],
+    ['1.2.2', 'EHR Integration (HL7/FHIR)'],
+    ['1.2.3', 'Ingestion & Data Normalization'],
   ]},
   { id: '1.3', name: 'Clinical Monitoring', kids: [
-    '1.3.1  Trending & Analytics Engine',
-    '1.3.2  Alert & Threshold Logic',
-    '1.3.3  Clinician Dashboard & Triage Queue',
-    '1.3.4  Escalation & Notification Service',
+    ['1.3.1', 'Trending & Analytics Engine'],
+    ['1.3.2', 'Alert & Threshold Logic'],
+    ['1.3.3', 'Clinician Dashboard & Triage Queue'],
+    ['1.3.4', 'Escalation & Notification Service'],
   ]},
   { id: '1.4', name: 'Sustainment & Support', kids: [
-    '1.4.1  Device Logistics & Kit Provisioning',
-    '1.4.2  Patient / Care Partner Training',
-    '1.4.3  Field & Technical Support Tooling',
+    ['1.4.1', 'Device Logistics & Provisioning'],
+    ['1.4.2', 'Patient / Care Partner Training'],
+    ['1.4.3', 'Field & Technical Support Tooling'],
   ]},
-];
-
-const RIGHT_COL = [
-  { id: '1.5', name: 'Systems Engineering & Mgmt', kids: [
-    '1.5.1  Requirements & Architecture',
-    '1.5.2  Interface Management',
-    '1.5.3  Trade Studies & Design Analysis',
-    '1.5.4  Configuration & Data Management',
+  { id: '1.5', name: 'Systems Engineering & Management', kids: [
+    ['1.5.1', 'Requirements & Architecture'],
+    ['1.5.2', 'Interface Management'],
+    ['1.5.3', 'Trade Studies & Design Analysis'],
+    ['1.5.4', 'Configuration & Data Management'],
   ]},
   { id: '1.6', name: 'Integration, Test & Validation', kids: [
-    '1.6.1  Component & Subsystem Test',
-    '1.6.2  System Integration',
-    '1.6.3  Clinical Usability Validation',
-    '1.6.4  Cybersecurity & Penetration Test',
+    ['1.6.1', 'Component & Subsystem Test'],
+    ['1.6.2', 'System Integration'],
+    ['1.6.3', 'Clinical Usability Validation'],
+    ['1.6.4', 'Cybersecurity & Penetration Test'],
   ]},
   { id: '1.7', name: 'Risk Management', kids: [
-    '1.7.1  Risk Identification',
-    '1.7.2  Analysis & Mitigation Planning',
-    '1.7.3  Risk Monitoring & Reporting',
+    ['1.7.1', 'Risk Identification'],
+    ['1.7.2', 'Analysis & Mitigation Planning'],
+    ['1.7.3', 'Risk Monitoring & Reporting'],
   ]},
   { id: '1.8', name: 'Regulatory & Quality Assurance', kids: [
-    '1.8.1  SaMD Classification & FDA Strategy',
-    '1.8.2  HIPAA Privacy & Security Compliance',
-    '1.8.3  QMS & Design History File',
+    ['1.8.1', 'SaMD Classification & FDA Path'],
+    ['1.8.2', 'HIPAA Privacy & Security'],
+    ['1.8.3', 'QMS & Design History File'],
   ]},
 ];
 
 const EXCLUDED = [
-  'PD cycler — manufacturer’s regulated Class II device; interface defined at 1.1.1',
-  'Broadband / cellular carrier network; interface defined at 1.2.1',
-  'EHR platform itself; interface defined at 1.2.2',
-  'Dialysate manufacturing & distribution; interface defined at 1.4.1',
+  ['PD cycler', 'manufacturer’s regulated Class II device; interface defined at 1.1.1'],
+  ['Broadband / cellular carrier network', 'interface defined at 1.2.1'],
+  ['EHR platform itself', 'interface defined at 1.2.2'],
+  ['Dialysate manufacturing & distribution', 'interface defined at 1.4.1'],
 ];
 
-const BOX_W = 370, BOX_H = 30, KID_LH = 16, BLOCK_GAP = 14;
-const COL_X = [40, 550];
-const TOP_Y = 150;
+const block = ({ id, name, kids }) => `
+  <div class="grp">
+    <div class="l2">${esc(id)}&nbsp;&nbsp;${esc(name)}</div>
+    ${kids.map(([k, t]) => `<div class="l3">${esc(k)}&nbsp;&nbsp;${esc(t)}</div>`).join('\n    ')}
+  </div>`;
 
-const parts = [];
-
-function column(items, x) {
-  const spineX = x - 16;
-  let y = TOP_Y;
-  const stubs = [];
-  items.forEach(({ id, name, kids }) => {
-    stubs.push(y + BOX_H / 2);
-    parts.push(
-      `<rect x="${x}" y="${y}" width="${BOX_W}" height="${BOX_H}" fill="#E8EEF7" stroke="#1F3864" stroke-width="1.6"/>`,
-      `<text x="${x + 10}" y="${y + 20}" font-size="12.5" font-weight="700" fill="#1F3864">${esc(id + '  ' + name)}</text>`
-    );
-    kids.forEach((k, i) =>
-      parts.push(`<text x="${x + 18}" y="${y + BOX_H + 13 + i * KID_LH}" font-size="10.5" fill="#222">${esc(k)}</text>`)
-    );
-    y += BOX_H + kids.length * KID_LH + BLOCK_GAP;
-  });
-  // vertical spine plus a stub into each element box
-  const last = stubs[stubs.length - 1];
-  parts.push(`<line x1="${spineX}" y1="${TOP_Y + BOX_H / 2}" x2="${spineX}" y2="${last}" stroke="#1F3864" stroke-width="1.4"/>`);
-  stubs.forEach((sy) =>
-    parts.push(`<line x1="${spineX}" y1="${sy}" x2="${x}" y2="${sy}" stroke="#1F3864" stroke-width="1.4"/>`));
-  return spineX;
-}
-
-const leftSpine = column(LEFT_COL, COL_X[0]);
-const rightSpine = column(RIGHT_COL, COL_X[1]);
-
-const svg = `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"
-     font-family="Arial, Helvetica, Liberation Sans, sans-serif">
-  <rect width="${W}" height="${H}" fill="#FFFFFF"/>
-
-  <text x="0" y="14" font-size="10.5" fill="#333">Vance Vanvolkenburgh · 655.662 Introduction to Healthcare Systems Engineering · Module 2 | M2A1: RCS WBS</text>
-  <text x="0" y="42" font-size="20" font-weight="700" fill="#1F3864">Work Breakdown Structure — Peritoneal Dialysis Remote Patient Monitoring System</text>
-  <line x1="0" y1="52" x2="${W}" y2="52" stroke="#AAA" stroke-width="0.8"/>
-
-  <rect x="330" y="70" width="300" height="38" fill="#1F3864"/>
-  <text x="480" y="94" text-anchor="middle" font-size="14" font-weight="700" fill="#FFF">1.0  PD-RPM SYSTEM</text>
-
-  <line x1="480" y1="108" x2="480" y2="126" stroke="#1F3864" stroke-width="1.6"/>
-  <line x1="${leftSpine}" y1="126" x2="${rightSpine}" y2="126" stroke="#1F3864" stroke-width="1.6"/>
-  <line x1="${leftSpine}" y1="126" x2="${leftSpine}" y2="${TOP_Y + BOX_H / 2}" stroke="#1F3864" stroke-width="1.4"/>
-  <line x1="${rightSpine}" y1="126" x2="${rightSpine}" y2="${TOP_Y + BOX_H / 2}" stroke="#1F3864" stroke-width="1.4"/>
-
-  ${parts.join('\n  ')}
-
-  <rect x="0" y="592" width="${W}" height="88" fill="#F5F5F5" stroke="#BBB" stroke-width="1"/>
-  <text x="12" y="611" font-size="11" font-weight="700" fill="#1F3864">Outside the WBS — required for operation, not built by this project (interface defined instead):</text>
-  ${EXCLUDED.map((s, i) =>
-    `<text x="20" y="${629 + i * 14}" font-size="10" fill="#333">•  ${esc(s)}</text>`).join('\n  ')}
-
-  <text x="0" y="700" font-size="9.5" font-style="italic" fill="#666">Elements 1.5–1.8 are non-deliverable work packages: they consume schedule, budget, and staff, so they are carried in the WBS even though they produce no hardware.</text>
-</svg>`;
-
-fs.writeFileSync('M2A1_PD-RPM_WBS.svg', svg.replace('<svg ', `<svg width="${W}" height="${H}" `));
-
-fs.writeFileSync('m2a1.html', `<!doctype html>
+const html = `<!doctype html>
 <meta charset="utf-8">
 <style>
-  @page { size: 11in 8.5in; margin: 0.5in; }
-  html, body { margin: 0; padding: 0; background: #fff; }
-  svg { display: block; width: ${W}px; height: ${H}px; }
+  @page { size: letter portrait; margin: 0.62in 0.9in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: "Times New Roman", Tinos, Liberation Serif, serif;
+         font-size: 11pt; margin: 0; color: #000; }
+  .hdr { font-size: 10.5pt; line-height: 1.25; }
+  .hdr b { font-size: 11pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 9pt; }
+  h1 { font-size: 12pt; text-align: center; margin: 0 0 6pt; }
+  p.intro { text-align: justify; margin: 0 0 9pt; line-height: 2.0; }
+  .cols { column-count: 2; column-gap: 0.38in; }
+  .grp { break-inside: avoid; margin-bottom: 4pt; }
+  .l2 { font-weight: bold; line-height: 2.0; }
+  .l3 { padding-left: 0.2in; line-height: 2.0; }
+  h2 { font-size: 11pt; margin: 8pt 0 3pt; }
+  ul { margin: 0 0 6pt; padding-left: 0.26in; }
+  li { line-height: 2.0; }
+  .excl { margin-top: 4pt; border-top: 0.75pt solid #999; padding-top: 6pt;
+           line-height: 1.35; }
+  .excl-h { font-weight: bold; margin-bottom: 2pt; }
+  .excl ul { margin: 3pt 0 0; padding-left: 0.26in; }
+  .excl li { line-height: 1.35; }
 </style>
-${svg}
-`);
 
-console.log('svg + html written');
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 2 | M2A1: RCS WBS
+</div>
+<div class="rule"></div>
+
+<h1>Work Breakdown Structure — PD-RPM Remote Care System</h1>
+
+<p class="intro">This work breakdown structure decomposes the PD-RPM remote care system into eight
+level-two elements and twenty-eight work packages. Elements 1.1–1.4 deliver the product itself,
+following the path of data from the home to the clinical team; elements 1.5–1.8 produce no hardware
+but consume schedule, budget, and staff, and are carried so the plan resources them.</p>
+
+<div class="cols">
+  ${WBS.map(block).join('\n')}
+</div>
+
+<div class="excl">
+  <div class="excl-h">Outside the WBS</div>
+  <div>Required for operation but not built by this project; an interface to each is defined instead.</div>
+  <ul>
+  ${EXCLUDED.map(([a, b]) => `<li><b>${esc(a)}</b> — ${esc(b)}</li>`).join('\n  ')}
+  </ul>
+</div>
+`;
+
+fs.writeFileSync('m2a1.html', html);
+console.log('html written');

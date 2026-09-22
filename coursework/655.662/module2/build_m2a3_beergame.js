@@ -15,19 +15,19 @@ const PARAS = [
   '— a serial chain, local information, local incentives.',
 
   '**The disturbance.** A hurricane closes the plant for three weeks and the manufacturer moves to allocation. ' +
-  'Home programs hear this before any shortage reaches them, and each does the locally sensible thing: it ' +
-  'orders two to three months of supply per patient instead of one. The distributor’s order book triples ' +
-  'while patient census has not moved at all. The distribution center reads that spike as demand growth and ' +
-  'orders aggressively upstream. The plant schedules overtime against what now looks structural. By the time ' +
-  'that production arrives the programs are sitting on months of inventory and stop ordering, so the plant ' +
-  'reads a collapse and cuts the line — shortly before the buffer empties and real orders return.',
+  'Home programs hear this before any shortage reaches them and each does the locally sensible thing: order ' +
+  'three months of supply per patient instead of one. The distributor’s order book triples while patient ' +
+  'census has not moved at all. The distribution center reads that spike as demand growth and orders ' +
+  'aggressively upstream. The plant schedules overtime against what now looks structural. By the time that ' +
+  'production arrives the programs are sitting on months of inventory and stop ordering, so the plant reads a ' +
+  'collapse and cuts the line, shortly before the buffer empties and real orders return.',
 
   '**Where the delays live.** Two delays drive the oscillation, and they compound. The information delay is the ' +
-  'lag between a program changing its order quantity and anyone upstream reading that change as demand rather ' +
-  'than noise, which takes weeks of order history. The material delay is physical: compounding, sterilization, ' +
-  'quality release, and transit run six to ten weeks. Because the material delay exceeds the ordering interval, ' +
-  'every party orders again before its previous order arrives. Each shortage is ordered against two or three ' +
-  'times, and the chain over-corrects by construction.',
+  'lag before anyone upstream reads a program’s changed order quantity as demand rather than noise, which takes ' +
+  'weeks of order history. The material delay is physical: compounding, sterilization, quality release, and ' +
+  'transit run six to ten weeks. Because it exceeds the ordering interval, every party orders again before its ' +
+  'previous order arrives. Each shortage is ordered against two or three times, and the chain over-corrects by ' +
+  'construction.',
 
   '**The communication breakdown.** Nobody lies, and each party reports accurately within its own frame. The ' +
   'home program never tells the distributor that its census is flat and it is deliberately building buffer, ' +
@@ -41,22 +41,24 @@ const PARAS = [
   'shortening dwell times or skipping an exchange, degrading ultrafiltration and clearance. Others transfer to ' +
   'in-center hemodialysis, and a meaningful share never return home. A three-week plant outage converts into ' +
   'permanent modality change for real people. That outcome is invisible to every node: the plant sees tons ' +
-  'shipped, the distributor sees fill rate, and the only party positioned to see technique failure is the ' +
-  'clinic, which has no view of the supply dynamics that caused it.',
+  'shipped, the distributor sees fill rate, and the only party positioned to see technique failure has no view ' +
+  'of the supply dynamics that caused it.',
 
-  '**The cause is structural.** Senge’s central claim is that the same structure produces the same behavior ' +
-  'regardless of who fills the roles, and this chain demonstrates it. The reflexive explanations — the ' +
-  'manufacturer failed, the programs hoarded — are both the enemy-is-out-there response, and both miss that ' +
-  'every actor behaved rationally on the information available. Replace every person in the chain with a more ' +
-  'careful one and the oscillation returns.',
+  '**The cause is structural.** Senge’s claim is that the same structure produces the same behavior regardless ' +
+  'of who fills the roles, and this chain demonstrates it. The reflexive explanations — the manufacturer ' +
+  'failed, the programs hoarded — are both the enemy-is-out-there response, and both miss that every actor ' +
+  'behaved rationally on the information available. Replace every person in the chain with a more careful one ' +
+  'and the oscillation returns.',
 
   '**What would change it.** Because the cause is structural, exhortation and better forecasting will not help; ' +
-  'only changes to information flow will. Share true consumption rather than order quantities, so upstream ' +
-  'parties see census and exchange counts instead of a proxy. Allocate on census rather than order history, ' +
-  'which removes the incentive to inflate. And shorten the information delay by making consumption visible ' +
-  'continuously rather than monthly. That last remedy is nearly free for a remote monitoring system: the cycler ' +
-  'already reports every exchange it runs, so consumption is measured nightly and simply is not routed to the ' +
-  'people who need it. The data exists; the feedback loop does not.',
+  'only specifying the flow will. Six things must be pinned down between any two nodes: data types, data rates, ' +
+  'interfaces, interoperability, metrics, and evaluation criteria. This chain specifies only the last two, and ' +
+  'specifies them locally — which is why fill rate reads green at every node while patients are short-shipped. ' +
+  'Fixing it means sharing consumption rather than order quantities, allocating on census rather than order ' +
+  'history so the incentive to inflate disappears, and reporting consumption continuously rather than monthly. ' +
+  'That last remedy is nearly free for a remote monitoring system: the cycler already reports every exchange it ' +
+  'runs, so consumption is measured nightly and simply is not routed to the people who need it. The data ' +
+  'exists; the feedback loop does not.',
 ];
 
 const words = PARAS.join(' ').replace(/\*\*/g, '').split(/\s+/).length;

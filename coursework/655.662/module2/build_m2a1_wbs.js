@@ -76,6 +76,9 @@ const html = `<!doctype html>
   .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 9pt; }
   h1 { font-size: 12pt; text-align: center; margin: 0 0 6pt; }
   p.intro { text-align: justify; margin: 0 0 9pt; line-height: 2.0; }
+  .root { font-weight: bold; font-size: 11.5pt; margin-bottom: 5pt;
+          border-bottom: 0.5pt solid #ccc; padding-bottom: 3pt; }
+  .lvl { font-weight: normal; font-style: italic; font-size: 10pt; color: #444; }
   .cols { column-count: 2; column-gap: 0.38in; }
   .grp { break-inside: avoid; margin-bottom: 4pt; }
   .l2 { font-weight: bold; line-height: 2.0; }
@@ -99,10 +102,12 @@ const html = `<!doctype html>
 
 <h1>Work Breakdown Structure — PD-RPM Remote Care System</h1>
 
-<p class="intro">This work breakdown structure decomposes the PD-RPM remote care system into eight
-level-two elements and twenty-eight work packages. Elements 1.1–1.4 deliver the product itself,
-following the path of data from the home to the clinical team; elements 1.5–1.8 produce no hardware
-but consume schedule, budget, and staff, and are carried so the plan resources them.</p>
+<p class="intro">This work breakdown structure decomposes the PD-RPM remote care system using the
+standard convention of end product, deliverables, and work packages. Deliverables 1.1–1.4 produce the
+product itself; 1.5–1.8 produce no hardware but consume schedule, budget, and staff, and are carried
+so the plan resources them.</p>
+
+<div class="root">1.&nbsp;&nbsp;PD-RPM System&nbsp;&nbsp;<span class="lvl">(End Product)</span></div>
 
 <div class="cols">
   ${WBS.map(block).join('\n')}

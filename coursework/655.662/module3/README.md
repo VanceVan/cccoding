@@ -17,16 +17,73 @@
 - Kossiakoff et al. ch. 5 & 6
 - INCOSE SEH 5th ed. §§2.3.5.2, 2.3.5.3, plus a word search on "requirements"
 
+## To-Do
+
+1. Review the instructional materials and readings.
+2. Complete the **two written assignments** (due Day 7).
+3. Submit the initial post for **M3D1: Chapter 4, 5th Discipline**.
+4. Complete and submit **INCOSE quiz #3**.
+5. Attend the synchronous session.
+
+> **Count discrepancy.** The to-do says *two* written assignments, but three
+> file-upload assignments exist (M3A1, M3A2, M3A3), each worth 10 points. M3A3
+> shares its prompt with the M3D1 discussion, so the to-do may be treating them
+> as one item. Worth confirming with the instructor; assume all three are due.
+
+## Assignments
+
+### M3A1: Op Needs for RCS — 10 pts, 2 pages, file upload
+Develop **5 operational needs** and **5 operational requirements**, identifying
+any **KPP candidates**.
+
+Rubric ladder — 9 pts is "clear and relevant… well-defined, specific, aligned";
+**10 pts requires each to be "clearly stated, measurable, and relevant"** with
+strong command of the needs-vs-requirements distinction. Measurability is the
+discriminator between 9 and 10. Satisfies objectives 1–3.
+
+### M3A2: RCS System Concept — 10 pts, 2 pages, file upload
+Develop a **system concept** with **three use-cases/scenarios** and an
+**accompanying picture/diagram**.
+
+10 pts needs "a professional, well-labeled diagram that integrates seamlessly
+with the narrative" and "coherent alignment between concept, scenarios, and
+visual representation." So the diagram must be referenced by the prose, not
+merely attached. Satisfies objective 4.
+
+### M3A3: Chapter 4 Concept — 10 pts, 2 pages, file upload
+Select **1 concept from Chapter 4** of *The Fifth Discipline* that best
+describes the major issue in healthcare, and explain why.
+
+This rubric is far more demanding than the others. 10 pts requires: a coherent
+causal narrative (or concise verbal CLD) showing **loops, delays, and policy
+resistance**; short-term vs. long-term effects distinguished; **testable
+measures** and a **high-leverage intervention** with where it acts and its
+anticipated second-order effects; assumptions surfaced explicitly; and
+optionally a named **systems archetype** (Fixes That Fail, Shifting the Burden,
+Limits to Growth). Satisfies objective 5.
+
+### M3D1: Chapter 4 — discussion, 6 pts initial + 4 pts replies
+Same prompt as M3A3 **plus** "what suggestions could you introduce or implement
+to fix it?" Initial post due Day 7 of Module 3; two peer replies due Day 7 of
+Module 4.
+
+> M3A3 and M3D1 overlap heavily. The discussion adds the remedy question, and
+> the paper demands the deeper causal analysis. They should share a thesis but
+> not share prose.
+
+**Chapter 4 is "The Laws of the Fifth Discipline"** — the eleven laws reproduced
+on slide 28 below.
+
 ## Status
 
 | Item | Status |
 |---|---|
-| Overview & objectives | ingested |
+| Overview, objectives, to-do | ingested |
 | Readings list | ingested |
 | Slide deck (31 pp) | ingested |
-| Lecture transcripts | **not yet supplied** |
-| **To-Do list** | **not captured** — the "Completing this Module" tab did not export in the PDF |
-| Assignments | not yet supplied |
+| M3A1 / M3A2 / M3A3 / M3D1 prompts and rubrics | ingested |
+| Lecture transcripts | **uploaded as 0-byte files — need re-export** |
+| Senge ch. 4–5, Kossiakoff ch. 5–6 | not supplied |
 
 ## Key content from the deck
 

@@ -8,35 +8,28 @@ const md = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
 
 const PARAS = [
   'Of the eleven laws in Chapter 4, the one that best describes the major issue in healthcare is ' +
-  '**“Today’s problems come from yesterday’s solutions.”** Senge’s point is that a problem which appears to ' +
-  'arrive from nowhere is usually the downstream effect of a fix made earlier, somewhere else in the system, ' +
-  'for reasons that were entirely sound at the time. Because the fix and its consequence are separated by ' +
-  'years and by organizational distance, nobody connects the two, and the people now living with the problem ' +
-  'are rarely the people who created it.',
+  '**\u201cToday\u2019s problems come from yesterday\u2019s solutions.\u201d** A problem that seems to arrive ' +
+  'from nowhere is usually the downstream effect of a fix made earlier, elsewhere in the system, for reasons ' +
+  'that were entirely sound at the time; because the fix and the consequence are separated by years and by ' +
+  'organizational distance, nobody connects them. Dialysis is the clearest case I know. In 1972 Congress ' +
+  'extended Medicare to cover end-stage renal disease, solving an urgent problem \u2014 people were dying ' +
+  'because they could not pay \u2014 by paying per treatment delivered in a facility. Fifty years on, the ' +
+  'United States has a large, capital-intensive in-center hemodialysis industry, the great majority of ' +
+  'patients start in a center, and home modalities remain the minority path even though they cost less and ' +
+  'better preserve residual kidney function. The clinic real estate, the staffing ratios, the training ' +
+  'pipeline, and the referral habits all grew up around that payment structure. None of it was anyone\u2019s ' +
+  'intent, and that is precisely why exhortation fails: telling nephrologists to offer home therapy treats ' +
+  'the symptom, the structure pushes back, and the home census drifts down again once the initiative\u2019s ' +
+  'funding ends.',
 
-  'Dialysis is the clearest case I know. In 1972 Congress extended Medicare to cover end-stage renal disease, ' +
-  'which solved an urgent and real problem: people were dying because they could not pay for treatment. The ' +
-  'solution paid per treatment delivered in a facility. Fifty years on, the United States has a large, ' +
-  'capital-intensive in-center hemodialysis industry; the great majority of patients start in a center, and ' +
-  'home modalities — cheaper, better at preserving residual kidney function, and what a substantial share of ' +
-  'patients say they would prefer — remain the minority path. The clinic real estate, the staffing ratios, the ' +
-  'training pipeline, and the referral habits all grew up around the 1972 payment structure. None of that was ' +
-  'anyone’s intent. It is yesterday’s solution producing today’s problem.',
-
-  'The law earns its place because it predicts how the obvious fixes will fail. Exhorting nephrologists to ' +
-  'offer home therapy, or bolting a home-education requirement onto the intake visit, treats the symptom and ' +
-  'leaves the structure untouched; the structure pushes back, and the home census drifts down again once the ' +
-  'initiative’s funding ends.',
-
-  '**What I would suggest.** First, change what is paid for rather than what is asked for: a per-patient, ' +
-  'per-month payment that is neutral across modality removes the revenue penalty a program absorbs when a ' +
-  'patient goes home. Second, measure the right interval — modality at ninety days and at twelve months, not ' +
-  'modality at start — so the metric rewards keeping patients home rather than enrolling them. Third, relieve ' +
-  'the constraint that actually binds, which is the supply of home training nurses, not patient interest; ' +
-  'funding and credentialing that workforce is unglamorous and is where the leverage sits. Fourth, and most ' +
-  'in the spirit of the chapter, make the question part of the decision: before adopting any fix, write down ' +
-  'what structure it will create that someone will have to undo in twenty years. Yesterday’s solutions were ' +
-  'not stupid. They were just never asked that question.',
+  '**The remedies therefore have to act on the structure.** Change what is paid for rather than what is asked ' +
+  'for \u2014 a per-patient, per-month payment neutral across modality removes the revenue penalty a program ' +
+  'absorbs when a patient goes home. Measure the right interval, modality at ninety days and at twelve months ' +
+  'rather than at start, so the metric rewards keeping patients home instead of merely enrolling them. ' +
+  'Relieve the constraint that actually binds, which is the supply of home training nurses rather than ' +
+  'patient interest. And, most in the spirit of the chapter, make the question part of every decision: before ' +
+  'adopting a fix, write down what structure it will create that someone will have to undo in twenty years. ' +
+  'Yesterday\u2019s solutions were not stupid; they were just never asked that question.',
 ];
 
 const words = PARAS.join(' ').replace(/\*\*?/g, '').split(/\s+/).length;

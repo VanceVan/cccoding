@@ -9,27 +9,27 @@ const md = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 const IN = { fill: '#eaf1fa', stroke: '#24405c', title: '#14233a', sub: '#33465e' };
 const EX = { fill: '#f4f4f4', stroke: '#8a8a8a', title: '#444444', sub: '#555555' };
 
-function box(x, y, w, h, title, subs = [], ext = false) {
+function box(x, y, w, h, title, subs = [], ext = false, ts = 20, ss = 16.5) {
   const c = ext ? EX : IN;
   const cx = x + w / 2;
-  const lead = 21;
-  const totalH = 20 + subs.length * lead;
-  const ty = y + (h - totalH) / 2 + 16;
+  const lead = ss + 4.5;
+  const totalH = ts + subs.length * lead;
+  const ty = y + (h - totalH) / 2 + ts * 0.8;
   let out = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${c.fill}" ` +
             `stroke="${c.stroke}" stroke-width="1.6"${ext ? ' stroke-dasharray="7 4"' : ''}/>`;
-  out += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="20" font-weight="bold" ` +
+  out += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="${ts}" font-weight="bold" ` +
          `fill="${c.title}">${esc(title)}</text>`;
-  subs.forEach((s, i) => {
-    out += `<text x="${cx}" y="${ty + 19 + i * lead}" text-anchor="middle" font-size="16.5" ` +
-           `fill="${c.sub}">${esc(s)}</text>`;
+  subs.forEach((t, i) => {
+    out += `<text x="${cx}" y="${ty + ts * 0.95 + i * lead}" text-anchor="middle" font-size="${ss}" ` +
+           `fill="${c.sub}">${esc(t)}</text>`;
   });
   return out;
 }
 
-const grp = (x, y, w, h, label) =>
+const grp = (x, y, w, h, label, dx = 10) =>
   `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="none" stroke="#7a8da0" ` +
   `stroke-width="1.3" stroke-dasharray="4 4"/>` +
-  `<text x="${x + 10}" y="${y + 24}" font-size="18" font-weight="bold" fill="#41566b" ` +
+  `<text x="${x + dx}" y="${y + 24}" font-size="18" font-weight="bold" fill="#41566b" ` +
   `letter-spacing="0.5">${esc(label)}</text>`;
 
 const arrow = (pts, opt = {}) =>
@@ -41,7 +41,7 @@ const lbl = (x, y, t, anchor = 'middle', italic = false) =>
   `<text x="${x}" y="${y}" text-anchor="${anchor}" font-size="16" fill="#2f3f52"` +
   `${italic ? ' font-style="italic"' : ''}>${esc(t)}</text>`;
 
-const svg = `<svg viewBox="0 0 1055 540" width="100%" xmlns="http://www.w3.org/2000/svg"
+const svg = `<svg viewBox="0 0 1010 640" width="100%" xmlns="http://www.w3.org/2000/svg"
   font-family="Arial, Helvetica, sans-serif">
 <defs>
   <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
@@ -52,50 +52,46 @@ const svg = `<svg viewBox="0 0 1055 540" width="100%" xmlns="http://www.w3.org/2
           orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8c4a1f"/></marker>
 </defs>
 
-${grp(6, 62, 280, 372, 'PATIENT HOME')}
-${box(44, 100, 232, 66, 'A1  PD Cycler', ['volumes, UF, alarms', '(external device)'], true)}
-${box(44, 178, 232, 58, 'A2  Vitals Peripherals', ['BP cuff, scale'])}
-${box(44, 248, 232, 66, 'A3  Patient App', ['daily symptom &', 'exit-site check'])}
-${box(44, 356, 232, 66, 'A4  Home Gateway', ['store-and-forward', 'buffer'])}
-<polyline points="44,133 26,133" fill="none" stroke="#24405c" stroke-width="1.8"/>
-<polyline points="44,207 26,207" fill="none" stroke="#24405c" stroke-width="1.8"/>
-<polyline points="44,281 26,281" fill="none" stroke="#24405c" stroke-width="1.8"/>
-<polyline points="26,133 26,389" fill="none" stroke="#24405c" stroke-width="1.8"/>
-${arrow('26,389 42,389')}
+<!-- tier 1: the home -->
+${grp(60, 46, 880, 188, 'PATIENT HOME')}
+${box(80, 82, 255, 60, 'A1  PD Cycler', ['volumes, UF, alarms'], true)}
+${box(372, 82, 255, 60, 'A2  Vitals Peripherals', ['BP cuff, scale'])}
+${box(665, 82, 255, 60, 'A3  Patient App', ['daily symptom & exit-site'])}
+${box(80, 166, 840, 46, 'A4  Home Gateway \u2014 store-and-forward buffer', [])}
+${arrow('207,142 207,164')}
+${arrow('500,142 500,164')}
+${arrow('792,142 792,164')}
 
-${box(310, 332, 165, 76, 'T1  Transport', ['secure TLS over', 'broadband/cellular'])}
-${box(310, 446, 165, 76, 'T2  EHR', ['HL7/FHIR interface', '(external)'], true)}
+<!-- tier 2: transport and the EHR interface -->
+${box(80, 272, 840, 46, 'T1  Secure Transport \u2014 TLS over broadband or cellular', [])}
+${box(840, 392, 150, 70, 'T2  EHR', ['HL7/FHIR', '(external)'], true)}
+${arrow('134,214 134,270')}
+${arrow('134,320 134,398')}
+${arrow('838,427 804,427', { both: true })}
 
-${grp(495, 62, 290, 390, 'MONITORING CENTER')}
-${box(505, 100, 270, 52, 'M1  Data Ingestion', ['normalization, quality checks'])}
-${box(505, 170, 270, 52, 'M2  Trending & Analytics', ['per-session and 14/30-day'])}
-${box(505, 240, 270, 52, 'M3  Alert Logic', ['thresholds and rules'])}
-${box(505, 310, 270, 52, 'M4  Triage Queue', ['clinician dashboard'])}
-${box(505, 380, 270, 52, 'M5  Escalation', ['paging and notification'])}
-${arrow('630,152 630,168')}${arrow('630,222 630,238')}
-${arrow('630,292 630,308')}${arrow('630,362 630,378')}
+<!-- tier 3: the monitoring center -->
+${grp(60, 368, 740, 120, 'MONITORING CENTER', 165)}
+${box(69, 402, 130, 70, 'M1', ['Data Ingestion', 'normalization'], false, 20, 15)}
+${box(217, 402, 130, 70, 'M2', ['Trending &', 'Analytics'], false, 20, 15)}
+${box(365, 402, 130, 70, 'M3', ['Alert Logic', 'thresholds'], false, 20, 15)}
+${box(513, 402, 130, 70, 'M4', ['Triage Queue', 'dashboard'], false, 20, 15)}
+${box(661, 402, 130, 70, 'M5', ['Escalation', 'paging'], false, 20, 15)}
+${arrow('199,437 215,437')}${arrow('347,437 363,437')}
+${arrow('495,437 511,437')}${arrow('643,437 659,437')}
 
-${grp(813, 62, 196, 272, 'CARE TEAM')}
-${box(825, 100, 180, 58, 'U1  Home Dialysis', ['Nurse (monitoring)'])}
-${box(825, 170, 180, 58, 'U2  Nephrologist', [])}
-${box(825, 260, 180, 58, 'U3  Home Program', ['& Dialysis Center'])}
+<!-- tier 4: the care team -->
+${grp(60, 526, 880, 96, 'CARE TEAM')}
+${box(85, 558, 265, 52, 'U1  Home Dialysis Nurse', [])}
+${box(368, 558, 265, 52, 'U2  Nephrologist', [])}
+${box(651, 558, 265, 52, 'U3  Home Program', ['& Dialysis Center'], false, 20, 15)}
+${arrow('578,472 578,524')}
+${arrow('726,472 726,524')}
+<polyline points="200,524 200,490" fill="none" stroke="#8c4a1f" stroke-width="1.8"
+  stroke-dasharray="7 4" marker-end="url(#ahf)"/>
 
-${arrow('276,389 308,370')}
-${arrow('475,370 503,130')}
-<polyline points="775,336 801,336" fill="none" stroke="#24405c" stroke-width="1.8"/>
-<polyline points="775,406 801,406" fill="none" stroke="#24405c" stroke-width="1.8"/>
-<polyline points="801,129 801,406" fill="none" stroke="#24405c" stroke-width="1.8"/>
-${arrow('801,129 823,129')}${arrow('801,199 823,199')}${arrow('801,289 823,289')}
-
-${arrow('475,484 492,484 492,468 555,468 555,454', { both: true })}
-<polyline points="1005,199 1040,199 1040,22 485,22 485,196 503,196" fill="none"
-  stroke="#8c4a1f" stroke-width="1.8" stroke-dasharray="7 4" marker-end="url(#ahf)"/>
-
-${lbl(392, 420, 'within 30 min of', 'middle', true)}
-${lbl(392, 436, 'session end', 'middle', true)}
-${lbl(795, 50, 'views, alerts, and pages', 'start')}
-${lbl(600, 502, 'demographics, orders, treatment summaries', 'start')}
-<text x="762" y="16" text-anchor="middle" font-size="16" fill="#8c4a1f">prescription change recorded — compared over next 14 days</text>
+${lbl(150, 248, 'within 30 min of session end', 'start', true)}
+${lbl(742, 513, 'views, alerts, and pages', 'start')}
+<text x="216" y="513" font-size="16" fill="#8c4a1f">prescription change recorded → M2</text>
 </svg>`;
 
 // ------------------------------------------------------------------ prose ----
@@ -167,7 +163,8 @@ const html = `<!doctype html>
   .rule { border-bottom: 0.75pt solid #999; margin: 6pt 0 8pt; }
   h1 { font-size: 11pt; text-align: center; margin: 0 0 8pt; }
   p { text-align: justify; margin: 0; line-height: 1.95; text-indent: 0.3in; }
-  .fig { margin: 7pt 0 3pt; }
+  .fig { margin: 7pt 0 3pt; text-align: center; }
+  .fig svg { width: 90%; }
   .cap { font-size: 9.5pt; text-align: center; margin: 0 0 4pt; text-indent: 0;
          line-height: 1.3; }
   .lane { font-size: 9.5pt; line-height: 1.5; text-indent: 0; margin: 0;

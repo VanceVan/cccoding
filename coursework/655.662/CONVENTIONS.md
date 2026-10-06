@@ -102,3 +102,20 @@ the flow.
 `module1/` — M1A1 Systems Viewpoint (2p), M1A2 Context Diagram (4p), M1D1 use-case
 selection, M1D2 learning disabilities (~340 words), INCOSE Quiz 1 answered.
 Outstanding: two peer replies on M1D2, drafted and ready to post.
+
+## Module 4 additions (Functional Construction and Analysis)
+
+- **No INCOSE quiz in Modules 4 and 5.** The course outline lists the INCOSE
+  reading and quiz only under Modules 1, 2, 3 and 6.
+- **openpyxl** is not installed by default in this container; `pip install
+  openpyxl` works. Dump a workbook with a script kept outside the upload
+  directory and run it as `python3 -I script.py <path>`.
+- **Trade-study template mechanics** (instructor's spreadsheet): four criteria x
+  four alternatives; separate Raw Score and Utility Value columns; Weighted
+  Utility = Wt x Utility; Operational Utility Function = sum of weighted
+  utilities; Cost-Effectiveness Selection Function = (Operational Utility /
+  unit cost) x 100. The worked exemplar is constructed so the utility winner
+  and the cost-effectiveness winner are different alternatives.
+- **M4A1 alignment rule:** the 20-point band requires the N-squared diagram to
+  match the functional diagram exactly. Every function on the N-squared
+  diagonal, every functional-diagram arrow as a labeled off-diagonal cell.

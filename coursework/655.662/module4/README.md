@@ -134,8 +134,8 @@ whether the ranking is stable.
 
 | Item | Status | Cost of not having it |
 |---|---|---|
-| **The instructor's 12-step trade-study process** | **not supplied** | **Blocking for M4A2.** The rubric counts steps literally. Generic trade-study methodology will not reliably map 1:1 onto his numbered list, and a step he names that I skip is a direct deduction on a 40-point assignment. |
-| Module 4 slide deck | not supplied | His Level 1 functional diagram conventions. Module 1's context diagram had a house style (bare labels, black box) that mattered; the same is likely true here. |
+| **The instructor's 12-step trade-study process** | **RESOLVED** — in the Module 4 deck, slide 22; reproduced below | — |
+| Module 4 slide deck | **supplied** (IHSE-Module4-INCOSE, 63 pp) | His Level 1 functional diagram conventions. Module 1's context diagram had a house style (bare labels, black box) that mattered; the same is likely true here. |
 | Module 4 lecture transcripts | not supplied | Secondary — the deck has usually carried the content. |
 | Kossiakoff ch. 7, 8, 11 | not supplied | Ch. 7 is functional analysis; ch. 11 is likely where the trade-study material lives. Workable without, but the vocabulary may not match his. |
 | Senge ch. 6–7 | not supplied | Needed for objective 6 (archetypes) if M4A2 must address it. |
@@ -178,3 +178,89 @@ The individual final report requires, among eight items:
 M4A1 produces one of the two required functional architectures; M4A2 produces one
 of the two required trade studies. Both should be written so they can be lifted
 into the final report and extended rather than redone.
+
+## RESOLVED — the instructor's 12 steps (IHSE-Module4-INCOSE deck, slide 22)
+
+1. Define Objectives and Requirements
+2. Identify Alternatives (at least 3)
+3. Formulate Selection Criteria
+4. Weight the Criteria
+5. Collect Data
+6. Prepare Utility Functions
+7. Evaluate Alternatives
+8. Perform Sensitivity Check
+9. Make Necessary Adjustments
+10. Select Preferred Alternative
+11. Document Decision
+12. Execute Decision
+
+### Non-negotiable rules the deck states outright
+
+- **Cost is NOT a selection criterion.** "In this course (and the HSE program), we
+  do not use cost as a selection criterion; we incorporate cost differently" —
+  i.e. only through the cost-effectiveness selection function.
+- **Weights may not be subjective.** Use the Analytical Hierarchy Process or the
+  **Nth-root pairwise comparison** (1–9 importance scale, N x N matrix with 1s on
+  the diagonal and reciprocals below it, row products, Nth root, normalize).
+  "Weights are not ranks. Do not use ranking (1, 2, 3, ...) here."
+  - If one criterion exceeds 50%, redo the pairwise comparison.
+  - If a criterion is under ~0.03, consider dropping it.
+- **Every criterion must trace to a requirement.** "If there is no corresponding
+  requirement, then at least one new requirement must be created to represent the
+  selection criterion."
+- Good criteria: trace to requirements, relate to the study's purpose, be
+  unambiguous with units, differentiate meaningfully, be measurable, have data for
+  every alternative, be independent of each other, be universally understood.
+- **Step 5 KPP rule:** "If the requirement is a KPP, the alternative MUST be within
+  the threshold range." A non-KPP shortfall "may disqualify the alternative, but
+  the alternative may have value nevertheless."
+- **Step 6:** utility functions translate raw values (with units) to a unitless
+  0–1 score and let stakeholders assign utility across the range. Linear if you
+  have no information; nonlinear if you do; negative slope where less is better.
+  Anchors come from a requirement, stakeholder input, or the min/max across the
+  domain of possible alternatives.
+- **Step 8 method:** "At a minimum, sequentially *zero out* each criterion weight
+  and recalculate results." Insensitive is good.
+- **Step 9:** "Decision Makers make decisions, not trade studies." Don't force a
+  decision; if alternatives are indistinguishable, say so.
+
+### Objective 6 — the archetype section he expects
+
+The deck closes with "5th Discipline Systems Analysis," a five-step frame applied
+to two archetypes:
+
+1. Analyze Problem
+2. Conceptualize any Growth Limits *(Archetype 1: Limits to Growth)* /
+   Conceptualize any Burden Shifting *(Archetype 2: Shifting the Burden)*
+3. Conduct Mental Exercises with System
+4. Catalogue Key Variable Factors
+5. Investigate Solution Options
+
+## His functional-diagram conventions (slides 7–15) — M4A1 RISK
+
+The deck's Level 1 functional diagram is **the Module 1 context diagram with the
+functions drawn inside the black box**, not a separate boundary diagram:
+
+- The ICOM frame is retained: inputs on the left (Patient, Healthcare Provider,
+  Daily Activities), outputs on the right (Patient Cardiac Vitals, Monitoring
+  System Status, Data Analytics), **controls across the top** (Health Policies,
+  Health Laws, Infrastructure Regulations), **enablers across the bottom**
+  (Infrastructure, Geography, Personnel).
+- Functions are **VERB-NOUN** and numbered plainly — "1. Receive Cardiac Data",
+  "2. Transfer Cardiac Data" — not "F1.0".
+- His Level 1 example has **twelve** functions, so his "Level 1" is finer-grained
+  than a six-function decomposition.
+- **Arrows are labeled with NOUNS** (the data object), and the output noun of one
+  function is the input noun of the next: "Raw Cardiac Data", "Packaged Cardiac
+  Data", "Transmitted Cardiac Data".
+- His N2 places the same numbered functions on the diagonal with the flow **noun**
+  in each off-diagonal cell, and the external entities wrapped around the edges.
+- He also shows a function-to-requirement traceability matrix (F2.1 x R1.1 with X
+  marks) and one level of sub-function decomposition (2.1, 2.2, 2.3, 2.4).
+
+> **As delivered, M4A1 is methodologically sound but does not follow this house
+> style.** It uses F1.0-style numbering, a standalone boundary box rather than the
+> context-diagram frame, no controls/enablers bands, six coarse functions, and
+> numbered flow badges rather than noun-labeled arrows. Given that Module 1's
+> context diagram had to be redone in the instructor's style, M4A1 should probably
+> be redrawn the same way.

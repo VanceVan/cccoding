@@ -1,256 +1,226 @@
-// M4A1 — Level 1 functional diagram + aligned N-squared diagram for PD-RPM.
-// Two pages, US Letter portrait, Arial.
+// M4A1 — Level 1 functional diagram (JHU context-diagram overlay) + N-squared.
+// Two pages, US Letter LANDSCAPE, Arial.
 const fs = require('fs');
-
-const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const md = (s) => esc(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
 // ------------------------------------------------- functions and flows ----
-const FN = {
-  F1: 'F1.0  Acquire Patient and Therapy Data',
-  F2: 'F2.0  Buffer and Transport Data',
-  F3: 'F3.0  Ingest and Normalize Data',
-  F4: 'F4.0  Detect Clinically Significant Events',
-  F5: 'F5.0  Present and Escalate for Action',
-  F6: 'F6.0  Manage Configuration, Security, and System Health',
+// n: [verb line, noun line, x, y]
+const FB = {
+  1:  ['1. Receive',   'Home Data',    180, 175],
+  2:  ['2. Buffer',    'Home Data',    380, 175],
+  3:  ['3. Set Up',    'Home Link',    180, 590],
+  4:  ['4. Verify',    'Home Link',    380, 590],
+  5:  ['5. Format',    'Home Data',    540, 290],
+  6:  ['6. Transfer',  'Home Data',    710, 290],
+  7:  ['7. Receive',   'Center Data',  880, 290],
+  8:  ['8. Normalize', 'Center Data',  540, 445],
+  9:  ['9. Trend',     'Center Data',  710, 445],
+  10: ['10. Evaluate', 'Alert Rules',  880, 445],
+  11: ['11. Display',  'Care Views',  1070, 290],
+  12: ['12. Escalate', 'Care Alert',  1070, 445],
 };
+const BW = 160, BH = 58;
 
-// id, from, to, content.  "EXT:x" marks an element outside the system boundary.
+const IN_ENT  = ['Patient', 'PD Cycler', 'Care Partner'];
+const OUT_ENT = ['Patient Therapy Trends', 'Monitoring System Status', 'Escalated Care Alert'];
+const CTRL    = ['Health Policies', 'Health Laws', 'Infrastructure Regulations'];
+const ENAB    = ['Infrastructure', 'Geography', 'Personnel'];
+
+// from, to, noun.  'P'/'C'/'K' = Patient / PD Cycler / Care Partner; 'O#' = output n.
 const FLOWS = [
-  [1,  'Patient / Care Partner', 'F1.0', 'Weight, BP, symptom and exit-site entries'],
-  [2,  'PD Cycler (external)',   'F1.0', 'Volumes, dwell times, net UF, alarms'],
-  [3,  'EHR (external)',         'F3.0', 'Demographics, prescription of record'],
-  [4,  'Care Team',              'F4.0', 'Prescription changes and clinical annotations'],
-  [5,  'F1.0', 'F2.0', 'Timestamped observation set'],
-  [6,  'F2.0', 'F3.0', 'Encrypted upload, 30 min of session end'],
-  [7,  'F3.0', 'F2.0', 'Receipt acknowledgment; releases buffer'],
-  [8,  'F3.0', 'F4.0', 'Normalized, unit-consistent time series'],
-  [9,  'F4.0', 'F5.0', 'Flagged event, severity, supporting trend'],
-  [10, 'F5.0', 'F4.0', 'Clinician disposition: actionable or not'],
-  [11, 'F6.0', 'F1.0', 'Device configuration and acquisition schedule'],
-  [12, 'F6.0', 'F2.0', 'Credentials, certificates, transport policy'],
-  [13, 'F6.0', 'F3.0', 'Data model and mapping configuration'],
-  [14, 'F6.0', 'F4.0', 'Threshold and detection rule parameters'],
-  [15, 'F6.0', 'F5.0', 'Notification routing and on-call roster'],
-  [16, 'F1.0', 'F6.0', 'Device health and connectivity status'],
-  [17, 'F2.0', 'F6.0', 'Buffer depth and transfer latency'],
-  [18, 'F3.0', 'F6.0', 'Ingest completeness and rejected-record log'],
-  [19, 'F4.0', 'F6.0', 'Rule execution and detection performance log'],
-  [20, 'F5.0', 'F6.0', 'Delivery confirmation and ack timing'],
-  [21, 'F3.0', 'EHR (external)', 'Treatment summaries written back'],
-  [22, 'F5.0', 'Care Team', 'Triage queue views, alerts, and pages'],
+  ['P',  '1',  'Patient Vitals and Symptoms'],
+  ['C',  '1',  'Cycler Session Record'],
+  ['K',  '3',  'Link Setup Actions'],
+  ['1',  '2',  'Raw Home Data'],
+  ['2',  '5',  'Buffered Home Data'],
+  ['3',  '4',  'Configured Home Link'],
+  ['4',  '5',  'Verified Home Link'],
+  ['5',  '6',  'Packaged Home Data'],
+  ['6',  '7',  'Transmitted Home Data'],
+  ['7',  '8',  'Received Center Data'],
+  ['8',  '9',  'Normalized Center Data'],
+  ['9',  '10', 'Patient Trend Series'],
+  ['10', '11', 'Flagged Event and Trend'],
+  ['10', '12', 'Flagged Event and Trend'],
+  ['11', 'O1', 'Patient Therapy Trends'],
+  ['11', 'O2', 'Monitoring System Status'],
+  ['12', 'O3', 'Escalated Care Alert'],
 ];
 
 // ------------------------------------------------------------- diagram ----
-const IN = { fill: '#eaf1fa', stroke: '#24405c', title: '#14233a', sub: '#33465e' };
-const EX = { fill: '#f4f4f4', stroke: '#8a8a8a', title: '#444444', sub: '#555555' };
+const BX = 150, BY = 100, BW_ = 1110, BH_ = 620;   // boundary
+const fbox = (n) => {
+  const [v, o, x, y] = FB[n];
+  return `<rect x="${x}" y="${y}" width="${BW}" height="${BH}" rx="4" fill="#eaf1fa" ` +
+         `stroke="#24405c" stroke-width="1.7"/>` +
+         `<text x="${x + BW / 2}" y="${y + 25}" text-anchor="middle" font-size="18" ` +
+         `font-weight="bold" fill="#14233a">${esc(v)}</text>` +
+         `<text x="${x + BW / 2}" y="${y + 45}" text-anchor="middle" font-size="18" ` +
+         `font-weight="bold" fill="#14233a">${esc(o)}</text>`;
+};
+const ar = (pts, w) => `<polyline points="${pts}" fill="none" stroke="#24405c" ` +
+  `stroke-width="${w || 1.7}" marker-end="url(#ah)"/>`;
+const nl = (x, y, t, anchor) => `<text x="${x}" y="${y}" text-anchor="${anchor || 'middle'}" ` +
+  `font-size="14.5" fill="#33465e">${esc(t)}</text>`;
+const frameLbl = (x, y, t, anchor) => `<text x="${x}" y="${y}" text-anchor="${anchor || 'middle'}" ` +
+  `font-size="17" font-weight="bold" fill="#41566b">${esc(t)}</text>`;
 
-function box(x, y, w, h, title, subs = [], ext = false, ts = 18, ss = 15) {
-  const c = ext ? EX : IN;
-  const cx = x + w / 2;
-  const lead = ss + 4;
-  const ty = y + (h - (ts + subs.length * lead)) / 2 + ts * 0.8;
-  let o = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${c.fill}" ` +
-          `stroke="${c.stroke}" stroke-width="1.6"${ext ? ' stroke-dasharray="7 4"' : ''}/>`;
-  o += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="${ts}" font-weight="bold" ` +
-       `fill="${c.title}">${esc(title)}</text>`;
-  subs.forEach((t, i) => {
-    o += `<text x="${cx}" y="${ty + ts * 0.95 + i * lead}" text-anchor="middle" font-size="${ss}" ` +
-         `fill="${c.sub}">${esc(t)}</text>`;
-  });
-  return o;
-}
-
-const arr = (pts) => `<polyline points="${pts}" fill="none" stroke="#24405c" stroke-width="1.7" ` +
-                     `marker-end="url(#ah)"/>`;
-const bdg = (x, y, n) =>
-  `<circle cx="${x}" cy="${y}" r="10.5" fill="#24405c"/>` +
-  `<text x="${x}" y="${y + 5.2}" text-anchor="middle" font-size="14" font-weight="bold" ` +
-  `fill="#ffffff">${n}</text>`;
-
-const F6ROWS = [[128, 11, 16], [214, 12, 17], [300, 13, 18], [386, 14, 19], [472, 15, 20]];
-
-const svg = `<svg viewBox="0 0 1000 585" width="100%" xmlns="http://www.w3.org/2000/svg"
+const svg1 = `<svg viewBox="0 0 1565 850" width="100%" xmlns="http://www.w3.org/2000/svg"
   font-family="Arial, Helvetica, sans-serif">
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
   orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#24405c"/></marker></defs>
 
-<rect x="215" y="58" width="700" height="502" rx="8" fill="none" stroke="#24405c"
-  stroke-width="2" stroke-dasharray="9 5"/>
-<text x="226" y="80" font-size="16" font-weight="bold" fill="#24405c" letter-spacing="0.4">
-  SYSTEM BOUNDARY — PD-RPM Remote Care System</text>
+<rect x="${BX}" y="${BY}" width="${BW_}" height="${BH_}" rx="8" fill="none" stroke="#24405c"
+  stroke-width="2.2" stroke-dasharray="10 6"/>
+<text x="${BX + 14}" y="${BY + 26}" font-size="16" font-weight="bold" fill="#24405c"
+  letter-spacing="0.4">SYSTEM BOUNDARY — PD-RPM Remote Care System</text>
 
-${box(14, 100, 175, 56, 'Patient /', ['Care Partner'], true)}
-${box(14, 180, 175, 56, 'PD Cycler', ['(external device)'], true)}
-${box(14, 272, 175, 56, 'EHR', ['(external)'], true)}
-${box(14, 414, 175, 100, 'Care Team', ['nurse, nephrologist,', 'home program'], true)}
+<!-- controls across the top -->
+${CTRL.map((t, i) => {
+  const x = BX + 230 + i * 330;
+  return frameLbl(x, 36, t) + ar(`${x},48 ${x},${BY - 4}`);
+}).join('\n')}
 
-${box(238, 100, 400, 56, FN.F1)}
-${box(238, 186, 400, 56, FN.F2)}
-${box(238, 272, 400, 56, FN.F3)}
-${box(238, 358, 400, 56, FN.F4)}
-${box(238, 444, 400, 56, FN.F5)}
-${box(705, 100, 170, 400, 'F6.0', ['Manage', 'Configuration,', 'Security, and', 'System Health'])}
+<!-- enablers across the bottom -->
+${ENAB.map((t, i) => {
+  const x = BX + 230 + i * 330;
+  return frameLbl(x, 806, t) + ar(`${x},788 ${x},${BY + BH_ + 4}`);
+}).join('\n')}
 
-${arr('330,156 330,184')}${bdg(304, 170, 5)}
-${arr('330,242 330,270')}${bdg(304, 256, 6)}
-${arr('330,328 330,356')}${bdg(304, 342, 8)}
-${arr('330,414 330,442')}${bdg(304, 428, 9)}
-${arr('540,270 540,244')}${bdg(566, 257, 7)}
-${arr('540,442 540,416')}${bdg(566, 429, 10)}
+<!-- inputs on the left -->
+${frameLbl(136, 202, 'Patient', 'end')}
+${frameLbl(136, 287, 'PD Cycler', 'end')}
+${frameLbl(136, 624, 'Care Partner', 'end')}
+${ar('142,197 178,197')}
+${ar('142,282 178,225')}
+${ar('142,619 178,619')}
+${nl(285, 152, 'Patient Vitals and Symptoms')}
+${nl(300, 302, 'Cycler Session Record')}
+${nl(300, 672, 'Link Setup Actions')}
 
-${F6ROWS.map(([y, o, i]) =>
-  `${arr(`703,${y - 13} 641,${y - 13}`)}${bdg(671, y - 13, o)}` +
-  `${arr(`640,${y + 13} 702,${y + 13}`)}${bdg(671, y + 13, i)}`).join('\n')}
+<!-- outputs on the right -->
+${ar('1232,300 1292,300')}
+${ar('1232,340 1292,340')}
+${ar('1232,474 1292,474')}
+${frameLbl(1300, 296, 'Patient Therapy', 'start')}
+${frameLbl(1300, 316, 'Trends', 'start')}
+${frameLbl(1300, 336, 'Monitoring System', 'start')}
+${frameLbl(1300, 356, 'Status', 'start')}
+${frameLbl(1300, 470, 'Escalated Care', 'start')}
+${frameLbl(1300, 490, 'Alert', 'start')}
 
-${arr('191,128 235,118')}${bdg(213, 123, 1)}
-${arr('191,208 235,140')}${bdg(213, 174, 2)}
-${arr('191,288 235,288')}${bdg(213, 288, 3)}
-${arr('236,312 192,312')}${bdg(213, 312, 21)}
-${arr('191,430 235,398')}${bdg(213, 414, 4)}
-${arr('236,478 192,492')}${bdg(213, 485, 22)}
+${[1,2,3,4,5,6,7,8,9,10,11,12].map(fbox).join('\n')}
+
+<!-- flows, each labeled with the noun that passes -->
+${ar('340,204 378,204')}${nl(359, 252, 'Raw Home Data')}
+${ar('460,235 460,256 620,256 620,286')}${nl(648, 248, 'Buffered Home Data', 'start')}
+${ar('340,619 378,619')}${nl(359, 582, 'Configured Home Link')}
+${ar('505,588 505,312 536,312')}${nl(497, 470, 'Verified Home Link', 'end')}
+${ar('700,319 708,319')}${nl(704, 280, 'Packaged Home Data')}
+${ar('870,319 878,319')}${nl(878, 280, 'Transmitted Home Data')}
+${ar('960,348 960,390 620,390 620,441')}${nl(700, 382, 'Received Center Data')}
+${ar('700,474 708,474')}${nl(704, 435, 'Normalized Center Data')}
+${ar('870,474 878,474')}${nl(878, 435, 'Patient Trend Series')}
+${ar('1042,460 1055,460 1055,318 1066,318')}${nl(1046, 395, 'Flagged Event', 'end')}
+${nl(1046, 413, 'and Trend', 'end')}
+${ar('1042,485 1066,485')}${nl(1054, 527, 'Flagged Event and Trend')}
 </svg>`;
 
-// ------------------------------------------------------- N-squared grid ----
-const C = ['F1.0', 'F2.0', 'F3.0', 'F4.0', 'F5.0', 'F6.0'];
-const SHORT = {
-  'F1.0': 'F1.0 Acquire Patient and Therapy Data',
-  'F2.0': 'F2.0 Buffer and Transport Data',
-  'F3.0': 'F3.0 Ingest and Normalize Data',
-  'F4.0': 'F4.0 Detect Clinically Significant Events',
-  'F5.0': 'F5.0 Present and Escalate for Action',
-  'F6.0': 'F6.0 Manage Configuration, Security, System Health',
-};
-const CELL = {
-  'F1.0>F2.0': '5 observation set',
-  'F1.0>F6.0': '16 device health status',
-  'F2.0>F3.0': '6 encrypted upload',
-  'F2.0>F6.0': '17 buffer depth, latency',
-  'F3.0>F2.0': '7 receipt acknowledgment',
-  'F3.0>F4.0': '8 normalized time series',
-  'F3.0>F6.0': '18 ingest completeness',
-  'F4.0>F5.0': '9 flagged event + severity',
-  'F4.0>F6.0': '19 rule execution log',
-  'F5.0>F4.0': '10 clinician disposition',
-  'F5.0>F6.0': '20 delivery confirmation',
-  'F6.0>F1.0': '11 device configuration',
-  'F6.0>F2.0': '12 credentials, policy',
-  'F6.0>F3.0': '13 mapping configuration',
-  'F6.0>F4.0': '14 threshold parameters',
-  'F6.0>F5.0': '15 routing, on-call roster',
-};
+// ---------------------------------------------------------- N-squared ----
+const NS = [1,2,3,4,5,6,7,8,9,10,11,12];
+const cellOf = {};
+FLOWS.forEach(([a, b, n]) => {
+  if (/^\d+$/.test(a) && /^\d+$/.test(b)) cellOf[a + '>' + b] = n;
+});
 const EXTIN = {
-  'F1.0': '1 vitals, symptom and exit-site entries (Patient / Care Partner)<br>' +
-          '2 treatment records (PD Cycler)',
-  'F3.0': '3 demographics, prescription of record (EHR)',
-  'F4.0': '4 prescription changes, clinical annotations (Care Team)',
+  1: 'Patient Vitals and Symptoms <i>(Patient)</i><br>Cycler Session Record <i>(PD Cycler)</i>',
+  3: 'Link Setup Actions <i>(Care Partner)</i>',
 };
 const EXTOUT = {
-  'F3.0': '21 treatment summaries (EHR)',
-  'F5.0': '22 queue views, alerts, pages (Care Team)',
+  11: 'Patient Therapy Trends<br>Monitoring System Status',
+  12: 'Escalated Care Alert',
 };
-
-const grid = `<table class="n2">
-<tr><th class="ext">Inputs from outside<br>the boundary</th>
-${C.map((c) => `<th>${esc(c)}</th>`).join('')}
-<th class="ext">Outputs beyond<br>the boundary</th></tr>
-${C.map((r) => `<tr>
-  <td class="ext">${EXTIN[r] || ''}</td>
-  ${C.map((c) => (r === c
-    ? `<td class="diag">${esc(SHORT[r])}</td>`
-    : `<td>${esc(CELL[r + '>' + c] || '')}</td>`)).join('')}
-  <td class="ext">${EXTOUT[r] || ''}</td>
-</tr>`).join('')}
+const n2 = `<table class="n2">
+<tr><th class="ext">External inputs</th>${NS.map((c) => `<th>${c}</th>`).join('')}
+<th class="ext">External outputs</th></tr>
+${NS.map((r) => `<tr>
+<td class="ext">${EXTIN[r] || ''}</td>
+${NS.map((c) => (r === c
+  ? `<td class="diag">${esc(FB[r][0])}<br>${esc(FB[r][1])}</td>`
+  : `<td>${esc(cellOf[r + '>' + c] || '')}</td>`)).join('')}
+<td class="ext">${EXTOUT[r] || ''}</td></tr>`).join('')}
 </table>`;
 
-// ----------------------------------------------------------------- page ----
+// ---------------------------------------------------------------- prose ---
 const INTRO =
-  'A function is something the system must **do**, stated without naming the thing that does it, so that ' +
-  'alternatives can be traded against the same requirement later. The six Level 1 functions below are the ' +
-  'complete top-level decomposition of PD-RPM. The boundary is the one fixed earlier in the semester: the ' +
-  'PD cycler, the EHR, and clinical decision authority sit outside it. Every flow is numbered; Table 1 ' +
-  'gives its content and the N² diagram on page 2 places that same number in its interface cell.';
+  'A function is **what the system does**, not what it is, and is written verb-noun so that the physical ' +
+  'solution stays open for the trade study. Figure 1 places the twelve Level 1 functions of the PD-RPM ' +
+  'remote care system inside the context diagram established earlier in the semester: inputs enter from the ' +
+  'left, outputs leave to the right, controls act from above, and enablers support from below. Each arrow is ' +
+  'labeled with the **noun** that passes between functions, and the output of one function is the input of ' +
+  'the next.';
 
-const N2INTRO =
-  'The N² diagram below carries the same six functions on its diagonal. **Outputs leave a function ' +
-  'horizontally along its row; inputs enter a function vertically down its column**, so the cell at row ' +
-  'F3.0 and column F4.0 holds what F3.0 delivers to F4.0. A blank cell means no interface exists between ' +
-  'that ordered pair. External interfaces are carried in the flanking columns rather than omitted, since ' +
-  'the boundary crossings are where this system is most likely to fail.';
+const N2NOTE =
+  'The N² diagram carries the same twelve functions on its diagonal and the same nouns in its cells. ' +
+  '**Outputs leave a function horizontally along its row; inputs enter vertically down its column**, so the ' +
+  'cell at row 8 and column 9 holds what function 8 delivers to function 9. External inputs and outputs are ' +
+  'carried in the flanking columns.';
 
 const ALIGN =
-  '**Alignment check.** All twenty-two numbered flows in Figure 1 appear exactly once in the matrix: ' +
-  'flows 1–4 in the left column, 5–20 in the sixteen populated off-diagonal cells, and 21–22 ' +
-  'in the right column. Fourteen of the thirty off-diagonal pairs are empty, which is itself a result — ' +
-  'it says acquisition never talks to detection directly, and that every path to a clinician passes ' +
-  'through F5.0.';
-
-const half = Math.ceil(FLOWS.length / 2);
-const flowRows = (a, b) => FLOWS.slice(a, b).map(([n, f, t, c]) =>
-  `<tr><td class="n">${n}</td><td class="ft">${esc(f)} → ${esc(t)}</td><td>${esc(c)}</td></tr>`
-).join('');
+  `**Alignment check.** All ${Object.keys(cellOf).length} internal flows in Figure 1 appear once in the ` +
+  'matrix, and the three external inputs and three external outputs appear in the flanking columns. The ' +
+  'empty cells are a result ' +
+  'in their own right: the matrix is almost strictly upper-triangular, which says the system is a one-way ' +
+  'pipeline with no function feeding anything upstream of itself — every loop in this system closes ' +
+  'through a clinician, outside the boundary. Controls and enablers act on all twelve functions and are shown ' +
+  'in the frame of Figure 1 rather than repeated in every row.';
 
 const html = `<!doctype html>
 <meta charset="utf-8">
 <style>
-  @page { size: letter portrait; margin: 0.7in 0.75in; }
+  @page { size: letter landscape; margin: 0.45in 0.5in; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
-         font-size: 11pt; margin: 0; color: #000; }
-  .hdr { line-height: 1.2; font-size: 10.5pt; }
-  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
-  h1 { font-size: 11pt; text-align: center; margin: 0 0 7pt; }
-  h2 { font-size: 10.5pt; margin: 0 0 5pt; }
-  p { text-align: justify; margin: 0 0 6pt; line-height: 1.42; }
-  .fig { margin: 6pt 0 3pt; text-align: center; }
-  .fig svg { width: 87%; }
-  .cap { font-size: 9pt; text-align: center; margin: 0 0 7pt; line-height: 1.3; }
-  table.fl { width: 100%; border-collapse: collapse; font-size: 7.3pt; }
-  table.fl td { vertical-align: top; padding: 0.6pt 2.5pt; line-height: 1.16; }
-  table.fl td.n { width: 12pt; font-weight: bold; color: #24405c; text-align: right; }
-  table.fl td.ft { width: 72pt; color: #24405c; }
-  .two { display: flex; gap: 14pt; }
-  .two > div { flex: 1; }
-  table.n2 { width: 100%; border-collapse: collapse; font-size: 7.1pt;
-             table-layout: fixed; }
-  table.n2 th, table.n2 td { border: 0.5pt solid #9aa7b4; padding: 3pt 2.5pt;
-             vertical-align: top; line-height: 1.2; }
-  table.n2 th { background: #24405c; color: #fff; font-size: 7.4pt; text-align: center; }
-  table.n2 th.ext, table.n2 td.ext { background: #f1f1f1; color: #222; width: 13.5%; }
-  table.n2 th.ext { background: #5c6b7a; color: #fff; }
-  table.n2 td.diag { background: #dce7f5; font-weight: bold; color: #14233a; }
+         font-size: 10pt; margin: 0; color: #000; }
+  .hdr { font-size: 9.5pt; line-height: 1.2; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 4pt 0 5pt; }
+  h1 { font-size: 10.5pt; text-align: center; margin: 0 0 5pt; }
+  p { text-align: justify; margin: 0 0 4pt; line-height: 1.32; font-size: 9.5pt; }
+  .fig { margin: 3pt 0 2pt; text-align: center; }
+  .fig svg { width: 97%; }
+  .cap { font-size: 8.5pt; text-align: center; margin: 0; line-height: 1.25; }
+  table.n2 { width: 100%; border-collapse: collapse; font-size: 6.1pt;
+             table-layout: fixed; margin: 4pt 0 5pt; }
+  table.n2 th, table.n2 td { border: 0.5pt solid #9aa7b4; padding: 2pt 1.6pt;
+             vertical-align: top; line-height: 1.16; height: 30pt; }
+  table.n2 th { background: #24405c; color: #fff; text-align: center; font-size: 7pt;
+             height: auto; }
+  table.n2 th.ext, table.n2 td.ext { width: 9.2%; }
+  table.n2 th.ext { background: #5c6b7a; }
+  table.n2 td.ext { background: #f1f1f1; font-size: 6pt; }
+  table.n2 td.diag { background: #dce7f5; font-weight: bold; color: #14233a;
+             text-align: center; font-size: 6.4pt; }
   .brk { page-break-before: always; }
 </style>
 
 <div class="hdr">
-  <b>Vance Vanvolkenburgh</b><br>
-  655.662 — Introduction to Healthcare Systems Engineering<br>
-  Module 4 | M4A1: Functional Diagrams
+  <b>Vance Vanvolkenburgh</b> &nbsp;|&nbsp; 655.662 — Introduction to Healthcare Systems Engineering
+  &nbsp;|&nbsp; Module 4 | M4A1: Functional Diagrams
 </div>
 <div class="rule"></div>
-
-<h1>Level 1 Functional Diagram and N&sup2; Diagram — PD-RPM Remote Care System</h1>
-
+<h1>Level 1 Functional Diagram — PD-RPM Remote Care System</h1>
 <p>${md(INTRO)}</p>
-
-<div class="fig">${svg}</div>
-<p class="cap"><b>Figure 1.</b> Level 1 functional diagram. Boxes inside the dashed boundary are functions
-the system performs; gray dashed boxes are external elements it interfaces with but does not perform.
-Numbered circles key to Table 1.</p>
-
-<h2>Table 1. Flow legend</h2>
-<div class="two">
-  <div><table class="fl">${flowRows(0, half)}</table></div>
-  <div><table class="fl">${flowRows(half, FLOWS.length)}</table></div>
-</div>
+<div class="fig">${svg1}</div>
+<p class="cap"><b>Figure 1.</b> Level 1 functional diagram, drawn as a functional overlay on the PD-RPM
+context diagram. Twelve verb-noun functions; every flow labeled with the noun that passes.</p>
 
 <div class="brk"></div>
 <h1>N&sup2; Diagram — PD-RPM Remote Care System</h1>
-<p>${md(N2INTRO)}</p>
-${grid}
-<p style="margin-top:7pt">${md(ALIGN)}</p>
+<p>${md(N2NOTE)}</p>
+${n2}
+<p>${md(ALIGN)}</p>
 `;
 
 fs.writeFileSync('m4a1.html', html);
-const words = [INTRO, N2INTRO, ALIGN].join(' ').replace(/\*\*/g, '').split(/\s+/).length;
-console.log('html written —', words, 'words of prose,', FLOWS.length, 'flows');
+console.log('ok —', FLOWS.length, 'flows,', Object.keys(cellOf).length, 'internal cells');

@@ -1,129 +1,152 @@
 <!doctype html>
 <meta charset="utf-8">
 <style>
-  @page { size: letter portrait; margin: 0.7in 0.75in; }
+  @page { size: letter landscape; margin: 0.45in 0.5in; }
   html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
-         font-size: 11pt; margin: 0; color: #000; }
-  .hdr { line-height: 1.2; font-size: 10.5pt; }
-  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
-  h1 { font-size: 11pt; text-align: center; margin: 0 0 7pt; }
-  h2 { font-size: 10.5pt; margin: 0 0 5pt; }
-  p { text-align: justify; margin: 0 0 6pt; line-height: 1.42; }
-  .fig { margin: 6pt 0 3pt; text-align: center; }
-  .fig svg { width: 87%; }
-  .cap { font-size: 9pt; text-align: center; margin: 0 0 7pt; line-height: 1.3; }
-  table.fl { width: 100%; border-collapse: collapse; font-size: 7.3pt; }
-  table.fl td { vertical-align: top; padding: 0.6pt 2.5pt; line-height: 1.16; }
-  table.fl td.n { width: 12pt; font-weight: bold; color: #24405c; text-align: right; }
-  table.fl td.ft { width: 72pt; color: #24405c; }
-  .two { display: flex; gap: 14pt; }
-  .two > div { flex: 1; }
-  table.n2 { width: 100%; border-collapse: collapse; font-size: 7.1pt;
-             table-layout: fixed; }
-  table.n2 th, table.n2 td { border: 0.5pt solid #9aa7b4; padding: 3pt 2.5pt;
-             vertical-align: top; line-height: 1.2; }
-  table.n2 th { background: #24405c; color: #fff; font-size: 7.4pt; text-align: center; }
-  table.n2 th.ext, table.n2 td.ext { background: #f1f1f1; color: #222; width: 13.5%; }
-  table.n2 th.ext { background: #5c6b7a; color: #fff; }
-  table.n2 td.diag { background: #dce7f5; font-weight: bold; color: #14233a; }
+         font-size: 10pt; margin: 0; color: #000; }
+  .hdr { font-size: 9.5pt; line-height: 1.2; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 4pt 0 5pt; }
+  h1 { font-size: 10.5pt; text-align: center; margin: 0 0 5pt; }
+  p { text-align: justify; margin: 0 0 4pt; line-height: 1.32; font-size: 9.5pt; }
+  .fig { margin: 3pt 0 2pt; text-align: center; }
+  .fig svg { width: 97%; }
+  .cap { font-size: 8.5pt; text-align: center; margin: 0; line-height: 1.25; }
+  table.n2 { width: 100%; border-collapse: collapse; font-size: 6.1pt;
+             table-layout: fixed; margin: 4pt 0 5pt; }
+  table.n2 th, table.n2 td { border: 0.5pt solid #9aa7b4; padding: 2pt 1.6pt;
+             vertical-align: top; line-height: 1.16; height: 30pt; }
+  table.n2 th { background: #24405c; color: #fff; text-align: center; font-size: 7pt;
+             height: auto; }
+  table.n2 th.ext, table.n2 td.ext { width: 9.2%; }
+  table.n2 th.ext { background: #5c6b7a; }
+  table.n2 td.ext { background: #f1f1f1; font-size: 6pt; }
+  table.n2 td.diag { background: #dce7f5; font-weight: bold; color: #14233a;
+             text-align: center; font-size: 6.4pt; }
   .brk { page-break-before: always; }
 </style>
 
 <div class="hdr">
-  <b>Vance Vanvolkenburgh</b><br>
-  655.662 — Introduction to Healthcare Systems Engineering<br>
-  Module 4 | M4A1: Functional Diagrams
+  <b>Vance Vanvolkenburgh</b> &nbsp;|&nbsp; 655.662 — Introduction to Healthcare Systems Engineering
+  &nbsp;|&nbsp; Module 4 | M4A1: Functional Diagrams
 </div>
 <div class="rule"></div>
-
-<h1>Level 1 Functional Diagram and N&sup2; Diagram — PD-RPM Remote Care System</h1>
-
-<p>A function is something the system must <strong>do</strong>, stated without naming the thing that does it, so that alternatives can be traded against the same requirement later. The six Level 1 functions below are the complete top-level decomposition of PD-RPM. The boundary is the one fixed earlier in the semester: the PD cycler, the EHR, and clinical decision authority sit outside it. Every flow is numbered; Table 1 gives its content and the N² diagram on page 2 places that same number in its interface cell.</p>
-
-<div class="fig"><svg viewBox="0 0 1000 585" width="100%" xmlns="http://www.w3.org/2000/svg"
+<h1>Level 1 Functional Diagram — PD-RPM Remote Care System</h1>
+<p>A function is <strong>what the system does</strong>, not what it is, and is written verb-noun so that the physical solution stays open for the trade study. Figure 1 places the twelve Level 1 functions of the PD-RPM remote care system inside the context diagram established earlier in the semester: inputs enter from the left, outputs leave to the right, controls act from above, and enablers support from below. Each arrow is labeled with the <strong>noun</strong> that passes between functions, and the output of one function is the input of the next.</p>
+<div class="fig"><svg viewBox="0 0 1565 850" width="100%" xmlns="http://www.w3.org/2000/svg"
   font-family="Arial, Helvetica, sans-serif">
 <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7"
   orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#24405c"/></marker></defs>
 
-<rect x="215" y="58" width="700" height="502" rx="8" fill="none" stroke="#24405c"
-  stroke-width="2" stroke-dasharray="9 5"/>
-<text x="226" y="80" font-size="16" font-weight="bold" fill="#24405c" letter-spacing="0.4">
-  SYSTEM BOUNDARY — PD-RPM Remote Care System</text>
+<rect x="150" y="100" width="1110" height="620" rx="8" fill="none" stroke="#24405c"
+  stroke-width="2.2" stroke-dasharray="10 6"/>
+<text x="164" y="126" font-size="16" font-weight="bold" fill="#24405c"
+  letter-spacing="0.4">SYSTEM BOUNDARY — PD-RPM Remote Care System</text>
 
-<rect x="14" y="100" width="175" height="56" rx="5" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="7 4"/><text x="101.5" y="123.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#444444">Patient /</text><text x="101.5" y="141" text-anchor="middle" font-size="15" fill="#555555">Care Partner</text>
-<rect x="14" y="180" width="175" height="56" rx="5" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="7 4"/><text x="101.5" y="203.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#444444">PD Cycler</text><text x="101.5" y="221" text-anchor="middle" font-size="15" fill="#555555">(external device)</text>
-<rect x="14" y="272" width="175" height="56" rx="5" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="7 4"/><text x="101.5" y="295.9" text-anchor="middle" font-size="18" font-weight="bold" fill="#444444">EHR</text><text x="101.5" y="313" text-anchor="middle" font-size="15" fill="#555555">(external)</text>
-<rect x="14" y="414" width="175" height="100" rx="5" fill="#f4f4f4" stroke="#8a8a8a" stroke-width="1.6" stroke-dasharray="7 4"/><text x="101.5" y="450.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#444444">Care Team</text><text x="101.5" y="467.5" text-anchor="middle" font-size="15" fill="#555555">nurse, nephrologist,</text><text x="101.5" y="486.5" text-anchor="middle" font-size="15" fill="#555555">home program</text>
+<!-- controls across the top -->
+<text x="380" y="36" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Health Policies</text><polyline points="380,48 380,96" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="710" y="36" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Health Laws</text><polyline points="710,48 710,96" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="1040" y="36" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Infrastructure Regulations</text><polyline points="1040,48 1040,96" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
 
-<rect x="238" y="100" width="400" height="56" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="438" y="133.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F1.0  Acquire Patient and Therapy Data</text>
-<rect x="238" y="186" width="400" height="56" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="438" y="219.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F2.0  Buffer and Transport Data</text>
-<rect x="238" y="272" width="400" height="56" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="438" y="305.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F3.0  Ingest and Normalize Data</text>
-<rect x="238" y="358" width="400" height="56" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="438" y="391.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F4.0  Detect Clinically Significant Events</text>
-<rect x="238" y="444" width="400" height="56" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="438" y="477.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F5.0  Present and Escalate for Action</text>
-<rect x="705" y="100" width="170" height="400" rx="5" fill="#eaf1fa" stroke="#24405c" stroke-width="1.6"/><text x="790" y="267.4" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">F6.0</text><text x="790" y="284.5" text-anchor="middle" font-size="15" fill="#33465e">Manage</text><text x="790" y="303.5" text-anchor="middle" font-size="15" fill="#33465e">Configuration,</text><text x="790" y="322.5" text-anchor="middle" font-size="15" fill="#33465e">Security, and</text><text x="790" y="341.5" text-anchor="middle" font-size="15" fill="#33465e">System Health</text>
+<!-- enablers across the bottom -->
+<text x="380" y="806" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Infrastructure</text><polyline points="380,788 380,724" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="710" y="806" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Geography</text><polyline points="710,788 710,724" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="1040" y="806" text-anchor="middle" font-size="17" font-weight="bold" fill="#41566b">Personnel</text><polyline points="1040,788 1040,724" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
 
-<polyline points="330,156 330,184" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="304" cy="170" r="10.5" fill="#24405c"/><text x="304" y="175.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">5</text>
-<polyline points="330,242 330,270" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="304" cy="256" r="10.5" fill="#24405c"/><text x="304" y="261.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">6</text>
-<polyline points="330,328 330,356" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="304" cy="342" r="10.5" fill="#24405c"/><text x="304" y="347.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">8</text>
-<polyline points="330,414 330,442" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="304" cy="428" r="10.5" fill="#24405c"/><text x="304" y="433.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">9</text>
-<polyline points="540,270 540,244" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="566" cy="257" r="10.5" fill="#24405c"/><text x="566" y="262.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">7</text>
-<polyline points="540,442 540,416" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="566" cy="429" r="10.5" fill="#24405c"/><text x="566" y="434.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">10</text>
+<!-- inputs on the left -->
+<text x="136" y="202" text-anchor="end" font-size="17" font-weight="bold" fill="#41566b">Patient</text>
+<text x="136" y="287" text-anchor="end" font-size="17" font-weight="bold" fill="#41566b">PD Cycler</text>
+<text x="136" y="624" text-anchor="end" font-size="17" font-weight="bold" fill="#41566b">Care Partner</text>
+<polyline points="142,197 178,197" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<polyline points="142,282 178,225" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<polyline points="142,619 178,619" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="285" y="152" text-anchor="middle" font-size="14.5" fill="#33465e">Patient Vitals and Symptoms</text>
+<text x="300" y="302" text-anchor="middle" font-size="14.5" fill="#33465e">Cycler Session Record</text>
+<text x="300" y="672" text-anchor="middle" font-size="14.5" fill="#33465e">Link Setup Actions</text>
 
-<polyline points="703,115 641,115" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="115" r="10.5" fill="#24405c"/><text x="671" y="120.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">11</text><polyline points="640,141 702,141" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="141" r="10.5" fill="#24405c"/><text x="671" y="146.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">16</text>
-<polyline points="703,201 641,201" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="201" r="10.5" fill="#24405c"/><text x="671" y="206.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">12</text><polyline points="640,227 702,227" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="227" r="10.5" fill="#24405c"/><text x="671" y="232.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">17</text>
-<polyline points="703,287 641,287" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="287" r="10.5" fill="#24405c"/><text x="671" y="292.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">13</text><polyline points="640,313 702,313" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="313" r="10.5" fill="#24405c"/><text x="671" y="318.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">18</text>
-<polyline points="703,373 641,373" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="373" r="10.5" fill="#24405c"/><text x="671" y="378.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">14</text><polyline points="640,399 702,399" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="399" r="10.5" fill="#24405c"/><text x="671" y="404.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">19</text>
-<polyline points="703,459 641,459" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="459" r="10.5" fill="#24405c"/><text x="671" y="464.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">15</text><polyline points="640,485 702,485" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="671" cy="485" r="10.5" fill="#24405c"/><text x="671" y="490.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">20</text>
+<!-- outputs on the right -->
+<polyline points="1232,300 1292,300" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<polyline points="1232,340 1292,340" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<polyline points="1232,474 1292,474" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/>
+<text x="1300" y="296" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Patient Therapy</text>
+<text x="1300" y="316" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Trends</text>
+<text x="1300" y="336" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Monitoring System</text>
+<text x="1300" y="356" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Status</text>
+<text x="1300" y="470" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Escalated Care</text>
+<text x="1300" y="490" text-anchor="start" font-size="17" font-weight="bold" fill="#41566b">Alert</text>
 
-<polyline points="191,128 235,118" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="123" r="10.5" fill="#24405c"/><text x="213" y="128.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">1</text>
-<polyline points="191,208 235,140" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="174" r="10.5" fill="#24405c"/><text x="213" y="179.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">2</text>
-<polyline points="191,288 235,288" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="288" r="10.5" fill="#24405c"/><text x="213" y="293.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">3</text>
-<polyline points="236,312 192,312" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="312" r="10.5" fill="#24405c"/><text x="213" y="317.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">21</text>
-<polyline points="191,430 235,398" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="414" r="10.5" fill="#24405c"/><text x="213" y="419.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">4</text>
-<polyline points="236,478 192,492" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><circle cx="213" cy="485" r="10.5" fill="#24405c"/><text x="213" y="490.2" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffffff">22</text>
+<rect x="180" y="175" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="260" y="200" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">1. Receive</text><text x="260" y="220" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Data</text>
+<rect x="380" y="175" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="460" y="200" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">2. Buffer</text><text x="460" y="220" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Data</text>
+<rect x="180" y="590" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="260" y="615" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">3. Set Up</text><text x="260" y="635" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Link</text>
+<rect x="380" y="590" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="460" y="615" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">4. Verify</text><text x="460" y="635" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Link</text>
+<rect x="540" y="290" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="620" y="315" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">5. Format</text><text x="620" y="335" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Data</text>
+<rect x="710" y="290" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="790" y="315" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">6. Transfer</text><text x="790" y="335" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Home Data</text>
+<rect x="880" y="290" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="960" y="315" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">7. Receive</text><text x="960" y="335" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Center Data</text>
+<rect x="540" y="445" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="620" y="470" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">8. Normalize</text><text x="620" y="490" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Center Data</text>
+<rect x="710" y="445" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="790" y="470" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">9. Trend</text><text x="790" y="490" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Center Data</text>
+<rect x="880" y="445" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="960" y="470" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">10. Evaluate</text><text x="960" y="490" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Alert Rules</text>
+<rect x="1070" y="290" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="1150" y="315" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">11. Display</text><text x="1150" y="335" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Care Views</text>
+<rect x="1070" y="445" width="160" height="58" rx="4" fill="#eaf1fa" stroke="#24405c" stroke-width="1.7"/><text x="1150" y="470" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">12. Escalate</text><text x="1150" y="490" text-anchor="middle" font-size="18" font-weight="bold" fill="#14233a">Care Alert</text>
+
+<!-- flows, each labeled with the noun that passes -->
+<polyline points="340,204 378,204" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="359" y="252" text-anchor="middle" font-size="14.5" fill="#33465e">Raw Home Data</text>
+<polyline points="460,235 460,256 620,256 620,286" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="648" y="248" text-anchor="start" font-size="14.5" fill="#33465e">Buffered Home Data</text>
+<polyline points="340,619 378,619" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="359" y="582" text-anchor="middle" font-size="14.5" fill="#33465e">Configured Home Link</text>
+<polyline points="505,588 505,312 536,312" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="497" y="470" text-anchor="end" font-size="14.5" fill="#33465e">Verified Home Link</text>
+<polyline points="700,319 708,319" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="704" y="280" text-anchor="middle" font-size="14.5" fill="#33465e">Packaged Home Data</text>
+<polyline points="870,319 878,319" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="878" y="280" text-anchor="middle" font-size="14.5" fill="#33465e">Transmitted Home Data</text>
+<polyline points="960,348 960,390 620,390 620,441" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="700" y="382" text-anchor="middle" font-size="14.5" fill="#33465e">Received Center Data</text>
+<polyline points="700,474 708,474" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="704" y="435" text-anchor="middle" font-size="14.5" fill="#33465e">Normalized Center Data</text>
+<polyline points="870,474 878,474" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="878" y="435" text-anchor="middle" font-size="14.5" fill="#33465e">Patient Trend Series</text>
+<polyline points="1042,460 1055,460 1055,318 1066,318" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="1046" y="395" text-anchor="end" font-size="14.5" fill="#33465e">Flagged Event</text>
+<text x="1046" y="413" text-anchor="end" font-size="14.5" fill="#33465e">and Trend</text>
+<polyline points="1042,485 1066,485" fill="none" stroke="#24405c" stroke-width="1.7" marker-end="url(#ah)"/><text x="1054" y="527" text-anchor="middle" font-size="14.5" fill="#33465e">Flagged Event and Trend</text>
 </svg></div>
-<p class="cap"><b>Figure 1.</b> Level 1 functional diagram. Boxes inside the dashed boundary are functions
-the system performs; gray dashed boxes are external elements it interfaces with but does not perform.
-Numbered circles key to Table 1.</p>
-
-<h2>Table 1. Flow legend</h2>
-<div class="two">
-  <div><table class="fl"><tr><td class="n">1</td><td class="ft">Patient / Care Partner → F1.0</td><td>Weight, BP, symptom and exit-site entries</td></tr><tr><td class="n">2</td><td class="ft">PD Cycler (external) → F1.0</td><td>Volumes, dwell times, net UF, alarms</td></tr><tr><td class="n">3</td><td class="ft">EHR (external) → F3.0</td><td>Demographics, prescription of record</td></tr><tr><td class="n">4</td><td class="ft">Care Team → F4.0</td><td>Prescription changes and clinical annotations</td></tr><tr><td class="n">5</td><td class="ft">F1.0 → F2.0</td><td>Timestamped observation set</td></tr><tr><td class="n">6</td><td class="ft">F2.0 → F3.0</td><td>Encrypted upload, 30 min of session end</td></tr><tr><td class="n">7</td><td class="ft">F3.0 → F2.0</td><td>Receipt acknowledgment; releases buffer</td></tr><tr><td class="n">8</td><td class="ft">F3.0 → F4.0</td><td>Normalized, unit-consistent time series</td></tr><tr><td class="n">9</td><td class="ft">F4.0 → F5.0</td><td>Flagged event, severity, supporting trend</td></tr><tr><td class="n">10</td><td class="ft">F5.0 → F4.0</td><td>Clinician disposition: actionable or not</td></tr><tr><td class="n">11</td><td class="ft">F6.0 → F1.0</td><td>Device configuration and acquisition schedule</td></tr></table></div>
-  <div><table class="fl"><tr><td class="n">12</td><td class="ft">F6.0 → F2.0</td><td>Credentials, certificates, transport policy</td></tr><tr><td class="n">13</td><td class="ft">F6.0 → F3.0</td><td>Data model and mapping configuration</td></tr><tr><td class="n">14</td><td class="ft">F6.0 → F4.0</td><td>Threshold and detection rule parameters</td></tr><tr><td class="n">15</td><td class="ft">F6.0 → F5.0</td><td>Notification routing and on-call roster</td></tr><tr><td class="n">16</td><td class="ft">F1.0 → F6.0</td><td>Device health and connectivity status</td></tr><tr><td class="n">17</td><td class="ft">F2.0 → F6.0</td><td>Buffer depth and transfer latency</td></tr><tr><td class="n">18</td><td class="ft">F3.0 → F6.0</td><td>Ingest completeness and rejected-record log</td></tr><tr><td class="n">19</td><td class="ft">F4.0 → F6.0</td><td>Rule execution and detection performance log</td></tr><tr><td class="n">20</td><td class="ft">F5.0 → F6.0</td><td>Delivery confirmation and ack timing</td></tr><tr><td class="n">21</td><td class="ft">F3.0 → EHR (external)</td><td>Treatment summaries written back</td></tr><tr><td class="n">22</td><td class="ft">F5.0 → Care Team</td><td>Triage queue views, alerts, and pages</td></tr></table></div>
-</div>
+<p class="cap"><b>Figure 1.</b> Level 1 functional diagram, drawn as a functional overlay on the PD-RPM
+context diagram. Twelve verb-noun functions; every flow labeled with the noun that passes.</p>
 
 <div class="brk"></div>
 <h1>N&sup2; Diagram — PD-RPM Remote Care System</h1>
-<p>The N² diagram below carries the same six functions on its diagonal. <strong>Outputs leave a function horizontally along its row; inputs enter a function vertically down its column</strong>, so the cell at row F3.0 and column F4.0 holds what F3.0 delivers to F4.0. A blank cell means no interface exists between that ordered pair. External interfaces are carried in the flanking columns rather than omitted, since the boundary crossings are where this system is most likely to fail.</p>
+<p>The N² diagram carries the same twelve functions on its diagonal and the same nouns in its cells. <strong>Outputs leave a function horizontally along its row; inputs enter vertically down its column</strong>, so the cell at row 8 and column 9 holds what function 8 delivers to function 9. External inputs and outputs are carried in the flanking columns.</p>
 <table class="n2">
-<tr><th class="ext">Inputs from outside<br>the boundary</th>
-<th>F1.0</th><th>F2.0</th><th>F3.0</th><th>F4.0</th><th>F5.0</th><th>F6.0</th>
-<th class="ext">Outputs beyond<br>the boundary</th></tr>
+<tr><th class="ext">External inputs</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th>
+<th class="ext">External outputs</th></tr>
 <tr>
-  <td class="ext">1 vitals, symptom and exit-site entries (Patient / Care Partner)<br>2 treatment records (PD Cycler)</td>
-  <td class="diag">F1.0 Acquire Patient and Therapy Data</td><td>5 observation set</td><td></td><td></td><td></td><td>16 device health status</td>
-  <td class="ext"></td>
-</tr><tr>
-  <td class="ext"></td>
-  <td></td><td class="diag">F2.0 Buffer and Transport Data</td><td>6 encrypted upload</td><td></td><td></td><td>17 buffer depth, latency</td>
-  <td class="ext"></td>
-</tr><tr>
-  <td class="ext">3 demographics, prescription of record (EHR)</td>
-  <td></td><td>7 receipt acknowledgment</td><td class="diag">F3.0 Ingest and Normalize Data</td><td>8 normalized time series</td><td></td><td>18 ingest completeness</td>
-  <td class="ext">21 treatment summaries (EHR)</td>
-</tr><tr>
-  <td class="ext">4 prescription changes, clinical annotations (Care Team)</td>
-  <td></td><td></td><td></td><td class="diag">F4.0 Detect Clinically Significant Events</td><td>9 flagged event + severity</td><td>19 rule execution log</td>
-  <td class="ext"></td>
-</tr><tr>
-  <td class="ext"></td>
-  <td></td><td></td><td></td><td>10 clinician disposition</td><td class="diag">F5.0 Present and Escalate for Action</td><td>20 delivery confirmation</td>
-  <td class="ext">22 queue views, alerts, pages (Care Team)</td>
-</tr><tr>
-  <td class="ext"></td>
-  <td>11 device configuration</td><td>12 credentials, policy</td><td>13 mapping configuration</td><td>14 threshold parameters</td><td>15 routing, on-call roster</td><td class="diag">F6.0 Manage Configuration, Security, System Health</td>
-  <td class="ext"></td>
-</tr>
+<td class="ext">Patient Vitals and Symptoms <i>(Patient)</i><br>Cycler Session Record <i>(PD Cycler)</i></td>
+<td class="diag">1. Receive<br>Home Data</td><td>Raw Home Data</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td class="diag">2. Buffer<br>Home Data</td><td></td><td></td><td>Buffered Home Data</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext">Link Setup Actions <i>(Care Partner)</i></td>
+<td></td><td></td><td class="diag">3. Set Up<br>Home Link</td><td>Configured Home Link</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td class="diag">4. Verify<br>Home Link</td><td>Verified Home Link</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td class="diag">5. Format<br>Home Data</td><td>Packaged Home Data</td><td></td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td class="diag">6. Transfer<br>Home Data</td><td>Transmitted Home Data</td><td></td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">7. Receive<br>Center Data</td><td>Received Center Data</td><td></td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">8. Normalize<br>Center Data</td><td>Normalized Center Data</td><td></td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">9. Trend<br>Center Data</td><td>Patient Trend Series</td><td></td><td></td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">10. Evaluate<br>Alert Rules</td><td>Flagged Event and Trend</td><td>Flagged Event and Trend</td>
+<td class="ext"></td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">11. Display<br>Care Views</td><td></td>
+<td class="ext">Patient Therapy Trends<br>Monitoring System Status</td></tr><tr>
+<td class="ext"></td>
+<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="diag">12. Escalate<br>Care Alert</td>
+<td class="ext">Escalated Care Alert</td></tr>
 </table>
-<p style="margin-top:7pt"><strong>Alignment check.</strong> All twenty-two numbered flows in Figure 1 appear exactly once in the matrix: flows 1–4 in the left column, 5–20 in the sixteen populated off-diagonal cells, and 21–22 in the right column. Fourteen of the thirty off-diagonal pairs are empty, which is itself a result — it says acquisition never talks to detection directly, and that every path to a clinician passes through F5.0.</p>
+<p><strong>Alignment check.</strong> All 11 internal flows in Figure 1 appear once in the matrix, and the three external inputs and three external outputs appear in the flanking columns. The empty cells are a result in their own right: the matrix is almost strictly upper-triangular, which says the system is a one-way pipeline with no function feeding anything upstream of itself — every loop in this system closes through a clinician, outside the boundary. Controls and enablers act on all twelve functions and are shown in the frame of Figure 1 rather than repeated in every row.</p>

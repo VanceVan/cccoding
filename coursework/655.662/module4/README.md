@@ -34,8 +34,9 @@ Construction and Analysis**.
 4. Attend and participate in the synchronous session.
 
 > **No INCOSE quiz this module.** The course outline lists "INCOSE Handbook
-> Reading & Quiz" under Modules 1, 2, 3 and 6, but not under Modules 4 or 5.
-> Quiz #4, if it exists, belongs to Module 6.
+> Reading & Quiz" under Modules 1, 2, 3 and 6, but not under Module 4.
+> *(Correction, confirmed from the Module 5 Canvas page: quiz #4 is in Module 5,
+> even though the outline does not list it there. The outline undercounts.)*
 
 > The M3D1 peer replies are carried here, not in Module 3 — initial post was due
 > Day 7 of Module 3, replies Day 7 of Module 4. Two replies are drafted

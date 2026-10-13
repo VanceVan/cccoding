@@ -105,8 +105,9 @@ Outstanding: two peer replies on M1D2, drafted and ready to post.
 
 ## Module 4 additions (Functional Construction and Analysis)
 
-- **No INCOSE quiz in Modules 4 and 5.** The course outline lists the INCOSE
-  reading and quiz only under Modules 1, 2, 3 and 6.
+- **INCOSE quizzes do not match the course outline.** The outline lists the INCOSE
+  reading and quiz under Modules 1, 2, 3 and 6 only, but the Module 5 Canvas to-do
+  asks for quiz #4. Trust the Canvas module page over the outline.
 - **openpyxl** is not installed by default in this container; `pip install
   openpyxl` works. Dump a workbook with a script kept outside the upload
   directory and run it as `python3 -I script.py <path>`.

@@ -50,61 +50,91 @@ const IF = [
 ];
 
 // --------------------------------------------------------------- diagram ----
-const IN_ = { fill: '#eaf1fa', stroke: '#24405c', t: '#14233a', s: '#33465e' };
-const EX_ = { fill: '#f4f4f4', stroke: '#8a8a8a', t: '#444', s: '#555' };
-const SEL  = { fill: '#dcebdc', stroke: '#2f6b36', t: '#1d3f22', s: '#2f4a33' };
+const W_ = (t, px) => t.length * px * 0.56;
 
-function box(x, y, w, h, id, lines, kind) {
-  const c = kind === 'ext' ? EX_ : kind === 'sel' ? SEL : IN_;
+function box(x, y, w, h, id, lines, ext) {
   const cx = x + w / 2;
-  const total = 17 + lines.length * 17;
-  const ty = y + (h - total) / 2 + 14;
-  let o = `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="4" fill="${c.fill}" ` +
-          `stroke="${c.stroke}" stroke-width="1.7"${kind === 'ext' ? ' stroke-dasharray="7 4"' : ''}/>`;
-  o += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="17" font-weight="bold" ` +
-       `fill="${c.t}">${esc(id)}</text>`;
+  const total = 16 + lines.length * 15;
+  const ty = y + (h - total) / 2 + 13;
+  let o = `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${ext ? '#efefef' : '#ffffff'}" ` +
+          `stroke="#1a1a1a" stroke-width="1.1"${ext ? ' stroke-dasharray="5 3"' : ''}/>`;
+  o += `<text x="${cx}" y="${ty}" text-anchor="middle" font-size="15.5" font-weight="bold" ` +
+       `fill="#000">${esc(id)}</text>`;
   lines.forEach((t, i) => {
-    o += `<text x="${cx}" y="${ty + 17 + i * 17}" text-anchor="middle" font-size="13.5" ` +
-         `fill="${c.s}">${esc(t)}</text>`;
+    o += `<text x="${cx}" y="${ty + 16 + i * 15}" text-anchor="middle" font-size="12.5" ` +
+         `fill="#000">${esc(t)}</text>`;
   });
   return o;
 }
-const grp = (x, y, w, h, label) =>
-  `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="7" fill="none" stroke="#7a8da0" ` +
-  `stroke-width="1.3" stroke-dasharray="5 4"/>` +
-  `<text x="${x + 11}" y="${y + 22}" font-size="15" font-weight="bold" fill="#41566b" ` +
-  `letter-spacing="0.4">${esc(label)}</text>`;
-const ar = (pts, both) => `<polyline points="${pts}" fill="none" stroke="#24405c" ` +
-  `stroke-width="1.6" marker-end="url(#ah)"${both ? ' marker-start="url(#ah)"' : ''}/>`;
-const tag = (x, y, t) =>
-  `<rect x="${x - 17}" y="${y - 9}" width="34" height="17" rx="3" fill="#24405c"/>` +
-  `<text x="${x}" y="${y + 4}" text-anchor="middle" font-size="12" font-weight="bold" ` +
-  `fill="#fff">${esc(t)}</text>`;
+
+// zone outline with the title straddling the border, as on a drawing sheet
+const grp = (x, y, w, h, label) => {
+  const lw = W_(label, 13) + 14;
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="none" stroke="#8a8a8a" ` +
+    `stroke-width="1"/>` +
+    `<rect x="${x + 12}" y="${y - 8}" width="${lw}" height="16" fill="#ffffff"/>` +
+    `<text x="${x + 19}" y="${y + 4}" font-size="13" font-weight="bold" fill="#000">${esc(label)}</text>`;
+};
+
+const ar = (pts, both) => `<polyline points="${pts}" fill="none" stroke="#1a1a1a" ` +
+  `stroke-width="1.1" marker-end="url(#ah)"${both ? ' marker-start="url(#ah)"' : ''}/>`;
+
+// plain interface tag on a white backing so it stays readable where lines run close
+const tag = (x, y, t, anchor) => {
+  const w = W_(t, 12) + 6, a = anchor || 'middle';
+  const rx = a === 'start' ? x - 3 : a === 'end' ? x - w + 3 : x - w / 2;
+  return `<rect x="${rx}" y="${y - 9}" width="${w}" height="12" fill="#ffffff"/>` +
+         `<text x="${x}" y="${y}" text-anchor="${a}" font-size="12" fill="#000">${esc(t)}</text>`;
+};
+
+const tb = (x, y, rows) => {
+  const w = 330, rh = 21;
+  let o = `<rect x="${x}" y="${y}" width="${w}" height="${rh * rows.length}" fill="#ffffff" ` +
+          `stroke="#1a1a1a" stroke-width="1.1"/>`;
+  rows.forEach(([k, v], i) => {
+    const ry = y + i * rh;
+    if (i) o += `<line x1="${x}" y1="${ry}" x2="${x + w}" y2="${ry}" stroke="#1a1a1a" stroke-width="0.6"/>`;
+    o += `<text x="${x + 7}" y="${ry + 14.5}" font-size="11.5" fill="#000">${esc(k)}</text>`;
+    o += `<text x="${x + 112}" y="${ry + 14.5}" font-size="11.5" font-weight="${i ? 'normal' : 'bold'}" ` +
+         `fill="#000">${esc(v)}</text>`;
+  });
+  o += `<line x1="${x + 105}" y1="${y}" x2="${x + 105}" y2="${y + rh * rows.length}" ` +
+       `stroke="#1a1a1a" stroke-width="0.6"/>`;
+  return o;
+};
+
+const NOTES = [
+  '1.  Dashed outline denotes an element outside the system boundary. An interface to it is',
+  '     defined and controlled; the element itself is not built by this program.',
+  '2.  HG-1 is the alternative selected by the M4A2 trade study (dedicated LTE-M gateway).',
+  '3.  I-15 (device management) is tunnelled over I-7 → I-6 → I-5. No separate physical link.',
+  '4.  Interface identifiers I-1 through I-16 are specified in Table 2, sheet 2.',
+];
 
 const svg = `<svg viewBox="0 0 1500 700" width="100%" xmlns="http://www.w3.org/2000/svg"
   font-family="Arial, Helvetica, sans-serif">
-<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5"
-  orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#24405c"/></marker></defs>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6"
+  orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1a1a1a"/></marker></defs>
 
-${grp(20, 90, 400, 470, 'HOME SEGMENT — patient residence')}
-${box(35, 130, 190, 54, 'CY-1', ['PD Cycler (external)'], 'ext')}
+${grp(20, 90, 400, 320, 'Home — patient residence')}
+${box(35, 130, 190, 54, 'CY-1', ['PD Cycler'], true)}
 ${box(35, 194, 190, 54, 'BP-1', ['Blood Pressure Monitor'])}
 ${box(35, 258, 190, 54, 'SC-1', ['Weight Scale'])}
 ${box(35, 322, 190, 54, 'PT-1', ['Patient Tablet + App'])}
-${box(250, 194, 155, 182, 'HG-1', ['Home Gateway', 'LTE-M cellular', 'store-and-forward', '(selected in M4A2)'], 'sel')}
-${ar('227,157 246,228')}${tag(243, 170, 'I-1')}
-${ar('227,221 246,254')}${tag(243, 222, 'I-2')}
-${ar('227,285 246,285')}${tag(243, 272, 'I-3')}
-${ar('227,349 246,342')}${tag(243, 338, 'I-4')}
+${box(250, 194, 155, 182, 'HG-1', ['Home Gateway', 'LTE-M cellular', 'store-and-forward', '(per M4A2)'])}
+${ar('227,157 246,228')}${tag(238, 180, 'I-1')}
+${ar('227,221 246,254')}${tag(238, 230, 'I-2')}
+${ar('227,285 246,285')}${tag(238, 278, 'I-3')}
+${ar('227,349 246,342')}${tag(238, 358, 'I-4')}
 
-${grp(450, 90, 190, 470, 'TRANSPORT')}
-${box(462, 210, 166, 70, 'CN-1', ['LTE-M Carrier', 'Network (external)'], 'ext')}
-${box(462, 320, 166, 70, 'IN-1', ['Public Internet', '(external)'], 'ext')}
-${ar('407,275 460,258', true)}${tag(432, 232, 'I-5')}
-${ar('545,282 545,318', true)}${tag(575, 302, 'I-6')}
-${ar('630,345 686,175', true)}${tag(672, 250, 'I-7')}
+${grp(450, 90, 190, 330, 'Transport')}
+${box(462, 210, 166, 70, 'CN-1', ['LTE-M Carrier Network'], true)}
+${box(462, 320, 166, 70, 'IN-1', ['Public Internet'], true)}
+${ar('407,275 460,258', true)}${tag(430, 252, 'I-5')}
+${ar('545,282 545,318', true)}${tag(562, 304, 'I-6', 'start')}
+${ar('630,345 686,175', true)}${tag(668, 262, 'I-7', 'end')}
 
-${grp(670, 90, 470, 470, 'MONITORING CENTER — dialysis organization')}
+${grp(670, 90, 470, 470, 'Monitoring center — dialysis organization')}
 ${box(690, 130, 200, 58, 'EG-1', ['Edge / API Gateway'])}
 ${box(690, 206, 200, 58, 'IS-1', ['Ingest & Normalization'])}
 ${box(690, 282, 200, 58, 'DS-1', ['Data Store'])}
@@ -115,33 +145,36 @@ ${box(920, 206, 200, 58, 'NG-1', ['Notification Gateway'])}
 ${box(920, 282, 200, 58, 'DM-1', ['Device Mgmt Server'])}
 ${box(920, 358, 200, 58, 'IM-1', ['Identity & Access Mgmt'])}
 ${box(920, 434, 200, 58, 'EI-1', ['EHR Integration Svc'])}
-${ar('760,188 760,204')}${tag(790, 196, 'I-8')}
-${ar('760,264 760,280')}${tag(790, 272, 'I-9')}
-${ar('760,340 760,356')}${tag(793, 348, 'I-10')}
-${ar('760,416 760,432')}${tag(793, 424, 'I-11')}
-<polyline points="905,140 905,482" fill="none" stroke="#24405c" stroke-width="2.4"/>
+${ar('752,188 752,204')}${tag(772, 200, 'I-8', 'start')}
+${ar('752,264 752,280')}${tag(772, 276, 'I-9', 'start')}
+${ar('752,340 752,356')}${tag(772, 352, 'I-10', 'start')}
+${ar('752,416 752,432')}${tag(772, 428, 'I-11', 'start')}
+<polyline points="905,146 905,478" fill="none" stroke="#1a1a1a" stroke-width="1.8"/>
 ${[159, 235, 311, 387, 463].map((y) => ar(`905,${y} 918,${y}`, true)).join('')}
 ${[311, 463].map((y) => ar(`905,${y} 892,${y}`, true)).join('')}
-${tag(905, 122, 'I-12')}
+${tag(905, 141, 'I-12')}
 
-${grp(1180, 90, 280, 290, 'CARE TEAM')}
+${grp(1180, 90, 280, 200, 'Care team')}
 ${box(1200, 130, 240, 58, 'CS-1', ['Clinician Workstation'])}
 ${box(1200, 206, 240, 58, 'MD-1', ['On-call Mobile Device'])}
-${ar('1122,159 1198,159', true)}${tag(1160, 146, 'I-13')}
-${ar('1122,235 1198,235')}${tag(1160, 222, 'I-14')}
+${ar('1122,159 1198,159', true)}${tag(1160, 154, 'I-13')}
+${ar('1122,235 1198,235')}${tag(1160, 230, 'I-14')}
 
-${box(920, 595, 200, 58, 'EH-1', ['EHR (external)'], 'ext')}
-${ar('1020,494 1020,593', true)}${tag(1053, 545, 'I-16')}
+${box(920, 595, 200, 58, 'EH-1', ['Electronic Health Record'], true)}
+${ar('1020,494 1020,593', true)}${tag(1036, 548, 'I-16', 'start')}
 
-<text x="20" y="612" font-size="13.5" fill="#33465e" font-style="italic">I-15 (device
-management: configuration, firmware, certificates) is tunneled over I-7 → I-6 → I-5 and adds no
-separate physical link.</text>
-<rect x="20" y="638" width="22" height="13" rx="2" fill="#dcebdc" stroke="#2f6b36" stroke-width="1.4"/>
-<text x="50" y="649" font-size="13.5" fill="#33465e">element fixed by the M4A2 trade study</text>
-<rect x="400" y="638" width="22" height="13" rx="2" fill="#f4f4f4" stroke="#8a8a8a"
-  stroke-width="1.4" stroke-dasharray="4 3"/>
-<text x="430" y="649" font-size="13.5" fill="#33465e">outside the system boundary — interface
-defined, element not built</text>
+<text x="24" y="455" font-size="13" font-weight="bold" fill="#000">NOTES</text>
+${NOTES.map((t, i) => `<text x="24" y="${474 + i * 16}" font-size="12.3" fill="#000">${esc(t)}</text>`).join('\n')}
+
+${tb(1150, 472, [
+  ['Drawing', 'PD-RPM Physical Architecture'],
+  ['System', 'PD-RPM Remote Care System'],
+  ['View', 'Physical (DoDAF SV-1 / SV-2)'],
+  ['Prepared by', 'V. Vanvolkenburgh'],
+  ['Course', 'EN.655.662, Module 5'],
+  ['Rev / Date', 'A  —  13 Oct 2026'],
+  ['Sheet', '1 of 2'],
+])}
 </svg>`;
 
 // ---------------------------------------------------------------- tables ----

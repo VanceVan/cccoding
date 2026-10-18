@@ -52,7 +52,7 @@ const P3 =
   '**defensive routines**, the habitual moves that protect us from embarrassment and seal in mediocrity. In ' +
   'this program the routine is predictable and it is attribution: the carrier says gateway, the firmware ' +
   'lead says carrier, the nurse says the system was down again. Each is defending against being the cause, ' +
-  'and the shared evidence log exists to make that defence unnecessary.';
+  'and the shared evidence log exists to make that defense unnecessary.';
 
 const P4 =
   '**Scenario: the phantom Sunday outage.** During the clinical pilot, eleven patients logged device-silent ' +

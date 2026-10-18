@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.8in 1in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 11pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 6pt 0 8pt; }
+  h1 { font-size: 11pt; text-align: center; margin: 0 0 3pt; }
+  .q { font-size: 10pt; font-style: italic; text-align: center; margin: 0 0 9pt; color: #333; }
+  p { text-align: justify; margin: 0 0 4pt; line-height: 1.55; }
+  table.t { width: 100%; border-collapse: collapse; font-size: 8.3pt; margin: 6pt 0 7pt; }
+  table.t th, table.t td { border: 0.6pt solid #1a1a1a; padding: 2.4pt 4pt;
+       vertical-align: top; line-height: 1.24; }
+  table.t th { background: #e4e4e4; text-align: left; }
+  table.t td.s { font-weight: bold; width: 92pt; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 6 | M6A2: Shared Vision
+</div>
+<div class="rule"></div>
+
+<h1>How a Shared Vision Enables the PD-RPM Remote Care System</h1>
+<p class="q">How can “Shared Vision” enable your remote care system?</p>
+
+<p>Senge defines a shared vision as the answer to one question — <em>what do we want to create?</em> — and insists it is not an idea but a force, drawing its power from <strong>common caring</strong>. It cannot be issued. It is assembled from the personal visions people already hold, which is why announcing a vision produces compliance while sharing one produces <strong>commitment</strong>. Chapter 10 ranks the possible responses: commitment, enrollment, genuine compliance, formal compliance, grudging compliance, noncompliance, apathy. Only the first two create anything. The rest keep a program alive without advancing it, and most systems are delivered by people somewhere in the middle of that list.</p>
+
+<table class="t">
+<tr><th>Stakeholder</th><th>Personal vision, in their own terms</th>
+<th>What it contributes to the shared vision</th></tr>
+<tr><td class="s">Patient</td><td>Keep working, keep my evenings, not be a patient all day</td><td>The therapy fits the life, not the reverse</td></tr><tr><td class="s">Care partner</td><td>Not be the one who missed something</td><td>The system watches so the family does not have to</td></tr><tr><td class="s">Home dialysis nurse</td><td>Catch the problem early without drowning in alerts</td><td>Attention is a finite clinical resource</td></tr><tr><td class="s">Nephrologist</td><td>Know whether the prescription change actually worked</td><td>Decisions are judged against data, not memory</td></tr><tr><td class="s">Home program manager</td><td>Grow census without growing technique failure</td><td>Retention, not enrollment, is the measure</td></tr><tr><td class="s">Dialysis organization</td><td>Shift the modality mix and have the economics hold</td><td>Home is viable at scale, not just possible</td></tr><tr><td class="s">Cycler maker, carrier, EHR vendor</td><td>Protect our own roadmaps and release cycles</td><td>Interfaces are negotiated, never dictated</td></tr><tr><td class="s">Payer (CMS)</td><td>Better outcomes for the same dollar</td><td>The measure is the patient-year, not the treatment</td></tr><tr><td class="s">Engineering team</td><td>Build something that is actually used</td><td>Adoption is the acceptance criterion</td></tr>
+</table>
+
+<p><strong>The vision, and why its wording matters.</strong> Read down that third column and one sentence covers all of it: <em>every patient who can dialyze at home does, and stays there.</em> It is deliberately <strong>positive</strong>. The default vision in a monitoring program is negative — do not miss a peritonitis, do not let the completeness parameter slip — and Senge’s objection to negative visions is that they carry a message of powerlessness and energize only while the threat is visible. A program run on <em>do not get caught missing something</em> earns grudging compliance from the nurse who closes alerts to clear a queue, which is precisely the behavior that ends home therapy.</p>
+<p><strong>Four mechanisms by which it enables the system.</strong> First, it settles requirements conflicts that data cannot. The trade between false alert rate and detection lead time has no technical answer; it has a vision answer, and <em>stays there</em> says protect the nurse’s attention, because an unread queue ends home therapy as surely as a missed infection. Second, it converts compliance into commitment at the point of use: the patient completes the sixty-second check because they want to stay home, not because an app nags. Third, it is the only coordinating mechanism available where authority is not. PD-RPM is an acknowledged system of systems — the cycler manufacturer, the carrier and the EHR vendor cannot be directed, only aligned. Fourth, it is the rudder Senge describes for when stress develops, and in engineering development stress always develops as schedule pressure.</p>
+<p><strong>Scenario: the week the alert threshold was argued.</strong> At the integration readiness review, analytics proposed tightening the ultrafiltration decline threshold from 20 percent to 12 percent, on the reasoning that it would catch more declining patients. The nurse lead objected: at 150 patients and one full-time equivalent, it would roughly triple queue volume. With no shared vision this is a stalemate settled by rank or by volume, and whoever loses complies formally and stops contributing. With <em>every patient who can dialyze at home does, and stays there</em> on the wall, the argument becomes answerable, because both positions are now claims about the same outcome: which threshold keeps more patients home at twelve months? Neither side had that number, so the review commissioned it rather than deciding. The interim setting stayed at 20 percent with a trend-direction qualifier — proposed by the nurse lead, who had arrived opposed and left having designed the compromise. That is the move from genuine compliance to <strong>enrollment</strong>, and it produced a better rule than either original position.</p>
+<p>The gap between the vision and the roughly one patient in eight currently dialyzing at home is large enough to be discouraging, which is Senge’s most common way for a vision to die. Held honestly against current reality it is <strong>creative tension</strong> instead: a source of energy rather than a reason to lower the target. That is what makes shared vision the right topic for this module. Advanced development is exactly where competing personal visions collide over what to build, and a program with nothing to arbitrate them resolves the collisions by seniority.</p>

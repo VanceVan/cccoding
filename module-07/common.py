@@ -6,7 +6,7 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
-NAVY=(0x1F,0x3B,0x73); AVAIL=6.5
+NAVY=(0x1F,0x3B,0x73); AVAIL=6.7
 def newdoc(margin=1.0, size=11.0):
     doc=Document(); st=doc.styles['Normal']
     st.font.name='Times New Roman'; st.font.size=Pt(size)
@@ -67,8 +67,8 @@ def mk(doc):
         trPr=t.rows[0]._tr.get_or_add_trPr(); th=OxmlElement('w:tblHeader'); th.set(qn('w:val'),'true'); trPr.append(th)
         for r_ in t.rows:
             cant=OxmlElement('w:cantSplit'); cant.set(qn('w:val'),'true'); r_._tr.get_or_add_trPr().append(cant)
-            for c_ in r_.cells:
-                for pp_ in c_.paragraphs: pp_.paragraph_format.keep_with_next=True
+        for c_ in t.rows[-1].cells:
+            for pp_ in c_.paragraphs: pp_.paragraph_format.keep_with_next=True
         return t
     def FIG(path,width,cap):
         doc.add_picture(path,width=Inches(width))

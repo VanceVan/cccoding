@@ -14,9 +14,10 @@ for the PDF. `common.py` is the shared python-docx helper (local copy; rows use
 `cantSplit`, and only the last row carries `keepNext`, so a long table breaks at
 a row boundary but keeps its caption).
 
-Figures are drawn as monochrome drafting sketches — black ink, square corners,
-section hatching, serif annotation, and a sketch wobble applied to the geometry
-but not the lettering. The fifteen concepts live on a single concept sheet
+Figures are plain technical line art: black lines, white fills, square corners,
+one diagonal hatch for machined solid, orthogonal connectors, serif annotation.
+No curves except where the geometry is genuinely round, and no decorative
+shading or random texture. The fifteen concepts live on a single concept sheet
 (Figure 2) rather than five separate figures.
 
 ### Structure

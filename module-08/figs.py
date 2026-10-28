@@ -15,7 +15,7 @@ INK = "#000000"; RED = "#c0392b"; GREY = "#8a8a8a"
 plt.rcParams.update({"font.family": "DejaVu Serif", "font.size": 6.2})
 
 TW, TH = 15.0, 5.4          # task box
-DW, DH = 8.0, 4.2           # decision half-extents
+DW, DH = 9.5, 4.4           # decision half-extents
 
 
 def task(ax, x, y, t, hard=False, w=TW, h=TH):
@@ -54,50 +54,49 @@ def label(ax, x, y, t):
 
 
 def build():
-    fig, ax = plt.subplots(figsize=(6.6, 3.2))
-    ax.set_xlim(0, 106); ax.set_ylim(0, 50); ax.set_aspect("equal"); ax.axis("off")
+    fig, ax = plt.subplots(figsize=(6.6, 3.0))
+    ax.set_xlim(0, 112); ax.set_ylim(0, 50); ax.set_aspect("equal"); ax.axis("off")
 
     R1, R2 = 42.0, 20.0
     oval(ax, 7, R1, "Start")
-    decision(ax, 23, R1, "Brakes\nlocked?")
-    task(ax, 42, R1, "Swing footplates\naside")
-    task(ax, 60, R1, "Scoot hips to\nseat edge", hard=True)
-    task(ax, 78, R1, "Place feet\nunder knees")
-    task(ax, 96, R1, "Lean trunk\nover feet")
+    task(ax, 26, R1, "Wheel to the\npool deck")
+    decision(ax, 49, R1, "Floor level\nwith deck?")
+    task(ax, 73, R1, "Roll chair onto\npool floor", hard=True, w=16.0)
+    task(ax, 96, R1, "Lock chair\nbrakes")
 
-    task(ax, 10, R2, "Push up from\narmrest and mat", hard=True)
-    task(ax, 29, R2, "Pivot on\nstance leg")
-    task(ax, 48, R2, "Lower hips\nonto mat")
-    decision(ax, 66, R2, "Seated\nsafely?")
-    task(ax, 84, R2, "Release\ngait belt")
-    oval(ax, 99, R2, "End")
+    task(ax, 10, R2, "Fit the\ngait belt")
+    task(ax, 29, R2, "Lower floor to\ntherapy depth", w=16.0)
+    decision(ax, 50, R2, "Depth\ncorrect?")
+    task(ax, 71, R2, "Stand up\nin water", hard=True)
+    task(ax, 89, R2, "Step onto the\ntreadmill")
+    oval(ax, 104, R2, "End")
 
-    for a, b in ((12.5, 14.8), (31.2, 34.2), (49.6, 52.4), (67.6, 70.4), (85.6, 88.4)):
+    for a, b in ((12.5, 17.6), (33.8, 38.6), (59.4, 64.2), (81.2, 87.6)):
         arrow(ax, a, R1, b, R1)
-    label(ax, 28.0, R1 + 1.8, "Yes")
+    label(ax, 62.0, R1 + 1.9, "Yes")
 
-    arrow(ax, 23, R1 - DH, 23, 35.3)
-    task(ax, 23, 33.0, "Lock wheel brakes", w=18.0, h=4.2)
-    path(ax, [(32.0, 33.0), (42.0, 33.0), (42.0, R1 - TH / 2)])
-    label(ax, 20.0, 36.6, "No")
+    arrow(ax, 49, R1 - DH, 49, 35.3)
+    task(ax, 49, 33.0, "Raise floor to deck level", w=21.0, h=4.2)
+    path(ax, [(59.5, 33.0), (73.0, 33.0), (73.0, R1 - TH / 2)])
+    label(ax, 45.5, 36.8, "No")
 
     path(ax, [(96, R1 - TH / 2), (96, 28.0), (10, 28.0), (10, R2 + TH / 2)])
 
-    for a, b in ((17.6, 21.2), (36.6, 40.2), (55.6, 57.6), (74.2, 76.3), (91.6, 93.3)):
+    for a, b in ((17.6, 20.6), (37.2, 40.0), (59.8, 63.2), (78.6, 81.2), (96.6, 99.2)):
         arrow(ax, a, R2, b, R2)
-    label(ax, 71.0, R2 + 1.8, "Yes")
+    label(ax, 61.5, R2 + 1.9, "Yes")
 
-    path(ax, [(66, R2 - DH), (66, 12.0), (29, 12.0), (29, R2 - TH / 2)])
-    label(ax, 63.0, 15.0, "No")
+    path(ax, [(50, R2 - DH), (50, 12.0), (29, 12.0), (29, R2 - TH / 2)])
+    label(ax, 47.0, 15.2, "No")
 
-    ax.add_patch(Rectangle((4, 1.2), 73, 7.8, fc="#f4f4f4", ec=GREY, lw=0.7, zorder=1))
+    ax.add_patch(Rectangle((4, 1.2), 76, 7.8, fc="#f4f4f4", ec=GREY, lw=0.7, zorder=1))
     ax.text(8.0, 5.1, "Key:", ha="left", va="center", fontsize=5.8, zorder=4)
-    oval(ax, 22, 5.1, "Delimiter")
-    ax.add_patch(Polygon([(38 - 6.6, 5.1), (38, 5.1 + 3.1), (38 + 6.6, 5.1), (38, 5.1 - 3.1)],
+    oval(ax, 23, 5.1, "Delimiter")
+    ax.add_patch(Polygon([(40 - 7.0, 5.1), (40, 5.1 + 3.1), (40 + 7.0, 5.1), (40, 5.1 - 3.1)],
                  closed=True, fc="white", ec=INK, lw=0.9, zorder=3))
-    ax.text(38, 5.1, "Decision", ha="center", va="center", fontsize=5.4, zorder=4)
-    task(ax, 55, 5.1, "Task", w=11.5, h=4.6)
-    task(ax, 70, 5.1, "Difficult task", hard=True, w=11.5, h=4.6)
+    ax.text(40, 5.1, "Decision", ha="center", va="center", fontsize=5.4, zorder=4)
+    task(ax, 57, 5.1, "Task", w=11.5, h=4.6)
+    task(ax, 72, 5.1, "Difficult task", hard=True, w=11.5, h=4.6)
 
     fig.savefig(f"{OUT}/fig1_task_analysis.png", dpi=320, bbox_inches="tight",
                 facecolor="white")

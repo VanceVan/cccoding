@@ -3,8 +3,35 @@
 EN.585.617.81.FA26 Rehabilitation Engineering
 
 ## Status
-Context ingested. **No assignment prompt received yet** (the overview says
-"Assignments", plural — expect more than one).
+Context ingested. Assignment written; **four observational fields still blank.**
+
+## Deliverable
+`Module_08_Ethnography_Assignment.docx` / `.pdf` — 3 pages.
+
+Video: *Inpatient Rehabilitation Unit | Kennedy Krieger Institute*
+(https://www.youtube.com/watch?v=GABVP6ktGeY), segment **3:01–3:17**, the
+aquatic therapy center. That segment was chosen because it is the only one
+where the narration names an actual mechanism — pool floors on lifts giving
+barrier-free entry for wheelchair users, plus built-in treadmills and
+resistance jets — so a workflow can be grounded in what the video states
+rather than guessed.
+
+Build: `python3.13 figs.py` then `python3.13 doc.py`, then LibreOffice for the
+PDF. The flowchart uses the lecture's shape key (oval delimiter, diamond
+decision, plain task, red-outlined difficult task) and is parameterised in
+`build()` — swapping the step list is a one-minute edit.
+
+### Still to fill (⟨angle brackets⟩ in the document)
+YouTube is unreachable from this session and video cannot be watched here, so
+these four are left blank rather than invented:
+1. which of the two red steps the patient actually struggled with
+2. the patient's observable attitude toward it
+3. number of attempts
+4. elapsed time for the step, and for a neighbouring ordinary step
+
+Everything else — context, hazards, tools, the mechanism of difficulty for both
+candidate steps, remedies, and the design-requirement tie-in — is written from
+the narration and from the module readings.
 
 ## Module scope
 

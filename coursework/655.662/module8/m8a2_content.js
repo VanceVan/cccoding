@@ -15,11 +15,11 @@ const LEFT = [
 const RIGHT = [
   ['L5', 'Operational validation', 'Stage S8 · gate G8', 'intended users, intended environment',
    'Demonstration · Scenario A and B', 392, 50, 150, 58],
-  ['L4', 'System verification', 'Stages S6–S7 · gates G6–G7', 'full system, all interfaces live',
+  ['L4', 'System verification', 'Stages S6 to S7 · gates G6 to G7', 'full system, all interfaces live',
    'Test, Demonstration · Scenario A and B', 364, 120, 150, 58],
-  ['L3', 'Subsystem and integration test', 'Stages S4–S5 · gates G4–G5', 'platform and transport',
+  ['L3', 'Subsystem and integration test', 'Stages S4 to S5 · gates G4 to G5', 'platform and transport',
    'Test, Analysis · Scenario A', 336, 190, 150, 58],
-  ['L2', 'Component test', 'Stages S1–S3 · gates G1–G3', 'home segment assemblies',
+  ['L2', 'Component test', 'Stages S1 to S3 · gates G1 to G3', 'home segment assemblies',
    'Test, Inspection · Scenario A', 308, 260, 150, 58],
 ];
 
@@ -34,7 +34,7 @@ const DNOTES = [
   'Left leg defines, right leg tests. Each horizontal pair is a test obligation: nothing on the left',
   'is accepted until the level facing it on the right has passed.',
   'L1 unit test sits inside implementation at the vertex and is the entry bar for every stage.',
-  'L2 to L4 are verification — evidence against specified requirements. L5 alone is validation —',
+  'L2 to L4 are verification: evidence against specified requirements. L5 alone is validation,',
   'evidence that the system in use meets stakeholder needs, with intended users, at home.',
   'Scenario A (nominal path) is run at every level, growing in fidelity. Scenario B (exceptional',
   'path) is a total-system fault injection and runs only at L4 and L5.',
@@ -78,8 +78,21 @@ ${LINK.map(([x1, x2, y, lab]) => `
 <text x="208" y="340.4" font-size="7.3">Implementation and unit test</text>
 <text x="194" y="356" font-size="6.8">Code, firmware and hardware build</text>
 <text x="366" y="373" font-size="6.2" fill="#555" text-anchor="end">Inspection, Test</text>
-<line x1="177" y1="318" x2="228" y2="330" stroke="#1a1a1a" stroke-width="0.9"/>
+<line x1="93" y1="108" x2="121" y2="120" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="121" y1="178" x2="149" y2="190" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="149" y1="248" x2="177" y2="260" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="177" y1="318" x2="228" y2="330" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
 <line x1="332" y1="330" x2="383" y2="318" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="383" y1="260" x2="411" y2="248" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="411" y1="190" x2="439" y2="178" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="439" y1="120" x2="467" y2="108" stroke="#1a1a1a" stroke-width="0.9"
       marker-end="url(#b)"/>
 
 <rect x="18" y="398" width="344" height="100" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>

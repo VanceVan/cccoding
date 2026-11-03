@@ -133,7 +133,7 @@
         stroke-width="0.8"/>
   <text x="368" y="130.4" font-size="8" font-weight="bold">L4</text>
   <text x="385" y="130.4" font-size="7.3">System verification</text>
-  <text x="368" y="146" font-size="6.8">Stages S6–S7 · gates G6–G7</text>
+  <text x="368" y="146" font-size="6.8">Stages S6 to S7 · gates G6 to G7</text>
   <text x="368" y="156" font-size="6.8" fill="#333">full system, all interfaces live</text>
   <text x="510" y="173" font-size="6.2" fill="#555"
         text-anchor="end">Test, Demonstration · Scenario A and B</text>
@@ -145,7 +145,7 @@
         stroke-width="0.8"/>
   <text x="340" y="200.4" font-size="8" font-weight="bold">L3</text>
   <text x="357" y="200.4" font-size="7.3">Subsystem and integration test</text>
-  <text x="340" y="216" font-size="6.8">Stages S4–S5 · gates G4–G5</text>
+  <text x="340" y="216" font-size="6.8">Stages S4 to S5 · gates G4 to G5</text>
   <text x="340" y="226" font-size="6.8" fill="#333">platform and transport</text>
   <text x="482" y="243" font-size="6.2" fill="#555"
         text-anchor="end">Test, Analysis · Scenario A</text>
@@ -157,7 +157,7 @@
         stroke-width="0.8"/>
   <text x="312" y="270.4" font-size="8" font-weight="bold">L2</text>
   <text x="329" y="270.4" font-size="7.3">Component test</text>
-  <text x="312" y="286" font-size="6.8">Stages S1–S3 · gates G1–G3</text>
+  <text x="312" y="286" font-size="6.8">Stages S1 to S3 · gates G1 to G3</text>
   <text x="312" y="296" font-size="6.8" fill="#333">home segment assemblies</text>
   <text x="454" y="313" font-size="6.2" fill="#555"
         text-anchor="end">Test, Inspection · Scenario A</text>
@@ -189,8 +189,21 @@
 <text x="208" y="340.4" font-size="7.3">Implementation and unit test</text>
 <text x="194" y="356" font-size="6.8">Code, firmware and hardware build</text>
 <text x="366" y="373" font-size="6.2" fill="#555" text-anchor="end">Inspection, Test</text>
-<line x1="177" y1="318" x2="228" y2="330" stroke="#1a1a1a" stroke-width="0.9"/>
+<line x1="93" y1="108" x2="121" y2="120" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="121" y1="178" x2="149" y2="190" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="149" y1="248" x2="177" y2="260" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="177" y1="318" x2="228" y2="330" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
 <line x1="332" y1="330" x2="383" y2="318" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="383" y1="260" x2="411" y2="248" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="411" y1="190" x2="439" y2="178" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+<line x1="439" y1="120" x2="467" y2="108" stroke="#1a1a1a" stroke-width="0.9"
       marker-end="url(#b)"/>
 
 <rect x="18" y="398" width="344" height="100" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>
@@ -199,7 +212,7 @@
 <text x="22" y="422" font-size="6.4">Left leg defines, right leg tests. Each horizontal pair is a test obligation: nothing on the left</text>
 <text x="22" y="431.2" font-size="6.4">is accepted until the level facing it on the right has passed.</text>
 <text x="22" y="440.4" font-size="6.4">L1 unit test sits inside implementation at the vertex and is the entry bar for every stage.</text>
-<text x="22" y="449.6" font-size="6.4">L2 to L4 are verification — evidence against specified requirements. L5 alone is validation —</text>
+<text x="22" y="449.6" font-size="6.4">L2 to L4 are verification: evidence against specified requirements. L5 alone is validation,</text>
 <text x="22" y="458.8" font-size="6.4">evidence that the system in use meets stakeholder needs, with intended users, at home.</text>
 <text x="22" y="468" font-size="6.4">Scenario A (nominal path) is run at every level, growing in fidelity. Scenario B (exceptional</text>
 <text x="22" y="477.2" font-size="6.4">path) is a total-system fault injection and runs only at L4 and L5.</text>

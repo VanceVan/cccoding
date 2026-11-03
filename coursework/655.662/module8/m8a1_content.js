@@ -6,7 +6,7 @@ const TITLE = 'Integration Plan \u2014 Peritoneal Dialysis Remote Patient Monito
 
 // id, title, objects, interfaces, gate, hv, x, y, w, h
 const BOX = [
-  ['S0A', 'Element qualification — home segment',
+  ['S0A', 'Element qualification, home segment',
    'CY-1 simulator, BP-1, SC-1, PT-1, HG-1',
    'Entry bar: every configuration item verified against its B-spec',
    'G0', '', 20, 44, 235, 62],
@@ -14,14 +14,14 @@ const BOX = [
    'BP-1, SC-1, PT-1 joined to HG-1',
    'Closes I-2, I-3, I-4, I-17', 'G1', 'horizontal', 20, 124, 235, 62],
   ['S2', 'Cycler data interface',
-   'CY-1 to HG-1 — simulator first, production cycler second',
+   'CY-1 to HG-1; simulator first, then production cycler',
    'Closes I-1', 'G2', 'horizontal', 20, 204, 235, 62],
   ['S3', 'Home segment, uplink withheld',
    'S1 + S2 operating as one node',
    'Store-and-forward proven before the network can be blamed',
    'G3', 'vertical', 20, 284, 235, 62],
 
-  ['S0B', 'Element qualification — platform',
+  ['S0B', 'Element qualification, platform',
    'EG-1, IS-1, DS-1, AE-1, RE-1, NG-1, CW-1, IM-1, DM-1, EI-1',
    'Entry bar: every service verified against its B-spec',
    'G0', '', 285, 44, 235, 62],
@@ -30,16 +30,16 @@ const BOX = [
    'Closes I-8 to I-12; injector substitutes for the home segment',
    'G4', 'horizontal', 285, 124, 235, 142],
 
-  ['S5', 'Transport link — the two threads converge',
-   'HG-1 ↔ CN-1 ↔ IN-1 ↔ EG-1',
+  ['S5', 'Transport link, where the threads converge',
+   'HG-1 to CN-1 to IN-1 to EG-1',
    'Closes I-5, I-6, I-7', 'G5', 'vertical', 20, 380, 500, 62],
   ['S6', 'Care-team delivery',
-   'CW-1 → CS-1, NG-1 → MD-1, DM-1 → HG-1',
+   'CW-1 to CS-1; NG-1 to MD-1; DM-1 to HG-1',
    'Closes I-13, I-14, I-15', 'G6', 'horizontal', 20, 460, 500, 62],
   ['S7', 'EHR exchange',
-   'EI-1 ↔ EH-1 — vendor conformance sandbox, then health-system test instance',
+   'EI-1 to EH-1; vendor sandbox, then health-system test instance',
    'Closes I-16', 'G7', 'horizontal', 20, 540, 500, 62],
-  ['S8', 'Clinical pilot — VALIDATION, not verification',
+  ['S8', 'Clinical pilot: validation, not verification',
    'Full system with intended users in the intended environment',
    '20 patients, 60 days, every interface live', 'G8', 'vertical', 20, 620, 500, 62],
 ];
@@ -52,7 +52,7 @@ const NOTES = [
   'A fixed golden record set is replayed at every gate, so a defect first seen at Sn is',
   'attributable to the objects or interfaces added at Sn.',
   'Each gate freezes a configuration baseline before the next stage opens.',
-  'Increment 1 = S0–S3 · Increment 2 = S4–S6 · Increment 3 = S7–S8.',
+  'Increment 1 = S0 to S3; Increment 2 = S4 to S6; Increment 3 = S7 to S8.',
 ];
 
 const box = ([id, title, objs, ifs, gate, hv, x, y, w, h]) => {
@@ -83,12 +83,12 @@ const SVG = `<svg viewBox="0 0 560 800" width="88%"
   markerHeight="5.5" orient="auto-start-reverse">
   <path d="M0,1 L9,5 L0,9 z" fill="#1a1a1a"/></marker></defs>
 
-<text x="20" y="16" font-size="9.5" font-weight="bold">THREAD A — HOME SEGMENT</text>
-<text x="285" y="16" font-size="9.5" font-weight="bold">THREAD B — MONITORING PLATFORM</text>
-<text x="20" y="372" font-size="9.5" font-weight="bold">CONVERGED SYSTEM THREAD</text>
-<line x1="20" y1="22" x2="255" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
-<line x1="285" y1="22" x2="520" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
-<line x1="20" y1="376" x2="520" y2="376" stroke="#1a1a1a" stroke-width="0.6"/>
+<text x="20" y="16" font-size="9.5" font-weight="bold">THREAD A: HOME SEGMENT</text>
+<text x="285" y="16" font-size="9.5" font-weight="bold">THREAD B: MONITORING PLATFORM</text>
+<text x="172" y="372" font-size="9.5" font-weight="bold">CONVERGED SYSTEM THREAD</text>
+<line x1="20" y1="22" x2="152" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
+<line x1="285" y1="22" x2="457" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
+<line x1="172" y1="376" x2="310" y2="376" stroke="#1a1a1a" stroke-width="0.6"/>
 
 ${BOX.map(box).join('\n')}
 
@@ -96,8 +96,8 @@ ${arr('137,106 137,124')}
 ${arr('137,186 137,204')}
 ${arr('137,266 137,284')}
 ${arr('402,106 402,124')}
-${arr('137,346 137,362 270,362 270,380')}
-${arr('402,266 402,362 270,362 270,380')}
+${arr('137,346 137,380')}
+${arr('402,266 402,380')}
 ${arr('270,442 270,460')}
 ${arr('270,522 270,540')}
 ${arr('270,602 270,620')}

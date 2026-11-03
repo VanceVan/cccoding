@@ -1,0 +1,296 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.62in 0.8in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  h2 { font-size: 10.4pt; margin: 7pt 0 3pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.23; }
+  p.t { margin: 0 0 4pt; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin: 3.5pt 0 5pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 1.8pt 3.6pt;
+       vertical-align: top; line-height: 1.16; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  table.s td:first-child { white-space: nowrap; font-weight: bold; }
+  .brk { page-break-before: always; }
+  .cap { font-size: 8.4pt; margin: 4pt 0 0; }
+  .fig { margin: 0; text-align: center; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 8 | M8A1: Integration Plan
+</div>
+<div class="rule"></div>
+
+<h1>Integration Plan — Peritoneal Dialysis Remote Patient Monitoring (PD-RPM)</h1>
+
+<h2>1. Integration strategy</h2>
+<p>PD-RPM is integrated <strong>bottom-up</strong>, in <strong>increments</strong>, behind <strong>criterion-driven</strong> gates. Those are three of the eight techniques the module names, and they are chosen together for one reason: the system’s dominant failure mode is a fault that no single party can localize.</p>
+<p>Global (big bang) integration is rejected outright. The risk register’s top entry, R-1 silent gateway, is exactly the class of defect that big bang cannot isolate — a record that never arrives implicates the cycler, the gateway firmware, the carrier, and the ingest service equally. Every stage below therefore adds <strong>one new class of object</strong>, so that a defect appearing at stage <em>n</em> is attributable to what stage <em>n</em> introduced.</p>
+<p>Both <strong>horizontal</strong> and <strong>vertical</strong> integration are used, and Figure 1 labels which is which. S1, S4, S6 and S7 are horizontal: elements at a common hierarchy level joined to each other. S3, S5 and S8 are vertical: a completed level proved consistent with what the level above expects of it.</p>
+
+<h2>2. Method</h2>
+<table class="s">
+<tr><th>Step</th><th>How it is applied to PD-RPM</th></tr>
+<tr><td>Planning</td><td>Objects are taken from the M5A1 physical architecture — 20 elements with identifiers — and the metrics from the M3A1 operational requirements and KPPs. Each object’s verification event is defined before any schedule exists.</td></tr>
+<tr><td>Scheduling</td><td>Objects are ordered into the nine collections of Figure 1. Threads A and B run in parallel because they share no objects until S5, which removes the home-segment team from the platform team’s critical path. S7 is placed late because its date is set by the health system, not by this program.</td></tr>
+<tr><td>Execution</td><td>At each stage the team fixes the physical, functional and behavioral boundary of every object, specifies what passes across it, connects, tests the connection at all three boundary types, then evaluates the activity itself before opening the next gate.</td></tr>
+</table>
+
+<h2>3. The gate rule — what opens and closes a stage</h2>
+<p class="t">Every gate in Figure 1 applies the same seven criteria. They are the mechanism by which
+the plan prevents error rather than discovering it late.</p>
+<table class="s">
+<tr><th>Type</th><th>Criterion</th></tr>
+<tr><td>Entry</td><td>Every element in the stage has passed G0 against its B-spec.</td></tr>
+<tr><td>Entry</td><td>Every interface in the stage has an approved interface definition. For an external interface this means a signed agreement, not a draft.</td></tr>
+<tr><td>Entry</td><td>The test points, surrogates and instrumentation the stage needs are in place.</td></tr>
+<tr><td>Exit</td><td>Every interface added in the stage has been exercised on its nominal path <strong>and</strong> its exceptional paths.</td></tr>
+<tr><td>Exit</td><td>The golden record set replays with identical results to the prior stage.</td></tr>
+<tr><td>Exit</td><td>No defect above severity 2 remains open.</td></tr>
+<tr><td>Exit</td><td>The configuration baseline is frozen and recorded before the next stage opens.</td></tr>
+</table>
+
+<div class="brk"></div>
+<div class="fig"><svg viewBox="0 0 560 800" width="88%"
+  xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5.5"
+  markerHeight="5.5" orient="auto-start-reverse">
+  <path d="M0,1 L9,5 L0,9 z" fill="#1a1a1a"/></marker></defs>
+
+<text x="20" y="16" font-size="9.5" font-weight="bold">THREAD A — HOME SEGMENT</text>
+<text x="285" y="16" font-size="9.5" font-weight="bold">THREAD B — MONITORING PLATFORM</text>
+<text x="20" y="372" font-size="9.5" font-weight="bold">CONVERGED SYSTEM THREAD</text>
+<line x1="20" y1="22" x2="255" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
+<line x1="285" y1="22" x2="520" y2="22" stroke="#1a1a1a" stroke-width="0.6"/>
+<line x1="20" y1="376" x2="520" y2="376" stroke="#1a1a1a" stroke-width="0.6"/>
+
+
+  <rect x="20" y="44" width="235" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="44" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="55" font-size="9" font-weight="bold">S0A</text>
+  <text x="47" y="55" font-size="8.4">Element qualification — home segment</text>
+  <text x="251" y="55" font-size="8.4" font-weight="bold"
+        text-anchor="end">G0</text>
+  <text x="25" y="73" font-size="7.6">CY-1 simulator, BP-1, SC-1, PT-1, HG-1</text>
+  <text x="25" y="85" font-size="7.6" fill="#333">Entry bar: every configuration item verified against its B-spec</text>
+  
+
+  <rect x="20" y="124" width="235" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="124" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="135" font-size="9" font-weight="bold">S1</text>
+  <text x="47" y="135" font-size="8.4">Home sensing cluster</text>
+  <text x="251" y="135" font-size="8.4" font-weight="bold"
+        text-anchor="end">G1</text>
+  <text x="25" y="153" font-size="7.6">BP-1, SC-1, PT-1 joined to HG-1</text>
+  <text x="25" y="165" font-size="7.6" fill="#333">Closes I-2, I-3, I-4, I-17</text>
+  <text x="251" y="181" font-size="6.8" fill="#555"
+        text-anchor="end">horizontal integration</text>
+
+  <rect x="20" y="204" width="235" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="204" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="215" font-size="9" font-weight="bold">S2</text>
+  <text x="47" y="215" font-size="8.4">Cycler data interface</text>
+  <text x="251" y="215" font-size="8.4" font-weight="bold"
+        text-anchor="end">G2</text>
+  <text x="25" y="233" font-size="7.6">CY-1 to HG-1 — simulator first, production cycler second</text>
+  <text x="25" y="245" font-size="7.6" fill="#333">Closes I-1</text>
+  <text x="251" y="261" font-size="6.8" fill="#555"
+        text-anchor="end">horizontal integration</text>
+
+  <rect x="20" y="284" width="235" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="284" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="295" font-size="9" font-weight="bold">S3</text>
+  <text x="47" y="295" font-size="8.4">Home segment, uplink withheld</text>
+  <text x="251" y="295" font-size="8.4" font-weight="bold"
+        text-anchor="end">G3</text>
+  <text x="25" y="313" font-size="7.6">S1 + S2 operating as one node</text>
+  <text x="25" y="325" font-size="7.6" fill="#333">Store-and-forward proven before the network can be blamed</text>
+  <text x="251" y="341" font-size="6.8" fill="#555"
+        text-anchor="end">vertical integration</text>
+
+  <rect x="285" y="44" width="235" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="285" y="44" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="290" y="55" font-size="9" font-weight="bold">S0B</text>
+  <text x="312" y="55" font-size="8.4">Element qualification — platform</text>
+  <text x="516" y="55" font-size="8.4" font-weight="bold"
+        text-anchor="end">G0</text>
+  <text x="290" y="73" font-size="7.6">EG-1, IS-1, DS-1, AE-1, RE-1, NG-1, CW-1, IM-1, DM-1, EI-1</text>
+  <text x="290" y="85" font-size="7.6" fill="#333">Entry bar: every service verified against its B-spec</text>
+  
+
+  <rect x="285" y="124" width="235" height="142" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="285" y="124" width="235" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="290" y="135" font-size="9" font-weight="bold">S4</text>
+  <text x="312" y="135" font-size="8.4">Monitoring platform</text>
+  <text x="516" y="135" font-size="8.4" font-weight="bold"
+        text-anchor="end">G4</text>
+  <text x="290" y="153" font-size="7.6">Nine services integrated at one hierarchy level</text>
+  <text x="290" y="165" font-size="7.6" fill="#333">Closes I-8 to I-12; injector substitutes for the home segment</text>
+  <text x="516" y="261" font-size="6.8" fill="#555"
+        text-anchor="end">horizontal integration</text>
+
+  <rect x="20" y="380" width="500" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="380" width="500" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="391" font-size="9" font-weight="bold">S5</text>
+  <text x="47" y="391" font-size="8.4">Transport link — the two threads converge</text>
+  <text x="516" y="391" font-size="8.4" font-weight="bold"
+        text-anchor="end">G5</text>
+  <text x="25" y="409" font-size="7.6">HG-1 ↔ CN-1 ↔ IN-1 ↔ EG-1</text>
+  <text x="25" y="421" font-size="7.6" fill="#333">Closes I-5, I-6, I-7</text>
+  <text x="516" y="437" font-size="6.8" fill="#555"
+        text-anchor="end">vertical integration</text>
+
+  <rect x="20" y="460" width="500" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="460" width="500" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="471" font-size="9" font-weight="bold">S6</text>
+  <text x="47" y="471" font-size="8.4">Care-team delivery</text>
+  <text x="516" y="471" font-size="8.4" font-weight="bold"
+        text-anchor="end">G6</text>
+  <text x="25" y="489" font-size="7.6">CW-1 → CS-1, NG-1 → MD-1, DM-1 → HG-1</text>
+  <text x="25" y="501" font-size="7.6" fill="#333">Closes I-13, I-14, I-15</text>
+  <text x="516" y="517" font-size="6.8" fill="#555"
+        text-anchor="end">horizontal integration</text>
+
+  <rect x="20" y="540" width="500" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="20" y="540" width="500" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="551" font-size="9" font-weight="bold">S7</text>
+  <text x="47" y="551" font-size="8.4">EHR exchange</text>
+  <text x="516" y="551" font-size="8.4" font-weight="bold"
+        text-anchor="end">G7</text>
+  <text x="25" y="569" font-size="7.6">EI-1 ↔ EH-1 — vendor conformance sandbox, then health-system test instance</text>
+  <text x="25" y="581" font-size="7.6" fill="#333">Closes I-16</text>
+  <text x="516" y="597" font-size="6.8" fill="#555"
+        text-anchor="end">horizontal integration</text>
+
+  <rect x="20" y="620" width="500" height="62" fill="#fff" stroke="#1a1a1a"
+        stroke-width="1.6"/>
+  <rect x="23" y="623" width="494" height="56" fill="none"
+        stroke="#1a1a1a" stroke-width="0.5"/>
+  <rect x="20" y="620" width="500" height="15" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="25" y="631" font-size="9" font-weight="bold">S8</text>
+  <text x="47" y="631" font-size="8.4">Clinical pilot — VALIDATION, not verification</text>
+  <text x="516" y="631" font-size="8.4" font-weight="bold"
+        text-anchor="end">G8</text>
+  <text x="25" y="649" font-size="7.6">Full system with intended users in the intended environment</text>
+  <text x="25" y="661" font-size="7.6" fill="#333">20 patients, 60 days, every interface live</text>
+  <text x="516" y="677" font-size="6.8" fill="#555"
+        text-anchor="end">vertical integration</text>
+
+<polyline points="137,106 137,124" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="137,186 137,204" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="137,266 137,284" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="402,106 402,124" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="137,346 137,362 270,362 270,380" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="402,266 402,362 270,362 270,380" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="270,442 270,460" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="270,522 270,540" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+<polyline points="270,602 270,620" fill="none" stroke="#1a1a1a"
+   stroke-width="0.9" marker-end="url(#a)"/>
+
+<rect x="20" y="698" width="330" height="90" fill="none" stroke="#1a1a1a"
+   stroke-width="0.8"/>
+<rect x="20" y="698" width="330" height="13" fill="#e8e8e8" stroke="#1a1a1a"
+   stroke-width="0.8"/>
+<text x="24" y="708" font-size="7.6" font-weight="bold">NOTES</text>
+<text x="24" y="722" font-size="6.6">Strategy: bottom-up, incremental, criterion-driven. No stage opens until every element it</text>
+<text x="24" y="730.4" font-size="6.6">contains has passed G0, and no stage closes until its exit criteria are met in full.</text>
+<text x="24" y="738.8" font-size="6.6">Threads A and B are built in parallel by separate teams and converge at S5.</text>
+<text x="24" y="747.2" font-size="6.6">G0 through G7 are verification against specified requirements. G8 alone is validation.</text>
+<text x="24" y="755.6" font-size="6.6">A fixed golden record set is replayed at every gate, so a defect first seen at Sn is</text>
+<text x="24" y="764" font-size="6.6">attributable to the objects or interfaces added at Sn.</text>
+<text x="24" y="772.4" font-size="6.6">Each gate freezes a configuration baseline before the next stage opens.</text>
+<text x="24" y="780.8" font-size="6.6">Increment 1 = S0–S3 · Increment 2 = S4–S6 · Increment 3 = S7–S8.</text>
+
+<rect x="360" y="698" width="160" height="90" fill="none" stroke="#1a1a1a"
+   stroke-width="0.8"/>
+<rect x="360" y="698" width="160" height="13" fill="#e8e8e8" stroke="#1a1a1a"
+   stroke-width="0.8"/>
+<text x="364" y="708" font-size="7.6" font-weight="bold">FIGURE 1</text>
+<text x="364" y="726" font-size="7">PD-RPM Integration Build-Up</text>
+<text x="364" y="736" font-size="7">and Test Gate Sequence</text>
+<text x="364" y="750" font-size="7">V. Vanvolkenburgh</text>
+<text x="364" y="760" font-size="7">655.662 · Module 8 · M8A1</text>
+<text x="364" y="770" font-size="7">Rev. A · Sheet 1 of 1</text>
+</svg></div>
+<p class="cap"><b>Figure 1.</b> Integration build-up for PD-RPM. Two threads are built in parallel,
+converge at S5, and the patient is added last. Gate G8 is validation; every gate before it is
+verification.</p>
+
+<div class="brk"></div>
+<h2>4. Stage detail and exit criteria</h2>
+<table class="s">
+<tr><th>Stage</th><th>Objects added</th><th>Interfaces closed</th><th>V&amp;V method</th>
+<th>Exit criterion</th></tr>
+<tr><td>S0</td><td>All 20 elements, individually</td><td>—</td><td>Inspection, Test</td><td>Each CI meets its B-spec; test points exposed and documented</td></tr>
+<tr><td>S1</td><td>BP-1, SC-1, PT-1 → HG-1</td><td>I-2, I-3, I-4, I-17</td><td>Test</td><td>Every device pairs, reports, and survives a power cycle without data loss</td></tr>
+<tr><td>S2</td><td>CY-1 → HG-1</td><td>I-1</td><td>Test, Demonstration</td><td>All alarm codes parsed from the simulator; three live overnight sessions captured</td></tr>
+<tr><td>S3</td><td>Home node, uplink withheld</td><td>— (buffering)</td><td>Test</td><td>72-hour buffer fills and drains in order; nothing discarded or defaulted</td></tr>
+<tr><td>S4</td><td>EG-1, IS-1, DS-1, AE-1, RE-1, NG-1, CW-1, IM-1, DM-1</td><td>I-8 to I-12</td><td>Test, Analysis</td><td>Injected records produce correct trends and alerts at 150 records per minute</td></tr>
+<tr><td>S5</td><td>Home thread joined to platform thread</td><td>I-5, I-6, I-7</td><td>Test</td><td>Records survive injected outages of 1, 24 and 72 hours with counts reconciled</td></tr>
+<tr><td>S6</td><td>CS-1, MD-1</td><td>I-13, I-14, I-15</td><td>Demonstration</td><td>A triggering value reaches a nurse and an on-call phone inside the 15-minute KPP</td></tr>
+<tr><td>S7</td><td>EH-1 (external)</td><td>I-16</td><td>Test</td><td>Every message type passes the vendor sandbox, including withheld acknowledgments</td></tr>
+<tr><td>S8</td><td>Patients, care partners, clinicians</td><td>all</td><td>Validation</td><td>Intended users complete 60 days at home; stakeholder needs ON-1 to ON-5 demonstrated</td></tr>
+</table>
+
+<h2>5. Risk reduction</h2>
+<table class="s">
+<tr><th>Risk the sequence is designed against</th><th>How the sequence reduces it</th></tr>
+<tr><td style="white-space:normal">R-1 silent gateway cannot be localized</td><td>S3 proves store-and-forward with the uplink physically absent, so buffering is cleared before the carrier exists to blame.</td></tr>
+<tr><td style="white-space:normal">External interface commitments may not land</td><td>S2 and S7 each open against a surrogate — a cycler simulator, a vendor sandbox — so neither the cycler manufacturer nor the health system sits on the critical path.</td></tr>
+<tr><td style="white-space:normal">Integrate-test-correct-integrate-test-correct</td><td>The golden record set is replayed at every gate. A regression is attributed to the stage that introduced it rather than re-debugged from scratch.</td></tr>
+<tr><td style="white-space:normal">Defects found late cost more than defects found early</td><td>G0 refuses any element into integration before unit verification, which is where the module says fault isolation is considerably cheaper.</td></tr>
+<tr><td style="white-space:normal">Configuration drift between threads</td><td>Each gate freezes a baseline. Threads A and B can only converge at S5 on baselines recorded at G3 and G4.</td></tr>
+</table>
+
+<h2>6. Early error detection</h2>
+<p>Four test points are designed in rather than retrofitted, because the module’s own lesson is that more is better: a diagnostic port on HG-1 exposing buffer depth and link state; a packet capture tap at EG-1; a synthetic record injector at IS-1; and the fleet replay sandbox built for the Module 6 team-learning review, which lets a failure be re-run without a patient.</p>
+
+<h2>7. Why the plan is agile, and what that buys</h2>
+<p>The plan is incremental on purpose. Increment 1 delivers a home node that buffers, Increment 2 a platform that alerts, Increment 3 the external exchanges and the pilot. Each increment is a build-a-little, test-a-little cycle that ends in something demonstrable.</p>
+<p>Three benefits follow. Nurses see a working triage queue at the end of Increment 2, while changing it is still cheap. Each increment boundary is a genuine re-planning point, so a carrier or EHR schedule slip re-orders the remaining work instead of stalling it. And the software elements run continuous integration — daily build, automated regression — inside stages whose hardware integrates at fixed gates, which is the hybrid cadence a software-intensive medical system needs.</p>
+
+<h2>8. Verification, validation, and configuration control</h2>
+<p>Verification and validation are kept distinct throughout. G0 to G7 are verification: objective evidence that an element or assembly meets its specified requirements, by inspection, analysis, demonstration or test. G8 is validation: objective evidence that the system in use meets stakeholder needs, with the intended users, in the intended operational environment. The patient is the last thing added, and nothing before G8 claims the system works — only that it is built the way it was specified.</p>

@@ -1,0 +1,262 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.62in 0.8in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  h2 { font-size: 10.4pt; margin: 7pt 0 3pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.23; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin: 3.5pt 0 5pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 1.8pt 3.6pt;
+       vertical-align: top; line-height: 1.16; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  table.s td:first-child { white-space: nowrap; font-weight: bold; }
+  .brk { page-break-before: always; }
+  .cap { font-size: 8.4pt; margin: 3pt 0 6pt; }
+  .fig { margin: 0; text-align: center; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 8 | M8A2: Test &amp; Assessment Approach
+</div>
+<div class="rule"></div>
+
+<h1>Test and Assessment Approach — Peritoneal Dialysis Remote Patient Monitoring (PD-RPM)</h1>
+
+<h2>1. Approach</h2>
+<p>The approach is organized on two axes. <strong>By level</strong>, testing is incremental: the same obligation is retested at five rising levels, each with more of the real system present. <strong>By path</strong>, the module’s own definition of integration demands that execution be checked on <strong>all nominal and exceptional paths</strong>, so two scenarios are carried end to end — one of each.</p>
+<p>Scenario A is the nominal path and is run at every level, growing in fidelity from a unit test on one function to a clinical pilot. Scenario B is the exceptional path and exists only as a total-system test, because the failure it reproduces cannot be staged in any smaller piece of the system.</p>
+<p>Both scenarios are assessed twice over: for <strong>functionality</strong>, meaning the system does what the specification says, and for <strong>utility</strong>, meaning a care team is measurably better off. A system can pass every functional test and still be useless, so the two are scored separately.</p>
+
+<h2>2. Test levels</h2>
+<table class="s"><colgroup><col style="width:7%"><col style="width:13%"><col style="width:31%"><col style="width:34%"><col style="width:15%"></colgroup>
+  <tr><th>Level</th><th>Name</th><th>What is under test</th><th>Where it happens</th><th>V&amp;V class</th></tr>
+  <tr><td>L1</td><td>Unit</td><td>One function or module in isolation</td><td>Vertex of Figure 1 — entry bar for every stage</td><td>Verification</td></tr>
+<tr><td>L2</td><td>Component</td><td>A configuration item against its B-spec</td><td>Stages S1–S3, gates G1–G3</td><td>Verification</td></tr>
+<tr><td>L3</td><td>Subsystem</td><td>Platform services and the transport link</td><td>Stages S4–S5, gates G4–G5</td><td>Verification</td></tr>
+<tr><td>L4</td><td>System</td><td>Every element integrated, all interfaces live</td><td>Stages S6–S7, gates G6–G7</td><td>Verification</td></tr>
+<tr><td>L5</td><td>Operational</td><td>Intended users in the intended environment</td><td>Stage S8, gate G8</td><td>Validation</td></tr></table>
+
+<h2>3. Assessment methods</h2>
+<table class="s"><colgroup><col style="width:14%"><col style="width:34%"><col style="width:52%"></colgroup>
+  <tr><th>Method</th><th>Definition</th><th>Worked example in PD-RPM</th></tr>
+  <tr><td>Inspection</td><td>Physical and visual examination</td><td>Confirming the HG-1 diagnostic port and labeling match the B-spec</td></tr>
+<tr><td>Analysis</td><td>Mathematical models, simulation, algorithms, calculation</td><td>Reliability block diagram showing the alerting path meets Aₒ ≥ 0.98</td></tr>
+<tr><td>Demonstration</td><td>Observing qualitative results of an operation</td><td>A nurse working a triage queue end to end during the pilot</td></tr>
+<tr><td>Test</td><td>Test procedures under specified conditions, results analyzed</td><td>Fault injection on the carrier link with record counts reconciled</td></tr></table>
+
+<h2>4. Coverage model</h2>
+<table class="s"><colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+  <tr><th>Dimension</th><th>What is required</th></tr>
+  <tr><td>Requirement coverage</td><td>Every OR, KPP and Module 7 requirement appears in the verification cross-reference matrix with one owning test at one named level. Target 100 percent.</td></tr>
+<tr><td>Interface coverage</td><td>All 17 interfaces I-1 to I-17 are exercised at least once at L4.</td></tr>
+<tr><td>Path coverage</td><td>Nominal and exceptional paths both carried end to end — Scenarios A and B.</td></tr>
+<tr><td>Data coverage</td><td>Each bounded value tested at its limit and one step beyond: 500-record buffer, 72-hour retention, 150 records per minute, 15-minute alert latency.</td></tr></table>
+
+<div class="brk"></div>
+<div class="fig"><svg viewBox="0 0 560 520" width="86%"
+  xmlns="http://www.w3.org/2000/svg" font-family="Arial, Helvetica, sans-serif">
+<defs><marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5"
+  orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 z" fill="#1a1a1a"/></marker></defs>
+
+<text x="18" y="34" font-size="9" font-weight="bold">DEFINITION</text>
+<text x="542" y="34" font-size="9" font-weight="bold" text-anchor="end">TEST AND ASSESSMENT</text>
+
+
+  <rect x="18" y="50" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="18" y="50" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="22" y="60.4" font-size="8" font-weight="bold">D0</text>
+  <text x="39" y="60.4" font-size="7.3">Stakeholder needs and CONOPS</text>
+  <text x="22" y="76" font-size="6.8">ON-1 to ON-5</text>
+  <text x="22" y="86" font-size="6.8" fill="#333">design reference missions</text>
+  
+
+  <rect x="46" y="120" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="46" y="120" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="50" y="130.4" font-size="8" font-weight="bold">D1</text>
+  <text x="67" y="130.4" font-size="7.3">Operational requirements</text>
+  <text x="50" y="146" font-size="6.8">OR-1 to OR-5</text>
+  <text x="50" y="156" font-size="6.8" fill="#333">six key performance parameters</text>
+  
+
+  <rect x="74" y="190" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="74" y="190" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="78" y="200.4" font-size="8" font-weight="bold">D2</text>
+  <text x="95" y="200.4" font-size="7.3">System requirements</text>
+  <text x="78" y="216" font-size="6.8">A-spec</text>
+  <text x="78" y="226" font-size="6.8" fill="#333">IR, SR and DR sets (Module 7)</text>
+  
+
+  <rect x="102" y="260" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="102" y="260" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="106" y="270.4" font-size="8" font-weight="bold">D3</text>
+  <text x="123" y="270.4" font-size="7.3">Component design</text>
+  <text x="106" y="286" font-size="6.8">B-spec per configuration item</text>
+  
+  
+
+  <rect x="392" y="50" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="1.6"/>
+  <rect x="395" y="67" width="144" height="38" fill="none"
+        stroke="#1a1a1a" stroke-width="0.5"/>
+  <rect x="392" y="50" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="396" y="60.4" font-size="8" font-weight="bold">L5</text>
+  <text x="413" y="60.4" font-size="7.3">Operational validation</text>
+  <text x="396" y="76" font-size="6.8">Stage S8 · gate G8</text>
+  <text x="396" y="86" font-size="6.8" fill="#333">intended users, intended environment</text>
+  <text x="538" y="103" font-size="6.2" fill="#555"
+        text-anchor="end">Demonstration · Scenario A and B</text>
+
+  <rect x="364" y="120" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="364" y="120" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="368" y="130.4" font-size="8" font-weight="bold">L4</text>
+  <text x="385" y="130.4" font-size="7.3">System verification</text>
+  <text x="368" y="146" font-size="6.8">Stages S6–S7 · gates G6–G7</text>
+  <text x="368" y="156" font-size="6.8" fill="#333">full system, all interfaces live</text>
+  <text x="510" y="173" font-size="6.2" fill="#555"
+        text-anchor="end">Test, Demonstration · Scenario A and B</text>
+
+  <rect x="336" y="190" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="336" y="190" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="340" y="200.4" font-size="8" font-weight="bold">L3</text>
+  <text x="357" y="200.4" font-size="7.3">Subsystem and integration test</text>
+  <text x="340" y="216" font-size="6.8">Stages S4–S5 · gates G4–G5</text>
+  <text x="340" y="226" font-size="6.8" fill="#333">platform and transport</text>
+  <text x="482" y="243" font-size="6.2" fill="#555"
+        text-anchor="end">Test, Analysis · Scenario A</text>
+
+  <rect x="308" y="260" width="150" height="58" fill="#fff" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  
+  <rect x="308" y="260" width="150" height="14" fill="#e8e8e8" stroke="#1a1a1a"
+        stroke-width="0.8"/>
+  <text x="312" y="270.4" font-size="8" font-weight="bold">L2</text>
+  <text x="329" y="270.4" font-size="7.3">Component test</text>
+  <text x="312" y="286" font-size="6.8">Stages S1–S3 · gates G1–G3</text>
+  <text x="312" y="296" font-size="6.8" fill="#333">home segment assemblies</text>
+  <text x="454" y="313" font-size="6.2" fill="#555"
+        text-anchor="end">Test, Inspection · Scenario A</text>
+
+
+  <line x1="168" y1="79" x2="392" y2="79" stroke="#1a1a1a" stroke-width="0.7"
+        stroke-dasharray="3 2.5" marker-end="url(#b)"/>
+  <text x="280" y="75.5" font-size="6.4" fill="#333"
+        text-anchor="middle">validated by</text>
+
+  <line x1="196" y1="149" x2="364" y2="149" stroke="#1a1a1a" stroke-width="0.7"
+        stroke-dasharray="3 2.5" marker-end="url(#b)"/>
+  <text x="280" y="145.5" font-size="6.4" fill="#333"
+        text-anchor="middle">verified by</text>
+
+  <line x1="224" y1="219" x2="336" y2="219" stroke="#1a1a1a" stroke-width="0.7"
+        stroke-dasharray="3 2.5" marker-end="url(#b)"/>
+  <text x="280" y="215.5" font-size="6.4" fill="#333"
+        text-anchor="middle">verified by</text>
+
+  <line x1="252" y1="289" x2="308" y2="289" stroke="#1a1a1a" stroke-width="0.7"
+        stroke-dasharray="3 2.5" marker-end="url(#b)"/>
+  <text x="280" y="285.5" font-size="6.4" fill="#333"
+        text-anchor="middle">verified by</text>
+
+<rect x="190" y="330" width="180" height="48" fill="#fff" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="190" y="330" width="180" height="14" fill="#e8e8e8" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="194" y="340.4" font-size="8" font-weight="bold">L1</text>
+<text x="208" y="340.4" font-size="7.3">Implementation and unit test</text>
+<text x="194" y="356" font-size="6.8">Code, firmware and hardware build</text>
+<text x="366" y="373" font-size="6.2" fill="#555" text-anchor="end">Inspection, Test</text>
+<line x1="177" y1="318" x2="228" y2="330" stroke="#1a1a1a" stroke-width="0.9"/>
+<line x1="332" y1="330" x2="383" y2="318" stroke="#1a1a1a" stroke-width="0.9"
+      marker-end="url(#b)"/>
+
+<rect x="18" y="398" width="344" height="100" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="18" y="398" width="344" height="13" fill="#e8e8e8" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="22" y="408" font-size="7.4" font-weight="bold">NOTES</text>
+<text x="22" y="422" font-size="6.4">Left leg defines, right leg tests. Each horizontal pair is a test obligation: nothing on the left</text>
+<text x="22" y="431.2" font-size="6.4">is accepted until the level facing it on the right has passed.</text>
+<text x="22" y="440.4" font-size="6.4">L1 unit test sits inside implementation at the vertex and is the entry bar for every stage.</text>
+<text x="22" y="449.6" font-size="6.4">L2 to L4 are verification — evidence against specified requirements. L5 alone is validation —</text>
+<text x="22" y="458.8" font-size="6.4">evidence that the system in use meets stakeholder needs, with intended users, at home.</text>
+<text x="22" y="468" font-size="6.4">Scenario A (nominal path) is run at every level, growing in fidelity. Scenario B (exceptional</text>
+<text x="22" y="477.2" font-size="6.4">path) is a total-system fault injection and runs only at L4 and L5.</text>
+<text x="22" y="486.4" font-size="6.4">Stage and gate identifiers refer to the M8A1 integration plan.</text>
+
+<rect x="372" y="398" width="170" height="100" fill="none" stroke="#1a1a1a" stroke-width="0.8"/>
+<rect x="372" y="398" width="170" height="13" fill="#e8e8e8" stroke="#1a1a1a" stroke-width="0.8"/>
+<text x="376" y="408" font-size="7.4" font-weight="bold">FIGURE 1</text>
+<text x="376" y="424" font-size="6.8">PD-RPM Test and Assessment</text>
+<text x="376" y="434" font-size="6.8">V-Model with Scenario Coverage</text>
+<text x="376" y="450" font-size="6.8">V. Vanvolkenburgh</text>
+<text x="376" y="460" font-size="6.8">655.662 · Module 8 · M8A2</text>
+<text x="376" y="470" font-size="6.8">Rev. A · Sheet 1 of 1</text>
+</svg></div>
+<p class="cap"><b>Figure 1.</b> Test and assessment V-model for PD-RPM. Each horizontal pair binds a
+definition artifact to the level that tests it. Scenario A climbs every level; Scenario B exists only
+at L4 and L5.</p>
+
+<h2>5. Scenario A — declining ultrafiltration trend (nominal path, incremental)</h2>
+<p>A patient’s net ultrafiltration falls steadily across 14 treatments. This is operational
+requirement OR-1, the system’s primary clinical purpose, and it is retested at all five levels.</p>
+<table class="s"><colgroup><col style="width:7%"><col style="width:23%"><col style="width:23%"><col style="width:35%"><col style="width:12%"></colgroup>
+  <tr><th>Level</th><th>Configuration under test</th><th>Stimulus</th><th>Pass criterion</th><th>Method</th></tr>
+  <tr><td>L1</td><td>AE-1 trend function alone</td><td>14 synthetic sessions, 22 percent decline against the 30-day mean</td><td>Flag set; both means computed to within 0.1 percent of the reference</td><td>Test</td></tr>
+<tr><td>L2</td><td>AE-1 joined to DS-1</td><td>Records persisted through the production API</td><td>Flag raised within 10 minutes of persistence</td><td>Test</td></tr>
+<tr><td>L3</td><td>Monitoring platform (S4)</td><td>Injector replays 60 recorded patient-months</td><td>No more than one non-actionable alert per patient-month across the whole replay</td><td>Test, Analysis</td></tr>
+<tr><td>L4</td><td>Full system, cycler simulator at the home end</td><td>14 consecutive sessions compressed into one night</td><td>Flag reaches the CW-1 triage queue and the EH-1 summary within 15 minutes</td><td>Test</td></tr>
+<tr><td>L5</td><td>Clinical pilot, real patients</td><td>Naturally occurring decline during the 60-day pilot</td><td>Nurse opens the flagged patient, documents an action, nephrologist reviews before the next scheduled visit</td><td>Demonstration</td></tr></table>
+
+<div class="brk"></div>
+<h2>6. Scenario B — silent gateway across three Sunday nights (exceptional path, total system)</h2>
+<table class="s"><colgroup><col style="width:6%"><col style="width:18%"><col style="width:31%"><col style="width:45%"></colgroup>
+  <tr><th>Step</th><th>Action</th><th>Condition</th><th>Expected system response and pass criterion</th></tr>
+  <tr><td>1</td><td>Establish baseline</td><td>Full system live, 20 patients, 7 nights nominal</td><td>Every session ingested; no open alerts</td></tr>
+<tr><td>2</td><td>Inject the fault</td><td>Mains removed from HG-1 at 21:00 for 8 hours on 3 consecutive Sundays</td><td>HG-1 transfers to battery and notifies DM-1 within 60 seconds</td></tr>
+<tr><td>3</td><td>Observe during outage</td><td>Sessions continue while the uplink is down</td><td>Carrier link declared unavailable after 3 failed attempts in 5 minutes; all sessions buffered</td></tr>
+<tr><td>4</td><td>Detect the silence</td><td>No data arrives from a patient who should be reporting nightly</td><td>A device-silent alert reaches the monitoring queue within 2 hours of the first missed session</td></tr>
+<tr><td>5</td><td>Restore</td><td>Mains returned</td><td>Every buffered record delivered in chronological order within 30 minutes; zero lost, zero duplicated</td></tr>
+<tr><td>6</td><td>Assess</td><td>Review with nurse, firmware lead and carrier engineer</td><td>The care team learned of the gap from the system, not from the patient</td></tr></table>
+<p>Scenario B is not invented. It reproduces the phantom Sunday outage the Module 6 team-learning review uncovered, where eleven patients went silent for three consecutive Sunday nights and no team held enough evidence to see it. The decisive step is <strong>step 4</strong>: an alert on the <em>absence</em> of data. Nothing in the original failure detected that, and no test built only from the nominal path ever would.</p>
+
+<h2>7. Functionality and utility, scored separately</h2>
+<table class="s"><colgroup><col style="width:24%"><col style="width:38%"><col style="width:38%"></colgroup>
+  <tr><th>Scenario</th><th>Functionality — does it meet the specification?</th><th>Utility — is the care team better off?</th></tr>
+  <tr><td>A — declining ultrafiltration trend</td><td>Is the 20 percent decline detected and delivered inside the 15-minute budget?</td><td>Does the nurse act on it, and does the nephrologist change the prescription before the next scheduled visit?</td></tr>
+<tr><td>B — silent gateway across three nights</td><td>Is every buffered record recovered in order, with no loss and no duplication?</td><td>Does the care team learn of the gap from the system rather than from the patient?</td></tr></table>
+
+<h2>8. Risk mitigation through the test program</h2>
+<table class="s"><colgroup><col style="width:28%"><col style="width:72%"></colgroup>
+  <tr><th>Risk</th><th>How the approach mitigates it</th></tr>
+  <tr><td>R-1 silent gateway (M5A2)</td><td>Scenario B is the direct test of it, including the data-absence alert that did not exist before.</td></tr>
+<tr><td>False alerts exhausting the nurses</td><td>Scenario A at L3 bounds the non-actionable alert rate across 60 patient-months before any clinician sees the system.</td></tr>
+<tr><td>External interfaces unavailable for test</td><td>Scenario A runs at L1–L4 against a cycler simulator and the EHR vendor sandbox, so neither external party gates the test program.</td></tr>
+<tr><td>Late defects are expensive</td><td>The same scenario repeats at every level, so a regression is caught at the lowest level that can expose it.</td></tr></table>
+
+<h2>9. Why the approach is agile</h2>
+<p>Both scenarios are automated once they first pass, and then run as nightly regression for the rest of the program. That is what makes the incremental approach affordable: each increment re-runs the full scenario set overnight, and a failure is attributable to the increment that introduced it rather than hunted for at the end. Scenario A is re-run unchanged at every level, so the cost of re-testing falls as confidence rises.</p>
+
+<h2>10. Coverage, limits, and end-to-end assurance</h2>
+<p>Coverage is honest about its limits. Two scenarios do not test a system; they demonstrate that the approach reaches end to end on both the nominal and the exceptional path. Everything else is covered by the per-gate tests in the integration plan and by the verification cross-reference matrix, which is the artifact that proves no requirement is left without an owning test. The pilot at L5 is the only point at which PD-RPM claims to work rather than to have been built as specified.</p>

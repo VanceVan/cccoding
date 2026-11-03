@@ -35,6 +35,44 @@ remote cardiac example. Expect this classification to be asked for directly.
 - INCOSE handbook is the **5th edition** (confirmed: Module 2 reading list uses
   §2.3.x process numbering). The Canvas link to the v4 product page is stale.
 
+## Requirement writing — GRADER FEEDBACK, Module 7 (binding from here on)
+
+All three Module 7 assignments came back with the same comment, in three
+different wordings:
+
+> "nice detail and concepts, but you need to break apart the paragraphs and
+> either reduce or make separate unique requirements."
+> "as before, you packed a lot into the shall statements - you will need to
+> break apart. good information, but format needs updating."
+> "good work. as before, you will need to break-apart some of these and create
+> focused requirements."
+
+**The rule: one requirement = one "shall" = one testable obligation.**
+
+- A requirement contains **exactly one** `shall`. No "shall X, shall Y, and
+  shall Z" chains, and no participial pile-ups that smuggle in extra
+  obligations ("…, holding not fewer than 500 records, …").
+- Target **one sentence, roughly 25–35 words**. If it needs a semicolon, it is
+  probably two requirements.
+- One measurable value per requirement. Two numbers usually means two
+  requirements, unless the second bounds the first (a rate *and* its averaging
+  window are one obligation; a buffer depth *and* a retry count are two).
+- Exception conditions ("…, and shall not substitute a default value") are
+  their own requirement, stated positively where possible.
+- Supporting metadata — interface identity, element, class, trace, verification
+  method — belongs in fields *around* the statement, never inside it.
+- When the prompt says "develop 5 requirements," the five must be five atomic
+  obligations, not five paragraphs each carrying three or four.
+
+**What this changed.** The M7 drafts averaged 3–4 obligations per numbered
+requirement (SR-4 had four: authenticate, restrict, terminate, audit; DR-2 had
+five attributes in one sentence). Content and measurability were graded as
+good; the packing was the only defect named. Keep the rigor, split the
+sentences.
+
+**Where that leaves the M7 set.** If any of those requirements are lifted into
+the final report, split them first — the same grader reads the final.
+
 ## Deliverable house style
 
 Built by a small Node script per assignment; content lives in one data structure

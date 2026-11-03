@@ -345,3 +345,33 @@ and guessing wrong wastes a build. Send the three prompts and I can start at onc
 | **M5A2** risk R-1 silent gateway + four mitigations | already an interface risk; slide 15 gives the taxonomy to classify it |
 | **M3A1** KPPs with thresholds | source of the throughput and response-time interface requirements |
 | **M6A1** prototyping and TRL build-up order | the test & verify step (6) of the interface process |
+
+## Grader feedback on M7A1, M7A2, M7A3 — received after submission
+
+All three came back with the same single criticism:
+
+| Assignment | Comment |
+|---|---|
+| M7A1 | "nice detail and concepts, but you need to break apart the paragraphs and either reduce or make separate unique requirements." |
+| M7A2 | "as before, you packed a lot into the shall statements - you will need to break apart. good information, but format needs updating." |
+| M7A3 | "good work. as before, you will need to break-apart some of these and create focused requirements." |
+
+**Content and measurability were not criticized.** The defect is packing: each
+numbered requirement carried 3–5 obligations in one sentence. The binding rule
+is now recorded in CONVENTIONS.md — one requirement, one `shall`, one testable
+obligation, 25–35 words.
+
+Worked example of the split, using IR-2 as submitted:
+
+| As submitted (one requirement, three obligations) | Should have been |
+|---|---|
+| HG-1 shall retain… holding not fewer than 500 records or 72 hours…, shall declare the link unavailable after 3 consecutive failed attempts within 5 minutes, and shall deliver all retained items in chronological order within 30 minutes of restoration. | **IR-2a** HG-1 shall retain in non-volatile storage every record it has not delivered to CN-1. **IR-2b** HG-1 shall provide buffer capacity for not fewer than 500 records or 72 hours of data, whichever is greater. **IR-2c** HG-1 shall declare the carrier link unavailable after 3 consecutive failed transmission attempts within a 5-minute window. **IR-2d** HG-1 shall deliver all buffered records in chronological order within 30 minutes of link restoration. |
+
+Counts of obligations packed per requirement, as submitted — the scale of the
+rework if these are lifted into the final report:
+
+| | IR/SR/DR 1 | 2 | 3 | 4 | 5 |
+|---|---|---|---|---|---|
+| M7A1 | 2 | 3 | 3 | 2 | 3 |
+| M7A2 | 2 | 3 | 4 | 4 | 3 |
+| M7A3 | 2 | 5 | 3 | 4 | 3 |

@@ -3,7 +3,8 @@
 EN.585.617.81.FA26 Rehabilitation Engineering
 
 ## Status
-Context ingested. Assignment written; **visit details still blank.**
+Assignment written. **Visit confirmed: Kennedy Krieger Institute, Baltimore MD,
+November 10, 2026.** Only the interviewee name and role remain blank.
 
 ## Module scope
 No lectures and no readings this module. The stated work is to finalize the
@@ -27,7 +28,7 @@ section is the reference.
 
 ## Deliverable
 `Module_09_Assignment_Rehab_Center_Questions.docx` / `.pdf` — 2 pages,
-**23 questions** against a required minimum of 10. Built by `doc.py`.
+**26 questions** against a required minimum of 10. Built by `doc.py`.
 
 Covers all five categories the assignment names, in order:
 - **A. State of the art** (5) — current pathway, what exists, cost and lead
@@ -43,10 +44,28 @@ Covers all five categories the assignment names, in order:
   and propose a fourth.
 - **E. If a client is available** (4) — narrative rather than evaluative, since
   the assignment notes client and clinician needs commonly differ.
+- **F. Specific to Kennedy Krieger** (3) — the therapy garden's gravel, grass
+  and cobblestone surfaces; the age-21 transition and where patients get
+  equipment afterward; and facility-side versus patient-carried solutions,
+  using the aquatic center's lift floors as the example.
 
 ### Still to fill (⟨angle brackets⟩)
-Facility name, location, planned date of visit, interviewee name and role. The
-assignment requires all four and only the student has them.
+Interviewee name and role.
+
+## Known tension with the facility
+Kennedy Krieger is **pediatric**, treating individuals up to age 21, while the
+project population is adults maintaining their own residential yard. Question
+25 turns that into an asset by asking about the transition to independent
+living and where patients source equipment after aging out, but expect it to
+come up and have an answer ready. Sections A, B and C are written to be
+answerable by any clinician about wheelchair users generally, so they survive
+the mismatch; Section E's client questions are the ones most affected.
+
+## Facility material already in hand
+Module 8's ethnography assignment analysed Kennedy Krieger's own facility
+video, so the aquatic therapy center (pool floors on lifts), the therapy garden
+(gravel, grass, cobblestone) and the inpatient unit are already documented in
+`module-08/`. Section F draws on all three.
 
 ## Notes on the approach
 - The assignment warns against arriving with a preconceived solution. Module 5

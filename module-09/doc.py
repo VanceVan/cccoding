@@ -6,8 +6,8 @@ from docx.shared import Pt
 from common import newdoc, mk
 
 D = os.path.dirname(os.path.abspath(__file__))
-doc = newdoc(margin=0.9, size=10.5)
-doc.styles['Normal'].paragraph_format.space_after = Pt(5)
+doc = newdoc(margin=0.9, size=10.0)
+doc.styles['Normal'].paragraph_format.space_after = Pt(4)
 P, H, TABLE, FIG = mk(doc)
 C = WD_ALIGN_PARAGRAPH.CENTER
 EM = "—"; B1 = "〈"; B2 = "〉"
@@ -20,7 +20,7 @@ def blank(t):
 
 def Q(t):
     N[0] += 1
-    p = P(str(N[0]) + ".  " + t, after=4)
+    p = P(str(N[0]) + ".  " + t, after=3)
     p.paragraph_format.left_indent = Pt(26)
     p.paragraph_format.first_line_indent = Pt(-26)
     return p
@@ -32,13 +32,13 @@ P("585.617 Rehabilitation Engineering | " + blank("Your Name") + " | " + blank("
   size=10, align=C, after=10)
 
 H("Visit Details", 11.5, before=2)
-P("**Facility:** " + blank("facility name") + "\n"
-  "**Location:** " + blank("city, state") + "\n"
-  "**Planned date of visit:** " + blank("date") + "\n"
+P("**Facility:** Kennedy Krieger Institute\n"
+  "**Location:** Baltimore, Maryland\n"
+  "**Planned date of visit:** November 10, 2026\n"
   "**Interviewee:** " + blank("name and role, e.g. physical therapist, OT, seating and "
   "mobility ATP"), justify=False)
 
-H("Project Context", 11.5, before=9)
+H("Project Context", 11.5, before=7)
 P("My project is a **wheelchair-mounted interface for handheld powered yard tools** "
   "(string trimmers, edgers, hedge trimmers, blowers) for manual wheelchair users with full "
   "upper-limb function doing residential yard maintenance on unimproved ground. It is scoped "
@@ -48,13 +48,11 @@ P("My project is a **wheelchair-mounted interface for handheld powered yard tool
   "envelope must reach both ground level and hedge height from a fixed seated anthropometry; "
   "and manual propulsion is itself a two-handed task, so holding a tool occupies the limbs "
   "mobility requires.")
-P("I have deliberately not selected a design. The questions below are written to be answered "
-  "with observations and experience rather than with a verdict on a proposal, and several are "
-  "aimed at finding out whether my scoping is wrong. Where I ask about solution directions, I "
-  "have kept them broad enough that the interviewee can reject all of them and suggest "
-  "something I have not considered.")
+P("I have deliberately not selected a design. The questions below ask for observations and "
+  "experience rather than a verdict on a proposal, several are aimed at finding out whether my "
+  "scoping is wrong, and the solution directions are kept broad enough to be rejected outright.")
 
-H("A. State of the Art and Current Practice", 11.5, before=9)
+H("A. State of the Art and Current Practice", 11.5, before=7)
 P("*Goal: understand what exists today, what it costs, and where it fails, so that I have "
   "something to benchmark against.*", size=9.5)
 Q("When a patient tells you they want to get back to yard work or outdoor chores, what "
@@ -69,7 +67,7 @@ Q("Where do the current options fall down? If you had to name the single widest 
 Q("Have you seen patients build or modify their own solutions for this? What did they make, "
   "and what eventually happened to it?")
 
-H("B. User Needs and Their Relative Importance", 11.5, before=9)
+H("B. User Needs and Their Relative Importance", 11.5, before=7)
 P("*Goal: determine what the needs actually are and, more importantly, how they rank " +
   EM + " essential, important, or nice to have.*", size=9.5)
 Q("Think of a patient who successfully returned to outdoor work. What had to be true for that "
@@ -85,7 +83,7 @@ Q("Does appearance change behaviour here? Would a visibly adapted chair affect w
   "someone works in a front yard versus a back yard, and is that something patients raise "
   "with you or something you infer?")
 
-H("C. Design Metrics", 11.5, before=9)
+H("C. Design Metrics", 11.5, before=7)
 P("*Goal: convert the needs above into quantities I can design and test against.*", size=9.5)
 Q("How do you assess and teach a patient's tipping limit in a manual chair? Is there a number "
   "you work to, or is it a functional test? If a task applied a steady external force, what "
@@ -100,7 +98,7 @@ Q("Are there facility policies, liability concerns, or standards that would cons
   "anything attached to a patient's own chair? Is there a point at which a modification makes "
   "the chair something you would no longer sign off on?")
 
-H("D. Solution Directions and Concept Feedback", 11.5, before=9)
+H("D. Solution Directions and Concept Feedback", 11.5, before=7)
 P("*Goal: get reactions to broad directions without anchoring the conversation to a specific "
   "design, and surface directions I have not considered.*", size=9.5)
 Q("At a high level the possibilities seem to be: carry the tool and its reaction force on the "
@@ -113,7 +111,7 @@ Q("Is there a different population, or a different task, where you would expect 
   "interface problem to matter more than it does for yard work?")
 Q("If you had a budget and an engineer, what would you ask for that nobody currently makes?")
 
-H("E. Additional Questions If I Can Speak With a Client", 11.5, before=9)
+H("E. Additional Questions If I Can Speak With a Client", 11.5, before=7)
 P("*Goal: hear the task described by the person doing it. Needs and priorities commonly "
   "differ between a client and a care provider, so these are deliberately narrative rather "
   "than evaluative.*", size=9.5)
@@ -123,6 +121,21 @@ Q("What happens now instead? Did someone else take the task over, or did it simp
   "getting done?")
 Q("Is there anything you have tried and given up on? What made you stop using it?")
 Q("If you could change one thing about how it goes, what would you change first?")
+
+H("F. Specific to Kennedy Krieger Institute", 11.5, before=7)
+P("*Goal: use what the facility already does. Two of its features bear directly on a problem "
+  "of propelling and working on unimproved ground.*", size=9.5)
+Q("The therapy garden is described as letting patients practise therapy goals on different "
+  "ground surfaces, including gravel, grass and cobblestone. What do patients find hardest "
+  "about moving between those surfaces, and is manual propulsion over turf something you "
+  "train deliberately or something patients learn to work around?")
+Q("The institute treats individuals up to age 21. For patients approaching that transition, "
+  "how much of the planning covers independent living tasks at home, including outdoor and "
+  "yard work? And where do those patients go for equipment once they age out of your care?")
+Q("The aquatic center solves a barrier with facility infrastructure " + EM + " floors on "
+  "lifts giving barrier-free entry " + EM + " rather than with a device the patient owns. "
+  "When both routes are open, how do you weigh a fix built into the environment against one "
+  "the patient has to carry, set up and maintain themselves?")
 
 out = f"{D}/Module_09_Assignment_Rehab_Center_Questions.docx"
 doc.save(out); print("saved", N[0], "questions")

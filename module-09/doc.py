@@ -35,8 +35,8 @@ H("Visit Details", 11.5, before=2)
 P("**Facility:** Kennedy Krieger Institute\n"
   "**Location:** Baltimore, Maryland\n"
   "**Planned date of visit:** November 10, 2026\n"
-  "**Interviewee:** " + blank("name and role, e.g. physical therapist, OT, seating and "
-  "mobility ATP"), justify=False)
+  "**Interviewee:** Daniel Dobin, Clinical Assistant II, Neurobehavioral Unit (Inpatient)",
+  justify=False)
 
 H("Project Context", 11.5, before=7)
 P("My project is a **wheelchair-mounted interface for handheld powered yard tools** "
@@ -51,91 +51,93 @@ P("My project is a **wheelchair-mounted interface for handheld powered yard tool
 P("I have deliberately not selected a design. The questions below ask for observations and "
   "experience rather than a verdict on a proposal, several are aimed at finding out whether my "
   "scoping is wrong, and the solution directions are kept broad enough to be rejected outright.")
+P("I have also weighted the set toward what my interviewee sees daily. Mr. Dobin's role is "
+  "direct patient care on an inpatient neurobehavioral unit, so I am asking him about how "
+  "equipment actually behaves in use, what makes a patient engage with a device or abandon it, "
+  "how much staff assistance a task consumes, and what the unit requires of anything brought "
+  "onto it. Questions about prescription practice, reimbursement and seating biomechanics sit "
+  "with other roles, and the last question asks whether I can reach one of them during the "
+  "same visit.")
 
-H("A. State of the Art and Current Practice", 11.5, before=7)
-P("*Goal: understand what exists today, what it costs, and where it fails, so that I have "
-  "something to benchmark against.*", size=9.5)
-Q("When a patient tells you they want to get back to yard work or outdoor chores, what "
-  "happens next? Is there an established pathway for that, or is it improvised case by case?")
-Q("What options exist today that you prescribe, recommend, or see patients find on their own " +
-  EM + " adaptive tools, tool holders, mounting arms, raised beds, hired help? Which of those "
-  "actually get used six months later?")
-Q("For any wheelchair-mounted accessory you do prescribe, such as trays, bags, or oxygen "
-  "carriers: roughly what does it cost, who pays for it, and how long does it take to obtain?")
-Q("Where do the current options fall down? If you had to name the single widest gap between "
-  "what exists and what patients ask you for, what would it be?")
-Q("Have you seen patients build or modify their own solutions for this? What did they make, "
-  "and what eventually happened to it?")
+H("A. The Unit and the Current State of Practice", 11.5, before=7)
+P("*Goal: understand what actually happens on the unit, what equipment is in play, and how it "
+  "fails, so that I have something real to benchmark against.*", size=9.5)
+Q("Could you walk me through a typical day on the unit? Where do physical activity, outdoor "
+  "time, or independent-living practice fit into it?")
+Q("For patients who use a wheelchair or other mobility equipment, which parts of the day take "
+  "the most staff assistance, and which parts are they able to manage on their own?")
+Q("What equipment or assistive devices do you handle most often, and which of them actually "
+  "hold up over time?")
+Q("When a device fails, how does it fail? Breakage, batteries, lost parts, too fiddly to set "
+  "up, or patients simply stop engaging with it?")
+Q("What do patients or families ask you for that you currently cannot provide?")
 
-H("B. User Needs and Their Relative Importance", 11.5, before=7)
-P("*Goal: determine what the needs actually are and, more importantly, how they rank " +
-  EM + " essential, important, or nice to have.*", size=9.5)
-Q("Think of a patient who successfully returned to outdoor work. What had to be true for that "
-  "to succeed? What was in place that is often missing?")
-Q("Of the following, how would you rank importance for this population: weight added to the "
-  "chair, cost, setup and takedown time, how safe it feels, how it looks, and whether it "
-  "interferes with pushing? Which are essential, and which are merely nice to have?")
-Q("What makes patients abandon equipment they were initially enthusiastic about? I expect "
-  "that answer to be more useful than any list of desirable features.")
-Q("How much setup time is too much? At what point does someone decide a piece of equipment is "
-  "not worth getting out of the garage?")
-Q("Does appearance change behaviour here? Would a visibly adapted chair affect whether "
-  "someone works in a front yard versus a back yard, and is that something patients raise "
-  "with you or something you infer?")
+H("B. What Makes a Device Work in Practice", 11.5, before=7)
+P("*Goal: determine the real needs and, more importantly, how they rank " + EM + " essential, "
+  "important, or nice to have.*", size=9.5)
+Q("Thinking of any device that has genuinely succeeded on your unit, what did the successful "
+  "ones have in common?")
+Q("How would you rank these for something used on your unit: durability, speed of setup, ease "
+  "of cleaning, how safe it is with limited supervision, how well it holds a patient's "
+  "interest, and cost? Which of those are essential and which are merely nice to have?")
+Q("How long does a patient typically stay engaged with a new activity before attention drops "
+  "off? Does that change what a device has to accomplish in the first minute?")
+Q("What makes you personally reluctant to hand a patient a particular piece of equipment?")
+Q("How much of a device's success depends on the patient, and how much on the staff member "
+  "setting it up? Is there equipment that only works when a specific person is on shift?")
 
-H("C. Design Metrics", 11.5, before=7)
-P("*Goal: convert the needs above into quantities I can design and test against.*", size=9.5)
-Q("How do you assess and teach a patient's tipping limit in a manual chair? Is there a number "
-  "you work to, or is it a functional test? If a task applied a steady external force, what "
-  "stability margin would you want preserved?")
-Q("What is a realistic one-handed holding or lifting capacity for a manual chair user with "
-  "full upper-limb function, sustained over several minutes rather than measured as a peak?")
-Q("How much mass can be added to a manual chair before the user notices it in propulsion, and "
-  "how much before they reject it outright?")
-Q("What do patients actually pay out of pocket for equipment that insurance will not cover? "
-  "Where is the line between a price they will pay and a price they will only think about?")
-Q("Are there facility policies, liability concerns, or standards that would constrain "
-  "anything attached to a patient's own chair? Is there a point at which a modification makes "
-  "the chair something you would no longer sign off on?")
+H("C. Quantities I Can Design Against", 11.5, before=7)
+P("*Goal: convert the needs above into numbers. These are aimed at what a direct-care role can "
+  "observe and measure rather than at clinical prescription values.*", size=9.5)
+Q("For a task a patient does with assistance, roughly how long does it take? How long would "
+  "the same task take without help, where that is possible at all?")
+Q("How many staff are typically needed for an activity involving equipment, and what would "
+  "have to be true for that to drop to one?")
+Q("How often does equipment on the unit need repair or replacement? Is there a service life "
+  "you would consider acceptable, and one you would consider a failure?")
+Q("What are the hard safety requirements for anything brought onto the unit " + EM + " "
+  "cleanability, ligature risk, pinch points, parts that can be detached or thrown? I would "
+  "rather design to those from the start than discover them later.")
+Q("Is there a weight or a stored size above which something becomes impractical for staff to "
+  "move, store, or get through a doorway?")
 
 H("D. Solution Directions and Concept Feedback", 11.5, before=7)
 P("*Goal: get reactions to broad directions without anchoring the conversation to a specific "
   "design, and surface directions I have not considered.*", size=9.5)
 Q("At a high level the possibilities seem to be: carry the tool and its reaction force on the "
   "chair; carry the reaction force into the ground separately from the chair; or change the "
-  "task so that a large reaction force never arises. Does any of those strike you as clearly "
-  "more or less realistic, and is there a fourth I am not seeing?")
-Q("If something is attached to a patient's chair, what would make you uneasy about it "
-  "clinically? What would you want to be able to release or undo instantly?")
-Q("Is there a different population, or a different task, where you would expect this same "
-  "interface problem to matter more than it does for yard work?")
-Q("If you had a budget and an engineer, what would you ask for that nobody currently makes?")
+  "task so that a large reaction force never arises. Does any of those strike you as more or "
+  "less workable, and is there a fourth I am not seeing?")
+Q("If something were attached to a patient's chair, what would make you uneasy about it? What "
+  "would you want to be able to release or remove instantly?")
+Q("Is there a different task on your unit where the same underlying problem shows up " + EM +
+  " holding or operating something while staying stable and still being able to move?")
+Q("If you had an engineer for a week, what would you ask them to build?")
 
-H("E. Additional Questions If I Can Speak With a Client", 11.5, before=7)
-P("*Goal: hear the task described by the person doing it. Needs and priorities commonly "
-  "differ between a client and a care provider, so these are deliberately narrative rather "
-  "than evaluative.*", size=9.5)
-Q("Tell me about the last time you tried to do something outdoors that did not work out. What "
-  "happened, step by step?")
+H("E. Additional Questions If I Can Speak With a Patient or Family Member", 11.5, before=7)
+P("*Goal: hear the task described by the person doing it. Needs and priorities commonly differ "
+  "between a client and a care provider, so these are narrative rather than evaluative.*",
+  size=9.5)
+Q("Tell me about the last time you tried to do something that did not work out. What happened, "
+  "step by step?")
 Q("What happens now instead? Did someone else take the task over, or did it simply stop "
   "getting done?")
 Q("Is there anything you have tried and given up on? What made you stop using it?")
 Q("If you could change one thing about how it goes, what would you change first?")
 
 H("F. Specific to Kennedy Krieger Institute", 11.5, before=7)
-P("*Goal: use what the facility already does. Two of its features bear directly on a problem "
-  "of propelling and working on unimproved ground.*", size=9.5)
+P("*Goal: use what the facility already does, and reach the right person for the questions "
+  "outside my interviewee's area.*", size=9.5)
 Q("The therapy garden is described as letting patients practise therapy goals on different "
-  "ground surfaces, including gravel, grass and cobblestone. What do patients find hardest "
-  "about moving between those surfaces, and is manual propulsion over turf something you "
-  "train deliberately or something patients learn to work around?")
+  "ground surfaces, including gravel, grass and cobblestone. Do patients from your unit use "
+  "it, and what do you see them struggle with as they move between those surfaces?")
 Q("The institute treats individuals up to age 21. For patients approaching that transition, "
-  "how much of the planning covers independent living tasks at home, including outdoor and "
-  "yard work? And where do those patients go for equipment once they age out of your care?")
-Q("The aquatic center solves a barrier with facility infrastructure " + EM + " floors on "
-  "lifts giving barrier-free entry " + EM + " rather than with a device the patient owns. "
-  "When both routes are open, how do you weigh a fix built into the environment against one "
-  "the patient has to carry, set up and maintain themselves?")
+  "how much of the planning covers independent living tasks at home, including outdoor work? "
+  "Where do those patients go for equipment once they age out of your care?")
+Q("Would it be possible to also speak briefly with a physical therapist, occupational "
+  "therapist, or a seating and mobility specialist during my visit? Several of my questions "
+  "concern wheelchair stability, propulsion and equipment funding, and I would like to put "
+  "those to the right person rather than guess at the answers.")
 
 out = f"{D}/Module_09_Assignment_Rehab_Center_Questions.docx"
 doc.save(out); print("saved", N[0], "questions")

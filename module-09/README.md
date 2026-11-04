@@ -3,8 +3,9 @@
 EN.585.617.81.FA26 Rehabilitation Engineering
 
 ## Status
-Assignment written. **Visit confirmed: Kennedy Krieger Institute, Baltimore MD,
-November 10, 2026.** Only the interviewee name and role remain blank.
+Complete. **Kennedy Krieger Institute, Baltimore MD, November 10, 2026.
+Interviewee: Daniel Dobin, Clinical Assistant II, Neurobehavioral Unit
+(Inpatient).** Question set retargeted to that role.
 
 ## Module scope
 No lectures and no readings this module. The stated work is to finalize the
@@ -30,27 +31,42 @@ section is the reference.
 `Module_09_Assignment_Rehab_Center_Questions.docx` / `.pdf` — 2 pages,
 **26 questions** against a required minimum of 10. Built by `doc.py`.
 
-Covers all five categories the assignment names, in order:
-- **A. State of the art** (5) — current pathway, what exists, cost and lead
-  time, the widest gap, patient-built workarounds.
-- **B. User needs and relative importance** (5) — explicitly asks the
-  interviewee to rank essential / important / nice-to-have, which is what the
-  assignment asks for and what Module 6's Kano work set up.
-- **C. Design metrics** (5) — tipping limit and stability margin, sustained
-  one-handed holding capacity, mass budget before propulsion degrades, real
-  out-of-pocket price ceiling, policy and liability constraints.
-- **D. Solution directions and concept feedback** (4) — three broad directions
-  offered at a level general enough that the interviewee can reject all three
-  and propose a fourth.
-- **E. If a client is available** (4) — narrative rather than evaluative, since
-  the assignment notes client and clinician needs commonly differ.
+Covers all five categories the assignment names, retargeted to a direct-care
+role on an inpatient neurobehavioral unit:
+- **A. The unit and current practice** (5) — a day on the unit, where staff
+  assistance concentrates, what equipment is handled, how devices fail, what
+  families ask for that cannot be supplied.
+- **B. What makes a device work in practice** (5) — common features of the
+  devices that succeeded, an explicit essential / important / nice-to-have
+  ranking, attention span before disengagement, staff reluctance, dependence
+  on the specific staff member.
+- **C. Quantities I can design against** (5) — task duration with and without
+  assistance, staff count per activity, repair frequency and acceptable service
+  life, **the unit's hard safety requirements** (cleanability, ligature risk,
+  pinch points, detachable or throwable parts), and the weight and stored-size
+  ceiling.
+- **D. Solution directions** (4) — three broad directions stated generally
+  enough to be rejected outright.
+- **E. If a patient or family member is available** (4) — narrative, not
+  evaluative.
 - **F. Specific to Kennedy Krieger** (3) — the therapy garden's gravel, grass
-  and cobblestone surfaces; the age-21 transition and where patients get
-  equipment afterward; and facility-side versus patient-carried solutions,
-  using the aquatic center's lift floors as the example.
+  and cobblestone; the age-21 transition and equipment sourcing afterward; and
+  a request to also speak with a PT, OT or seating and mobility specialist.
 
-### Still to fill (⟨angle brackets⟩)
-Interviewee name and role.
+## Known tension with the interviewee
+A Clinical Assistant II on a neurobehavioral unit is a **direct-care role on a
+behavioral inpatient service**, not a mobility clinician. He will have strong
+answers on how equipment survives real use, what makes a patient engage or
+refuse, how much staff time a task consumes, and what the unit permits on the
+floor. He will not be the right source for wheelchair stability margins,
+propulsion mechanics, prescription practice or reimbursement, so those
+questions were cut rather than left in to fail. Question 26 asks to reach a PT,
+OT or ATP during the same visit, which is the cheapest way to recover them.
+
+The **safety-requirements question (14)** is the one most worth getting a full
+answer to. A behavioral inpatient unit has constraints a rehab gym does not —
+ligature risk, detachable parts, anything throwable — and they are real design
+constraints that would otherwise surface late.
 
 ## Known tension with the facility
 Kennedy Krieger is **pediatric**, treating individuals up to age 21, while the

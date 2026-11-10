@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.58in 0.75in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 9.6pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 4pt 0 6pt; }
+  h1 { font-size: 11.2pt; margin: 0 0 5pt; }
+  p { text-align: left; margin: 0 0 4pt; line-height: 1.22; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.6pt; margin: 4pt 0 5pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 2pt 3.6pt;
+       vertical-align: top; line-height: 1.17; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  td.a b { display: block; }
+  td.a span { color: #444; font-size: 7pt; }
+  .foot { font-size: 8.8pt; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 9 | M9A2: Concurrent Engineering
+</div>
+<div class="rule"></div>
+
+<h1>Five Areas of Concurrent Engineering — PD-RPM</h1>
+<p>Concurrent engineering means putting a decision in front of every function it affects while it is still cheap to change. The five areas below are the places in PD-RPM where that actually has to happen. Each names who is at the table, what is weighed at the same time rather than in sequence, the risk that is retired early, and the record it leaves behind.</p>
+
+<table class="s">
+<colgroup><col style="width:19%"><col style="width:27%"><col style="width:30%">
+<col style="width:24%"></colgroup>
+<tr><th>Area, and who is at the table</th>
+<th>Weighed concurrently: feasibility, manufacturability, cost</th>
+<th>Risk retired early, and how the design is optimized for production</th>
+<th>Documentation trail</th></tr>
+<tr><td class="a"><b>1. Gateway enclosure and thermal design</b><span>Engineering, Production, Clinical</span></td><td>Whether a sealed IP32 enclosure can cool by convection alone; whether it can be molded in a process the contract manufacturer already runs; what the tool costs at pilot volume.</td><td>A fan would breach the 30 dBA bedroom limit in DR-2 and add a wear item, so the thermal case is closed before the tool is cut rather than after. Wall thickness is set once for stiffness, molding and heat path together.</td><td>Producibility analysis recording material, process and geometry as one decision; thermal case traced to DR-2.</td></tr>
+<tr><td class="a"><b>2. Cellular radio module and its certification</b><span>Engineering, Production, Administration, Logistics</span></td><td>LTE-M coverage at the patient’s home; a socketed module against one soldered to the host board; the per-unit cost of making it field-replaceable; FCC and carrier certification lead time.</td><td>Certification is the longest pole, so it starts while the board is still in layout. Keeping the module replaceable, per DR-5, means a carrier sunset re-trade does not reopen the enclosure.</td><td>The M4A2 trade study, the module interface specification, and the certification test reports.</td></tr>
+<tr><td class="a"><b>3. Testability and the manufacturing test fixture</b><span>Production, Engineering</span></td><td>What must be proven on every unit; whether a fixture can physically reach it; fixture build cost against the cost of field returns.</td><td>Test pads, fiducials and panelization are placed during layout, not negotiated afterwards. A unit that cannot be tested on the line is a unit that gets tested by the patient.</td><td>Manufacturing Test Plan and Manufacturing Test Verification Plan; the fixture verification record accepted at the contract manufacturer.</td></tr>
+<tr><td class="a"><b>4. Firmware release and line provisioning</b><span>Engineering, Administration, Production</span></td><td>Whether a release can be rebuilt and audited; whether the line can flash images and provision identities and certificates at rate; a provisioning station against the cost of a recall.</td><td>The IEC 62304 evidence and the SBOM are produced as the software is built rather than assembled in the weeks before the Manufacturing Readiness Review. The release gate and the line process are designed together.</td><td>IEC 62304 documentation set, SBOM in SPDX or CycloneDX form, and the line provisioning procedure.</td></tr>
+<tr><td class="a"><b>5. Packaging, instructions and home installation</b><span>Clinical, Logistics, Engineering, Administration</span></td><td>Whether a patient can install the unit in under 10 minutes without tools; whether the packaging survives single-parcel shipment and can still be packed on the line; shipping and return cost per unit.</td><td>Usability validation runs against production-equivalent units in real packaging, so a device that passes factory test but defeats an older patient is found before volume rather than in the field.</td><td>Usability engineering file under IEC 62366-1, packaging design and drop-test record, and the instructions for use.</td></tr>
+</table>
+
+<p class="foot"><strong>What the concurrency buys.</strong> The timeline condenses because certification, tooling and fixture development run alongside design instead of queueing behind it. Cost falls because the expensive surprises surface while they are still cheap: a recut tool, a failed certification, a recall for an image nobody can rebuild. Risk falls because each area closes a manufacturing question during design rather than at the Manufacturing Readiness Review. And because every area leaves a named record, the trade-offs behind the design are recoverable later instead of reconstructed from memory.</p>

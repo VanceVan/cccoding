@@ -101,3 +101,36 @@ video, so the aquatic therapy center (pool floors on lifts), the therapy garden
 - The instructors offer **feedback on the questions before the visit** if the
   submission is early and they are emailed about it. Worth taking: 3 attempts
   are allowed on the assignment.
+
+## Visit plan
+`Rehab_Center_Visit_Plan.docx` / `.pdf` — 2 pages, built by `visit_plan.py`.
+A field guide for the November 10 visit, aligned to the Design Project
+Description's Module 10 requirements.
+
+The framing that matters: the visit has **four required outputs**, two of them
+named explicitly in the project description.
+1. **Needs with a priority ranking** — the PDR requires a Kano diagram, and the
+   description states the clinical/client interview should guide the needs
+   prioritization.
+2. **Reaction to the three solution directions** — concept screening must
+   "include feedback from your clinical/client contacts," so today's answers
+   become the clinical input to the Pugh matrix in Module 14.
+3. **Benchmarking numbers** — cost, service life, setup time, staff count,
+   repair frequency, for the state-of-the-art section and the PDS.
+4. **Observation notes** — written the same day.
+
+Also covers the running order (45–60 min), what to observe during the tour
+using the Module 8 task-analysis method, the six questions to protect if time
+collapses, the two mismatches to volunteer rather than be caught by (no
+converged concept; adult population versus a pediatric behavioral unit), and a
+thirty-minute post-visit capture list.
+
+## Open gap flagged by the project description
+Module 10 is framed as gathering input on "your problem **and proposed
+solution**," and Module 7 was supposed to generate conceptual solutions. The
+Module 7 assignment exercised concept generation on a prosthetic hand rather
+than on this project, so **no concepts exist for the yard tool interface yet**.
+Section D of the question set stands in with three deliberately broad
+directions. Concept generation for the actual project still has to happen
+before the PDR, which needs three alternatives with visual representations and
+a Pugh matrix.

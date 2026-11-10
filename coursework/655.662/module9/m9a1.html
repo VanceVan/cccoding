@@ -1,0 +1,69 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.6in 0.78in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.23; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 8pt; margin: 5pt 0 6pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 2.2pt 4pt;
+       vertical-align: top; line-height: 1.19; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  td.n { text-align: center; font-weight: bold; }
+  td.it b { display: block; }
+  td.it span { color: #444; font-size: 7.3pt; }
+  .foot { font-size: 9.2pt; }
+  .brk { page-break-before: always; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 9 | M9A1: Production Transition
+</div>
+<div class="rule"></div>
+
+<h1>Ten Critical Items for Production Transition — PD-RPM</h1>
+<p>PD-RPM manufactures very little: one home gateway, a patient tablet, and two commercial peripherals. The ten items below are ordered the way the transition actually runs, from design decisions that must be settled before Critical Design Review, through the fixtures and artifacts that make production repeatable, to the reviews that release it. Each item names what it requires of PD-RPM specifically and the risk it removes.</p>
+
+<table class="s">
+<colgroup><col style="width:4%"><col style="width:30%"><col style="width:66%"></colgroup>
+<tr><th>#</th><th>Critical item</th><th>What it requires of PD-RPM, and the risk it removes</th></tr>
+<tr><td class="n">1</td><td class="it"><b>Minimize part count and fasteners in the gateway enclosure</b><span>DFA principle</span></td><td>HG-1 is the only item PD-RPM builds in volume. Every screw removed is an assembly step, a torque specification and a failure mode removed. Target a two-piece shell with the board retained by molded bosses rather than fasteners.</td></tr>
+<tr><td class="n">2</td><td class="it"><b>Build the gateway around a base part, assembled top-down</b><span>DFA principle</span></td><td>Locate the main board, the radio module and the battery onto a single base so each part drops vertically into place. Top-down assembly eliminates reorientation of the unit on the line, which is the DFA principle with the largest effect on cycle time.</td></tr>
+<tr><td class="n">3</td><td class="it"><b>Select materials and processes for the home environment, not the lab</b><span>DFM consideration</span></td><td>Design requirement DR-2 fixes the envelope: IP32, 10 to 35 degrees Celsius, 10 to 85 percent humidity, convection cooled with no moving parts, no more than 30 dBA. Material and process selection must deliver that enclosure without a fan, and must be confirmed before CDR.</td></tr>
+<tr><td class="n">4</td><td class="it"><b>Match every process to the feature it produces, and invent none</b><span>DFM consideration</span></td><td>If a geometry demands a process the contract manufacturer does not already run, cost and schedule rise sharply and the return on investment collapses. Any feature that forces a new process is a redesign candidate, not a tooling request.</td></tr>
+<tr><td class="n">5</td><td class="it"><b>Treat material, process and geometry as one decision rather than three</b><span>Producibility interdependency</span></td><td>A wall thickness chosen for stiffness constrains the molding process, which constrains the material, which changes the thermal behavior the enclosure needs for convection cooling. The three are mutually constraining, and fixing any one in isolation guarantees rework.</td></tr>
+<tr><td class="n">6</td><td class="it"><b>Design for the contract manufacturer’s automated assembly and functional test</b><span>Automation</span></td><td>Automation has limits as well as capabilities. Connector placement, fiducials, test-pad access and panelization must suit the line that will actually build the unit, and the design documentation must reach the level of detail the automation requires.</td></tr>
+<tr><td class="n">7</td><td class="it"><b>Design, build, verify and install the manufacturing test fixtures at the CM</b><span>Production artifact</span></td><td>Every unit must prove its radio, its device interfaces, its battery charge path and its diagnostic port before it leaves the line. The fixture is a developed item in its own right, with hardware, software and a verification step, and it is accepted at the contract manufacturer rather than at the developer’s bench.</td></tr>
+<tr><td class="n">8</td><td class="it"><b>Produce the four manufacturing plans</b><span>Production artifact</span></td><td>The Manufacturing Test Plan, Manufacturing Test Verification Plan, Manufacturing Readiness Test Plan and Manufacturing Work Plan are what make the transition auditable. Each answers one question: what is tested, how the test is proven, what readiness means, and who does the work.</td></tr>
+<tr><td class="n">9</td><td class="it"><b>Hold the staged reviews in order, each against entry evidence</b><span>Technical review</span></td><td>Critical Design Review, then Pilot Production Readiness Review, then Manufacturing Readiness Review. Early planning is what lowers risk here, so each review opens against defined entry evidence rather than a calendar date, and none may be waived to protect a schedule.</td></tr>
+<tr><td class="n">10</td><td class="it"><b>Transition the firmware and platform software, not only the hardware</b><span>Software transition</span></td><td>Provisioning identities, certificates and the initial firmware image happens on the production line. The release gated into production needs a reproducible build, an SBOM in SPDX or CycloneDX form, and the IEC 62304 documentation set required by software requirement SR-5.</td></tr>
+</table>
+
+<div class="brk"></div>
+<p>The same ten items, cut a second way. Objective three of this module is the team and review activity that lowers risk, and that is answered by naming who owns each item and which review closes it against what evidence. An item with no named owner and no closing review is not a transition activity, it is an intention.</p>
+
+<table class="s">
+<colgroup><col style="width:4%"><col style="width:15%"><col style="width:19%"><col style="width:9%">
+<col style="width:53%"></colgroup>
+<tr><th>#</th><th>Lead function</th><th>Supporting</th><th>Closes at</th>
+<th>Evidence that closes it</th></tr>
+<tr><td class="n">1</td><td>Engineering</td><td>Production</td><td>CDR</td><td>Enclosure part and fastener count, with the assembly step count it implies</td></tr>
+<tr><td class="n">2</td><td>Engineering</td><td>Production</td><td>CDR</td><td>Assembly sequence drawing showing a single insertion axis</td></tr>
+<tr><td class="n">3</td><td>Engineering</td><td>Clinical, Production</td><td>CDR</td><td>Material and process selection record traced to DR-2, including the no-fan thermal case</td></tr>
+<tr><td class="n">4</td><td>Production</td><td>Engineering</td><td>CDR</td><td>Process capability statement from the contract manufacturer, with any new process flagged</td></tr>
+<tr><td class="n">5</td><td>Engineering</td><td>Production</td><td>CDR</td><td>Producibility analysis fixing material, process and geometry as one set</td></tr>
+<tr><td class="n">6</td><td>Production</td><td>Engineering</td><td>PPRR</td><td>Line capability assessment and the design documentation package the automation needs</td></tr>
+<tr><td class="n">7</td><td>Production</td><td>Engineering, Logistics</td><td>PPRR</td><td>Fixture verification record at the CM, plus the manufacturing test manual</td></tr>
+<tr><td class="n">8</td><td>Administration</td><td>Production, Logistics</td><td>PPRR</td><td>MTP, MTVP, MRTP and MWP approved, with packaging design coordinated</td></tr>
+<tr><td class="n">9</td><td>Administration</td><td>All five functions</td><td>MRR</td><td>Entry and exit records for each review, and the pilot production build result</td></tr>
+<tr><td class="n">10</td><td>Engineering</td><td>Administration, Logistics</td><td>MRR</td><td>Reproducible build, SBOM, IEC 62304 set, and the line provisioning procedure</td></tr>
+</table>
+
+<p class="foot"><strong>Who executes them.</strong> None of these belongs to engineering alone. Concurrent engineering puts Engineering, Clinical, Logistics, Production and Administration on one team from CDR onward, which is what allows manufacturability and cost trade-offs to be evaluated at the same time as technical feasibility rather than after it. The three predictable obstacles are diverse perspectives, silo mentality and vague goals; the countermeasures are a shared common language, cross-functional training, and goals written as SMART criteria with KPIs. The manufacturing team is trained before the pilot build, not during it.</p>
+<p class="foot"><strong>Where the weight actually sits.</strong> Items 1 to 6 are real but bounded, because PD-RPM’s mechanical content is a single enclosure. The producibility risk concentrates in items 7 to 10, which is where a software-intensive medical device is most likely to fail transition: a fixture that does not catch a marginal radio, a firmware image that cannot be rebuilt, a regulatory test package still incomplete at the Manufacturing Readiness Review. Producibility also has to stay balanced against the other qualities the design already commits to, notably operational availability of 0.98 and the 24-hour ride-through, neither of which may be traded away for assembly cost.</p>

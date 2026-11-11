@@ -100,3 +100,21 @@ The care provider asked that his image and likeness not be used. In response:
 If he volunteered any of the removed material during the interview, it can go
 back in; if he would rather not be named at all, the slide works as
 "a Clinical Assistant II on the Neurobehavioral Unit" with no loss.
+
+## Presentation script
+`Module_10_Presentation_Script.docx` / `.pdf` — 4 pages, built by `script.py`.
+
+**1,257 spoken words, about 9:00 at 140 wpm**, against the 10:00 hard limit.
+Carries a per-slide timing table with cumulative start times, bracketed stage
+directions (where to point, where to pause, where to slow down), and delivery
+notes.
+
+Written to be *spoken*, not read off the slides — the rubric penalises reading
+from the slide by name, so where a bullet and a script line overlap, the script
+says the sentence and the slide keeps the headline. Three deliberate pause
+points are marked: after "not a mobility service" on slide 3, after "I saw
+nothing related to my project" on slide 7, and after "cost ranking lowest was
+the surprise" on slide 9.
+
+If it runs long, the stated cuts are the third point on slide 5 and the closing
+sentence on slide 7 — never slide 11, which carries the rubric's named criterion.

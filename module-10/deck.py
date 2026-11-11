@@ -72,12 +72,12 @@ def pic(s, path, left, top, width):
     s.shapes.add_picture(path, Inches(left), Inches(top), width=Inches(width))
 
 
-def cap(s, t, left, top, width):
+def cap(s, t, left, top, width, align=PP_ALIGN.CENTER):
     tb = s.shapes.add_textbox(Inches(left), Inches(top), Inches(width), Inches(0.5))
     p = tb.text_frame.paragraphs[0]
     r = p.add_run(); r.text = t
     r.font.size = Pt(12); r.font.italic = True; r.font.color.rgb = GREY; r.font.name = FONT
-    p.alignment = PP_ALIGN.CENTER
+    p.alignment = align
 
 
 def pagenum(s, n):
@@ -187,15 +187,15 @@ note(s, "The assignment asks for this explicitly. Frame the absence as a finding
 # ---------------------------------------------------------------- 8 provider
 s = slide("Care Provider Interviewed", "Daniel Dobin, Clinical Assistant II")
 body(s, [
- "**Clinical Assistant II, Neurobehavioral Unit (Inpatient)** \u2014 eighteen months on the unit, now **training incoming clinical assistants**.",
- "**Johns Hopkins University** undergraduate, 2024\u20132028.",
- "**Research Fellow, JHU Center for Suicide Prevention** \u2014 first author on systematic reviews in JAACAP and Neurotherapeutics, 2026.",
- "**Crisis Text Line** counsellor, two years.",
- "**Why this background mattered:** he sees equipment in daily use, trains the people who use it, and reads evidence critically.",
-], top=2.0, size=16, width=8.4)
-pic(s, f"{D}/img_dobin.png", 9.7, 2.3, 2.9)
+ "**Clinical Assistant II, Neurobehavioral Unit (Inpatient)**, Kennedy Krieger Institute.",
+ "**Eighteen months on the unit**, and now **trains incoming clinical assistants** alongside direct patient care.",
+ "**Johns Hopkins University** undergraduate.",
+ "**Why this background mattered for my questions:** he works with the equipment every day rather than prescribing it, he trains the people who use it, so he knows which parts of a protocol survive contact with a real unit, and he sees the same devices across many patients rather than one.",
+], size=17)
+cap(s, "Photograph omitted at the interviewee's request.", 0.8, 5.5, 7.0, PP_ALIGN.LEFT)
 pagenum(s, 8)
-note(s, "The last bullet justifies the choice of interviewee. Say it.")
+note(s, "The fourth bullet justifies the choice of interviewee - say it rather than read it. "
+        "No photograph: the interviewee asked that their image not be used.")
 
 # ---------------------------------------------------------------- 9 themes 1
 s = slide("Interview Themes (1 of 2)", "constraints and priorities")

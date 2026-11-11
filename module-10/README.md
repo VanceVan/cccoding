@@ -69,7 +69,6 @@ fills, square corners, serif labels.
 |---|---|---|
 | `fig1_project.png` | 2 | The project in one picture — a manual chair user operating a handheld tool, with the three coupled constraints called out: reaction force and tipping about the casters, the working envelope from ground to hedge height, and hands occupied so the user cannot propel and work. **The first visual this project has ever had.** |
 | `img_kki.png` | 3 | Supplied photograph of the institute. |
-| `img_dobin.png` | 8 | Supplied photograph of the interviewee. |
 | `fig3_needs_priority.png` | 9 | The needs ranking as essential / important / lower bands. Feeds the Kano diagram the PDR requires. |
 | `fig4_directions.png` | 10 | The three solution directions as three panels, with C marked as preferred. Doubles as early concept-generation work for the PDR. |
 | `fig2_task_analysis.png` | 11 | Task analysis of trimming a lawn edge from a manual chair, in the Module 8 notation, with the three difficult steps in red. |
@@ -83,3 +82,21 @@ starting point for that.
 python3.13 deck.py
 soffice --headless --convert-to pdf Module_10_Rehab_Center_Experience.pptx
 ```
+
+## Interviewee privacy
+The care provider asked that his image and likeness not be used. In response:
+- The photograph was deleted from the repository, not merely removed from the
+  slide, and slide 8 carries a line stating the omission.
+- The background was cut back to his clinical role, tenure and training
+  responsibility. Material taken from his public LinkedIn rather than from the
+  interview itself — his suicide-prevention research fellowship, his
+  publications, and his crisis-counselling work — was removed, because someone
+  who declines a photograph is unlikely to expect an unrelated research career
+  on a classmate's slide.
+- The slide was kept rather than deleted: the assignment requires the name and
+  background of the care provider interviewed, and the objection was to the
+  likeness, not to the attribution.
+
+If he volunteered any of the removed material during the interview, it can go
+back in; if he would rather not be named at all, the slide works as
+"a Clinical Assistant II on the Neurobehavioral Unit" with no loss.

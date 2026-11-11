@@ -203,20 +203,18 @@ body(s, [
  "**Safety screening comes before function.** Ligature risk, pinch points, parts that detach or can be thrown \u2014 these are **pass/fail**, not trade-offs.",
  "**Cleanability sits with safety**, not with convenience.",
  "**Cost ranking lowest was the surprise.** I had assumed affordability was the binding constraint.",
-], top=2.0, size=16, width=5.6)
-pic(s, f"{D}/fig3_needs_priority.png", 6.5, 2.4, 6.3)
+], top=2.0, size=16)
+pic(s, f"{D}/fig3_needs_priority.png", 3.1, 3.55, 7.2)
 pagenum(s, 9)
 note(s, "Flag the surprise explicitly. Graders reward the thing that changed your mind.")
 
 # ---------------------------------------------------------------- 10 themes 2
 s = slide("Interview Themes (2 of 2)", "failure modes and solution directions")
 body(s, [
- "**How devices actually fail:** breakage under deliberate force, lost parts, setups too slow to start, and patients disengaging. **Mechanical failure was not the most common mode.**",
- "**Success depends on the staff member as much as the device** \u2014 a dependency that never appears in a specification.",
- "**On my three directions:** preference for **reducing the force at source**, on the grounds that fewer attachments means fewer failure points and faster setup.",
- "**I asked for a referral** to a PT, OT or seating specialist for stability, propulsion and funding.",
-], top=2.0, size=15, width=6.4)
-pic(s, f"{D}/fig4_directions.png", 7.3, 3.0, 5.5)
+ "**How devices actually fail:** breakage under deliberate force, lost parts, setups too slow to start, and patients disengaging \u2014 **mechanical failure was not the most common mode.**",
+ "**On my three directions:** preference for **reducing the force at source**, since fewer attachments means fewer failure points and faster setup.",
+], top=2.0, size=15)
+pic(s, f"{D}/fig4_directions.png", 1.9, 4.05, 9.6)
 pagenum(s, 10)
 note(s, "Be honest about which of these you actually got.")
 
@@ -229,8 +227,8 @@ body(s, [
  "**4. Acceptance criteria become measurable** \u2014 attempts, elapsed time, setup time.",
  "**5. Scope confirmed, source corrected.** Quantitative inputs must come from an adult mobility clinician.",
 ], top=2.0, size=15, width=6.2)
-pic(s, f"{D}/fig2_task_analysis.png", 7.0, 2.6, 5.9)
-cap(s, "Where the design must act", 7.0, 5.1, 5.9)
+pic(s, f"{D}/fig2_task_analysis.png", 6.75, 2.6, 6.3)
+cap(s, "Where the design must act", 6.75, 5.2, 6.3)
 pagenum(s, 11)
 note(s, "This carries the rubric line about impact on preliminary design. About 90 seconds.")
 

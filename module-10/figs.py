@@ -26,6 +26,25 @@ def R(ax, x, y, w, h, fc="white", lw=1.0, ec=INK, hatch=None, ls="-"):
                            linestyle=ls, zorder=3))
 
 
+def chair(ax, lw=1.0, gy=7.0, gx=(4, 60)):
+    """Side view manual wheelchair with occupant, facing right."""
+    L(ax, [gx[0], gx[1]], [gy, gy], lw=lw * 1.3)
+    ax.add_patch(Circle((18, 17), 9.5, fc="none", ec=INK, lw=lw * 1.2, zorder=4))
+    for th in np.linspace(0, np.pi, 6)[:-1]:
+        L(ax, [18 - 8.2 * np.cos(th), 18 + 8.2 * np.cos(th)],
+             [17 - 8.2 * np.sin(th), 17 + 8.2 * np.sin(th)], lw=lw * 0.45, c=GREY, z=3)
+    ax.add_patch(Arc((18, 17), 14, 14, theta1=105, theta2=255, ec=INK, lw=lw * 1.7, zorder=6))
+    ax.add_patch(Circle((31, 11), 4, fc="none", ec=INK, lw=lw, zorder=4))
+    L(ax, [18, 31], [17, 15], lw=lw); L(ax, [31, 31], [15, 11], lw=lw)
+    L(ax, [12, 29], [26, 26], lw=lw * 1.4)
+    L(ax, [12, 9.5], [26, 40], lw=lw * 1.4)
+    L(ax, [29, 33], [26, 15], lw=lw); L(ax, [33, 37], [15, 14], lw=lw * 1.3)
+    L(ax, [14, 18], [27.5, 38], lw=lw * 1.3)
+    ax.add_patch(Circle((19.5, 41.5), 3.6, fc="white", ec=INK, lw=lw * 1.1, zorder=5))
+    L(ax, [18, 26], [38, 33], lw=lw * 1.15)
+    return (26, 33)
+
+
 # ============================================================ fig 1: project
 def fig1():
     fig, ax = plt.subplots(figsize=(8.0, 4.0))
@@ -142,22 +161,23 @@ def fig2():
 
 # ===================================================== fig 3: needs priority
 def fig3():
-    fig, ax = plt.subplots(figsize=(7.2, 3.3))
-    ax.set_xlim(0, 100); ax.set_ylim(0, 54); ax.set_aspect("equal"); ax.axis("off")
-    bands = [("ESSENTIAL", 37.0, 12.5, ["Safe unsupervised", "Durability", "Cleanability"], "#e4e4e4"),
-             ("IMPORTANT", 22.5, 11.0, ["Setup speed", "Holds attention"], "#efefef"),
-             ("LOWER", 10.0, 9.0, ["Cost"], "#f8f8f8")]
+    fig, ax = plt.subplots(figsize=(7.4, 3.4))
+    ax.set_xlim(0, 100); ax.set_ylim(0, 56); ax.set_aspect("equal"); ax.axis("off")
+    X0, X1 = 29.0, 96.0
+    bands = [("ESSENTIAL", 38.5, 13.0, ["Safe unsupervised", "Durability", "Cleanability"], "#e4e4e4"),
+             ("IMPORTANT", 23.5, 11.5, ["Setup speed", "Holds attention"], "#efefef"),
+             ("LOWER", 10.5, 9.5, ["Cost"], "#f8f8f8")]
     for name, y, h, items, shade in bands:
         R(ax, 4, y - h / 2, 92, h, fc=shade, lw=1.0)
-        ax.text(9, y, name, ha="left", va="center", fontsize=8.6, zorder=5)
-        n = len(items); span = 54.0; x0 = 38.0
+        ax.text(7.5, y, name, ha="left", va="center", fontsize=8.4, zorder=5)
+        n = len(items); span = X1 - X0
         for i, it in enumerate(items):
-            cx = x0 + (i + 0.5) * span / n
-            w = span / n - 2.5
+            cx = X0 + (i + 0.5) * span / n
+            w = span / n - 2.0
             R(ax, cx - w / 2, y - 3.6, w, 7.2, fc="white", lw=0.9)
-            ax.text(cx, y, it, ha="center", va="center", fontsize=6.3, zorder=5)
-    ax.text(50, 50.5, "Needs priority as ranked in the care-provider interview",
-            ha="center", fontsize=9.0)
+            ax.text(cx, y, it, ha="center", va="center", fontsize=6.6, zorder=5)
+    ax.text(50, 52.5, "Needs priority as ranked in the care-provider interview",
+            ha="center", fontsize=9.2)
     ax.text(50, 2.0, "Cost ranking lowest was the surprise \u2014 it drives the Kano "
                      "classification for the Preliminary Design Review",
             ha="center", fontsize=7.0, color=GREY, style="italic")
@@ -167,47 +187,44 @@ def fig3():
 
 # ================================================== fig 4: solution directions
 def fig4():
-    fig, axes = plt.subplots(1, 3, figsize=(8.2, 2.9))
-    titles = ["A — Carry it on the chair",
-              "B — Route force to the ground",
-              "C — Reduce the force at source"]
-    subs = ["reaction torque reacts through\nthe chair's stability envelope",
-            "an outrigger or stake takes the\nload instead of the chair",
+    fig, axes = plt.subplots(1, 3, figsize=(9.0, 3.1))
+    titles = ["A \u2014 Carry it on the chair",
+              "B \u2014 Route the force to the ground",
+              "C \u2014 Reduce the force at source"]
+    subs = ["a mount carries the tool, so the\nreaction reacts through the chair",
+            "a ground-bearing strut takes the\nload, leaving the chair unloaded",
             "lighter head, lower torque,\nnothing added to the chair"]
     for k, ax in enumerate(axes):
-        ax.set_xlim(0, 40); ax.set_ylim(0, 34); ax.set_aspect("equal"); ax.axis("off")
-        ax.add_patch(Rectangle((0.6, 0.6), 38.8, 32.8, fc="none",
-                     ec=RED if k == 2 else "#cccccc", lw=1.6 if k == 2 else 0.7, zorder=0))
-        L(ax, [5, 35], [7, 7], lw=1.1)
-        ax.add_patch(Circle((14, 12), 5, fc="none", ec=INK, lw=1.1, zorder=4))
-        ax.add_patch(Circle((22, 9), 2, fc="none", ec=INK, lw=0.9, zorder=4))
-        L(ax, [14, 22], [12, 11], lw=0.9); L(ax, [22, 22], [11, 9], lw=0.9)
-        L(ax, [11, 24], [17, 17], lw=1.3); L(ax, [11, 10], [17, 24], lw=1.3)
-        ax.add_patch(Circle((15, 26), 2.6, fc="white", ec=INK, lw=1.0, zorder=5))
+        ax.set_xlim(0, 64); ax.set_ylim(-11, 51); ax.set_aspect("equal"); ax.axis("off")
+        ax.add_patch(Rectangle((1.0, -10.0), 62, 60, fc="none",
+                     ec=RED if k == 2 else "#c8c8c8", lw=1.8 if k == 2 else 0.8, zorder=0))
+        hand = chair(ax, lw=1.0, gy=7.0, gx=(4, 60))
         if k == 0:
-            L(ax, [16, 30], [23, 12], lw=1.5)
-            ax.add_patch(Circle((30.6, 11.4), 2.0, fc=FILL, ec=INK, lw=1.0, zorder=5))
-            L(ax, [18, 24], [18, 20], lw=1.4)
-            arw(ax, 30.6, 11.4, 35, 16, lw=1.1, c=RED)
-            ax.add_patch(Arc((14, 12), 18, 18, theta1=20, theta2=62, ec=RED, lw=1.0,
-                             ls=(0, (3, 2)), zorder=5))
+            L(ax, [hand[0], 45], [hand[1], 16], lw=1.7)
+            ax.add_patch(Circle((46, 15.2), 2.6, fc=FILL, ec=INK, lw=1.1, zorder=5))
+            L(ax, [29, 37.5], [26.5, 23.0], lw=2.2)
+            ax.add_patch(Circle((37.5, 23.0), 1.3, fc=INK, ec="none", zorder=6))
+            arw(ax, 46, 15.2, 55, 24, lw=1.3, c=RED)
         elif k == 1:
-            L(ax, [16, 30], [23, 12], lw=1.5)
-            ax.add_patch(Circle((30.6, 11.4), 2.0, fc=FILL, ec=INK, lw=1.0, zorder=5))
-            L(ax, [26, 26], [15, 7], lw=1.6)
-            L(ax, [23, 29], [7, 7], lw=1.8)
-            arw(ax, 30.6, 11.4, 34, 15, lw=1.0, c=RED)
-            arw(ax, 26, 13, 26, 8.4, lw=1.1, c=INK)
+            L(ax, [hand[0], 45], [hand[1], 16], lw=1.7)
+            ax.add_patch(Circle((46, 15.2), 2.6, fc=FILL, ec=INK, lw=1.1, zorder=5))
+            L(ax, [39.5, 39.5], [19.6, 8.2], lw=2.2)
+            L(ax, [35.5, 43.5], [8.2, 8.2], lw=2.4)
+            ax.add_patch(Circle((39.5, 19.6), 1.3, fc=INK, ec="none", zorder=6))
+            arw(ax, 46, 15.2, 53, 22, lw=1.1, c=RED)
+            arw(ax, 39.5, 17.5, 39.5, 10.2, lw=1.4, c=INK)
+            ax.text(52, 10.0, "load to\nthe ground", ha="center", va="center", fontsize=6.4,
+                    color=GREY, zorder=6)
         else:
-            L(ax, [16, 27], [23, 14], lw=1.2)
-            ax.add_patch(Circle((27.5, 13.4), 1.3, fc=FILL, ec=INK, lw=0.9, zorder=5))
-            arw(ax, 27.5, 13.4, 29.8, 15.8, lw=0.8, c=RED)
-            ax.text(33, 24, "preferred\nin interview", ha="center", va="center",
-                    fontsize=6.2, color=RED, zorder=6)
-        ax.text(20, 31.2, titles[k], ha="center", fontsize=7.8, zorder=6)
-        ax.text(20, 3.1, subs[k], ha="center", va="center", fontsize=6.3,
-                color=GREY, zorder=6, linespacing=1.4)
-    fig.subplots_adjust(wspace=0.04)
+            L(ax, [hand[0], 40], [hand[1], 25], lw=1.3)
+            ax.add_patch(Circle((40.8, 24.4), 1.6, fc=FILL, ec=INK, lw=1.0, zorder=5))
+            arw(ax, 40.8, 24.4, 45.5, 29.0, lw=0.9, c=RED)
+            ax.text(50, 38, "preferred\nin interview", ha="center", va="center",
+                    fontsize=7.0, color=RED, zorder=6)
+        ax.text(32, 47.5, titles[k], ha="center", fontsize=8.4, zorder=6)
+        ax.text(32, -6.3, subs[k], ha="center", va="center", fontsize=6.6,
+                color=GREY, zorder=6, linespacing=1.45)
+    fig.subplots_adjust(wspace=0.03)
     fig.savefig(f"{OUT}/fig4_directions.png", dpi=300, bbox_inches="tight", facecolor="white")
     plt.close(fig)
 

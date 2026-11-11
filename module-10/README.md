@@ -60,6 +60,24 @@ specific patient is described. Both were avoided deliberately: his input is
 written as themes so it can be corrected without rewriting slides, and the
 observation slide stays at the level of structure rather than clinical detail.
 
+## Visuals
+Six of the twelve slides now carry an image. Figures are built by `figs.py` in
+the same plain line-art style as the Module 7 and 8 work: black lines, white
+fills, square corners, serif labels.
+
+| File | Slide | What it shows |
+|---|---|---|
+| `fig1_project.png` | 2 | The project in one picture — a manual chair user operating a handheld tool, with the three coupled constraints called out: reaction force and tipping about the casters, the working envelope from ground to hedge height, and hands occupied so the user cannot propel and work. **The first visual this project has ever had.** |
+| `img_kki.png` | 3 | Supplied photograph of the institute. |
+| `img_dobin.png` | 8 | Supplied photograph of the interviewee. |
+| `fig3_needs_priority.png` | 9 | The needs ranking as essential / important / lower bands. Feeds the Kano diagram the PDR requires. |
+| `fig4_directions.png` | 10 | The three solution directions as three panels, with C marked as preferred. Doubles as early concept-generation work for the PDR. |
+| `fig2_task_analysis.png` | 11 | Task analysis of trimming a lawn edge from a manual chair, in the Module 8 notation, with the three difficult steps in red. |
+
+`fig1` and `fig4` are the two with downstream value: the PDR requires visual
+representations of at least three alternative concepts, and `fig4` is the
+starting point for that.
+
 ## Build
 ```
 python3.13 deck.py

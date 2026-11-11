@@ -196,8 +196,6 @@ def fig4():
             "lighter head, lower torque,\nnothing added to the chair"]
     for k, ax in enumerate(axes):
         ax.set_xlim(0, 64); ax.set_ylim(-11, 51); ax.set_aspect("equal"); ax.axis("off")
-        ax.add_patch(Rectangle((1.0, -10.0), 62, 60, fc="none",
-                     ec=RED if k == 2 else "#c8c8c8", lw=1.8 if k == 2 else 0.8, zorder=0))
         hand = chair(ax, lw=1.0, gy=7.0, gx=(4, 60))
         if k == 0:
             L(ax, [hand[0], 45], [hand[1], 16], lw=1.7)

@@ -83,8 +83,9 @@ ${ar('120,169 150,169')}
 ${ar('290,169 330,169')}
 ${ar('470,169 510,169')}
 ${ar('650,169 710,169')}
-${ar('220,198 220,285 330,285')}
+${ar('400,198 400,270')}
 ${ar('120,315 330,315')}
+${ar('270,315 270,220 360,220 360,198')}
 ${ar('470,299 760,299 760,198')}
 ${ar('300,315 300,415 330,415')}
 ${ar('120,443 330,443')}
@@ -100,7 +101,7 @@ ${ar('850,449 900,449')}
 ${lab(310, 132, 'Parsed Observation Data')}
 ${lab(490, 132, 'Attributed Observation Data')}
 ${lab(680, 132, 'Metadata Verified Data')}
-${lab(276, 278, 'Parsed Observation Data', 'end')}
+${lab(408, 238, 'Attributed Observation Data', 'start')}
 ${lab(615, 292, 'Duplicate Finding Data')}
 ${lab(590, 422, 'Monitoring Gap Data')}
 ${lab(780, 392, 'Classified Observation Data')}

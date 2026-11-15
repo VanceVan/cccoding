@@ -15,6 +15,19 @@ const P = (text, o = {}) => new Paragraph({
 
 const fig = fs.readFileSync(__dirname + '/m232_figure.png');
 
+const img = (name, w, h) => new Paragraph({
+  children: [new ImageRun({ type: 'png', data: fs.readFileSync(__dirname + '/' + name),
+    transformation: { width: w, height: h } })],
+  alignment: AlignmentType.CENTER,
+  spacing: { before: 120, after: 120 },
+});
+
+const cap = (text) => new Paragraph({
+  children: [new TextRun({ text, size: SZ })],
+  alignment: AlignmentType.CENTER,
+  spacing: SPACING,
+});
+
 const doc = new Document({
   sections: [{
     properties: { page: { size: { width: 12240, height: 15840 },
@@ -56,6 +69,23 @@ const doc = new Document({
         alignment: AlignmentType.CENTER,
         spacing: SPACING,
       }),
+
+      P('Each subfunction was traced to the operational requirements and key performance ' +
+        'parameters it satisfies, using the requirements traceability matrix in Figure (X). ' +
+        'OR9 is distributed across four subfunctions because it names three distinct conditions, ' +
+        'incomplete, duplicate and invalid, and requires each to be identified before evaluation ' +
+        'or display. KPP3 is carried by the five subfunctions that establish accuracy and ' +
+        'integrity, and KPP4 by the two that recover and reconcile monitoring data.'),
+
+      img('m232_rtm.png', 268, 342),
+      cap('Figure (X). HFRMS Level 2 RTM – 7. Validate Data'),
+
+      P('The accompanying N2 diagram is shown in Figure (X). It records the seven internal flows ' +
+        'between subfunctions, the controls allocated to each, and the external interfaces the ' +
+        'decomposition inherits from Function 7 at Level 1.'),
+
+      img('m232_n2.png', 624, 195),
+      cap('Figure (X). HFRMS Level 2 N2 Diagram – 7. Validate Data'),
     ],
   }],
 });

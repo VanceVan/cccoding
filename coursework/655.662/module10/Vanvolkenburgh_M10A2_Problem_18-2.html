@@ -1,0 +1,64 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.62in 0.8in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  h2 { font-size: 10.4pt; margin: 8pt 0 3pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.25; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.9pt; margin: 4pt 0 6pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 2pt 3.8pt;
+       vertical-align: top; line-height: 1.18; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  table.s td.k { font-weight: bold; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 10 | M10A2: Problem Set 18.2
+</div>
+<div class="rule"></div>
+
+<h1>Problem 18.2 — Why Production and Acceptance Test Knowledge Protects the Schedule</h1>
+<p>Problem 18.2 asks why a systems engineer working on a manufactured system must understand factory production and acceptance test, and for two examples showing what that knowledge buys in on-time delivery. The underlying reason is simple: <strong>a design decision made without knowing what the factory can build and what the line can test becomes a schedule problem months later, at the point where schedule is least recoverable.</strong> Both examples below are drawn from PD-RPM’s home gateway, HG-1, the one element the program manufactures in volume.</p>
+<h2>Example 1 — Designing a function the line cannot test</h2>
+<table class="s">
+  <colgroup><col style="width:24%"><col style="width:76%"></colgroup>
+  <tr><th></th><th>Example 1: cellular radio test access</th></tr>
+  <tr><td class="k">The design decision</td><td>HG-1 carries a cellular radio module that must meet IR-2, the store-and-forward requirement, and OR8, the mutually authenticated encrypted path. The engineer specifies both and moves on.</td></tr>
+<tr><td class="k">What the factory actually does</td><td>The contract manufacturer’s standard acceptance test is an in-circuit bed-of-nails fixture. It verifies continuity, power rails and component presence electrically. It does not transmit. The line has no shielded enclosure and no RF coupler.</td></tr>
+<tr><td class="k">What happens without the knowledge</td><td>The radio is never exercised at rated power on any unit. The gap is found at First Article Inspection, when the first production units are checked against the drawing package before full rate begins.</td></tr>
+<tr><td class="k">The cost in schedule</td><td>Adding RF test access after the board is laid out is a respin: new layout, new fabrication, new assembly, new first article. Eight to ten weeks, landing between the Pilot Production Readiness Review and the Manufacturing Readiness Review, which is exactly when there is no float left.</td></tr>
+<tr><td class="k">What the knowledge changes</td><td>An engineer who knows the fixture’s coverage places an RF coupler pad and a firmware test mode on the board <strong>during layout</strong>, and writes the acceptance test requirement so every unit transmits at rated power into a known load. The cost during design is one pad and one firmware branch.</td></tr>
+  </table>
+<h2>Example 2 — Producing units that cannot be released</h2>
+<table class="s">
+  <colgroup><col style="width:24%"><col style="width:76%"></colgroup>
+  <tr><th></th><th>Example 2: per-unit records and line provisioning</th></tr>
+  <tr><td class="k">The design decision</td><td>Each gateway needs a unique identity and certificate to satisfy OR8 and to let DM-1 manage it in the field. The engineer treats provisioning as a software concern and specifies it in the firmware.</td></tr>
+<tr><td class="k">What the factory actually does</td><td>Provisioning happens on the line, not at a developer’s bench. It needs a secure station holding key material, a serial number bound to each unit, and an acceptance test record retained per unit as device history.</td></tr>
+<tr><td class="k">What happens without the knowledge</td><td>The pilot lot is built and passes functional test, but the units carry no bound serial number and the test results are not retained per unit. There is no device history record, so the lot cannot be released even though every unit works.</td></tr>
+<tr><td class="k">The cost in schedule</td><td>The hold surfaces at the Manufacturing Readiness Review, where release evidence is assembled. Recovering it means re-provisioning the lot and reconstructing records that were never captured, and the regulatory package slips with it. Rework of documentation is slower than rework of hardware because the evidence has to be created, not corrected.</td></tr>
+<tr><td class="k">What the knowledge changes</td><td>An engineer who knows that acceptance test data is regulatory evidence specifies the fixture to log serial-linked results from the first pilot unit, and treats the provisioning station as a production item with its own lead time. Nothing is reconstructed later because nothing was missed.</td></tr>
+  </table>
+<h2>What a systems engineer actually has to know</h2>
+<p>Both examples trace to the same six areas. None of them requires the engineer to be a manufacturing engineer; each requires knowing enough to ask the right question before the design is frozen.</p>
+<table class="s">
+  <colgroup><col style="width:26%"><col style="width:36%"><col style="width:38%"></colgroup>
+  <tr><th>Knowledge area</th><th>The question it lets you ask</th><th>The delay it prevents</th></tr>
+  <tr><td class="k">Line and fixture capability</td><td>What can the acceptance test actually exercise on every unit?</td><td>A board respin to add test access, found at first article.</td></tr>
+<tr><td class="k">Batch and cure steps</td><td>Which process steps run overnight rather than inline?</td><td>A build schedule planned at takt time that is wrong by the cure cycle on every lot.</td></tr>
+<tr><td class="k">First article and lot acceptance</td><td>When is the design first checked against the drawing package?</td><td>Discovering a drawing-to-build mismatch after tooling is cut rather than before.</td></tr>
+<tr><td class="k">Yield and rework loops</td><td>What yield does this tolerance give at rate, and what happens to the failures?</td><td>A marginal design that passes pilot and then consumes the schedule in rework at full rate.</td></tr>
+<tr><td class="k">Records and traceability</td><td>What evidence must exist per unit for the lot to be released?</td><td>Working units held at the Manufacturing Readiness Review for want of a device history record.</td></tr>
+<tr><td class="k">Production equipment lead time</td><td>What has to be bought or built before the first unit can be made?</td><td>A provisioning station or test fixture ordered too late to support the pilot build.</td></tr>
+  </table>
+<p>The phasing makes the asymmetry concrete. Material procurement and production engineering sit before low rate production, and low rate sits before full production. A question asked during production engineering costs a conversation. The same question asked after low rate has begun costs a tool, a respin, or a lot.</p>
+<h2>What the two examples have in common</h2>
+<p>Neither failure is a design error. In both cases the gateway works exactly as specified. What fails is the <strong>match between the design and the production system that has to build and prove it</strong>, and that match is invisible from the engineering bench. Both are caught cheaply at Critical Design Review and expensively at First Article or Manufacturing Readiness Review, which is the asymmetry that makes the knowledge worth having.</p>
+<p>This is also why the producibility guidelines put <strong>teamwork with manufacturing personnel</strong> among them, and why concurrent engineering seats a contract manufacturer process engineer in design reviews from CDR rather than from the Pilot Production Readiness Review. The engineer does not need to be a manufacturing engineer. They need to know enough to ask two questions before the design is frozen: <strong>can you build this at rate, and can you prove on every unit that it works.</strong></p>

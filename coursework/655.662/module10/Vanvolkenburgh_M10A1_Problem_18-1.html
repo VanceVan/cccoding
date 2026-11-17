@@ -1,0 +1,69 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.62in 0.8in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  h2 { font-size: 10.4pt; margin: 8pt 0 3pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.25; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.9pt; margin: 4pt 0 6pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 2pt 3.8pt;
+       vertical-align: top; line-height: 1.18; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  table.s td.k { font-weight: bold; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 10 | M10A1: Problem Set 18.1
+</div>
+<div class="rule"></div>
+
+<h1>Problem 18.1 — Make or Buy Criteria for PD-RPM</h1>
+<p>Problem 18.1 asks which criteria decide whether a subsystem is produced in-house or procured outside. For PD-RPM the answer is not one decision but twenty, taken element by element against the M5A1 physical architecture. What follows is the criteria set, the resulting allocation, and the one element where the decision is genuinely contested.</p>
+<h2>1. The criteria, and which way each one pushes</h2>
+<table class="s">
+  <colgroup><col style="width:20%"><col style="width:42%"><col style="width:38%"></colgroup>
+  <tr><th>Criterion</th><th>What it asks of a candidate element</th><th>Which way it pushes for a monitoring system</th></tr>
+  <tr><td class="k">Core competence</td><td>Does this element carry the clinical claim, or is it a commodity beneath it?</td><td>Make. Trend detection and alerting are the product; a cuff is not.</td></tr>
+<tr><td class="k">Regulatory burden</td><td>Does an existing clearance cover this element, and do we inherit it?</td><td>Buy, hard. An FDA-cleared blood pressure monitor brings its clearance; building one means acquiring it.</td></tr>
+<tr><td class="k">Technical expertise</td><td>Do we hold the skills, and will we still hold them in five years?</td><td>Buy for RF and silicon. Make for clinical algorithms and platform software.</td></tr>
+<tr><td class="k">Manufacturability</td><td>Can the item be produced at our volume without inventing a process?</td><td>Buy. Guideline 8 of the producibility set: design to the production method economical at the quantity forecast.</td></tr>
+<tr><td class="k">Unit cost against NRE</td><td>Does the volume amortize tooling and non-recurring engineering?</td><td>Buy at pilot volumes. A few thousand gateways cannot amortize a custom radio design.</td></tr>
+<tr><td class="k">Supplier reliability and supply continuity</td><td>Second source, end-of-life notice, lead time</td><td>Make, or buy only where a second source exists. A sole-sourced module is a single point of program failure.</td></tr>
+<tr><td class="k">IP protection</td><td>Does the element encode something a competitor could copy?</td><td>Make. The alert rules and the trend algorithm stay inside.</td></tr>
+<tr><td class="k">Risk and control of change</td><td>Who controls the configuration once production starts?</td><td>Make where the change rate is high. Firmware changes monthly; an enclosure does not.</td></tr>
+<tr><td class="k">Quality assurance reach</td><td>Can we audit the supplier’s process, or only inspect their output?</td><td>Buy only where incoming inspection can actually detect a defect that matters.</td></tr>
+<tr><td class="k">Scalability</td><td>Does the choice still hold at ten times the fleet?</td><td>Buy for anything whose cost is linear in units; make for anything whose cost is fixed.</td></tr>
+  </table>
+<h2>2. The resulting allocation across the PD-RPM architecture</h2>
+<table class="s">
+  <colgroup><col style="width:26%"><col style="width:13%"><col style="width:61%"></colgroup>
+  <tr><th>Element</th><th>Decision</th><th>Governing criterion</th></tr>
+  <tr><td class="k">BP-1 blood pressure monitor, SC-1 weight scale</td><td>Buy</td><td>Regulatory burden. Both are cleared devices with Bluetooth profiles. Building either means becoming a device manufacturer in a category we add no value to.</td></tr>
+<tr><td class="k">PT-1 patient tablet hardware</td><td>Buy</td><td>Commodity with no clinical claim; unit cost and supply continuity both favor commercial hardware.</td></tr>
+<tr><td class="k">PT-1 patient application</td><td>Make</td><td>Core competence and IP. The 60-second interaction budget and the usability file are ours to defend.</td></tr>
+<tr><td class="k">HG-1 home gateway</td><td>Mixed</td><td>The contested case. Treated in section 3.</td></tr>
+<tr><td class="k">CN-1 carrier network, IN-1 public internet</td><td>Buy (service)</td><td>Outside the boundary by the M2A2 decision; not a make-or-buy question but a contracting one.</td></tr>
+<tr><td class="k">EG-1 through RE-1, the monitoring platform</td><td>Make</td><td>Core competence and IP. These implement the clinical claim and change most often.</td></tr>
+<tr><td class="k">DS-1 data store</td><td>Buy (managed service)</td><td>Technical expertise and scalability. Operating a compliant time-series store is not a differentiator.</td></tr>
+<tr><td class="k">IM-1 identity and access management</td><td>Buy</td><td>Quality assurance reach. A commercial identity provider is audited continuously; ours would not be.</td></tr>
+<tr><td class="k">EI-1 EHR integration service</td><td>Make, on a bought engine</td><td>The HL7 and FHIR engine is commodity; the mapping to our own data model is not.</td></tr>
+  </table>
+<h2>3. The contested element: the home gateway</h2>
+<p>HG-1 is the only element where the criteria disagree, which is what makes it the real worked example. Three options were considered.</p>
+<table class="s">
+  <colgroup><col style="width:24%"><col style="width:38%"><col style="width:38%"></colgroup>
+  <tr><th>Option</th><th>Argument for</th><th>Argument against</th></tr>
+  <tr><td class="k">Buy a white-label RPM gateway outright</td><td>No NRE, no tooling, fastest to market, supplier carries the radio certification.</td><td>We inherit their firmware release cycle and their end-of-life date, and DR-5 modularity becomes unenforceable. Change control passes to a vendor.</td></tr>
+<tr><td class="k">Build everything including the radio</td><td>Total control of configuration, no sole-source exposure.</td><td>Fails on technical expertise, unit cost and manufacturability at once. RF design and certification are a program of their own at a volume that cannot amortize them.</td></tr>
+<tr><td class="k"><strong>Buy the certified radio module, make the firmware, contract-manufacture the rest</strong></td><td>Certification rides on the module. Firmware, where the change rate is highest, stays ours. DR-5 keeps the module replaceable against a carrier sunset.</td><td>Costs more per unit than a soldered radio, and adds a supplier relationship to manage.</td></tr>
+  </table>
+<p>The third option is selected. It splits the decision along the line the criteria actually draw: <strong>buy what carries a certification, make what carries the clinical claim, and contract out what is simply assembly</strong>. It also preserves the re-trade trigger recorded in the M4A2 cellular gateway trade study, which named carrier sunset as the condition that reopens the choice.</p>
+<h2>4. What this says about the criteria themselves</h2>
+<p>For a regulated monitoring system the criteria do not carry equal weight. <strong>Regulatory burden and supply continuity dominate unit cost</strong>, which inverts the ordering that applies to most products. A cleared sensor bought at a premium is cheaper than an uncleared one built at cost, because the difference is a submission and a year. Everything else follows a single standing rule: if an element carries the clinical claim or changes often, make it; if it carries somebody else’s clearance, buy it; if it is only assembly, contract it out and keep the configuration.</p>

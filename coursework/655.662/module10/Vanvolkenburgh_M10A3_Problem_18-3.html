@@ -1,0 +1,63 @@
+<!doctype html>
+<meta charset="utf-8">
+<style>
+  @page { size: letter portrait; margin: 0.62in 0.8in; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: Arial, Helvetica, "Liberation Sans", sans-serif;
+         font-size: 10.2pt; margin: 0; color: #000; }
+  .hdr { line-height: 1.2; font-size: 10pt; }
+  .rule { border-bottom: 0.75pt solid #999; margin: 5pt 0 7pt; }
+  h1 { font-size: 11.6pt; margin: 0 0 6pt; }
+  h2 { font-size: 10.4pt; margin: 8pt 0 3pt; }
+  p { text-align: left; margin: 0 0 4.5pt; line-height: 1.25; }
+  table.s { width: 100%; border-collapse: collapse; font-size: 7.9pt; margin: 4pt 0 6pt; }
+  table.s th, table.s td { border: 0.6pt solid #1a1a1a; padding: 2pt 3.8pt;
+       vertical-align: top; line-height: 1.18; }
+  table.s th { background: #e8e8e8; text-align: left; }
+  table.s td.k { font-weight: bold; }
+</style>
+
+<div class="hdr">
+  <b>Vance Vanvolkenburgh</b><br>
+  655.662 — Introduction to Healthcare Systems Engineering<br>
+  Module 10 | M10A3: Problem Set 18.3
+</div>
+<div class="rule"></div>
+
+<h1>Problem 18.3 — Four Configuration Management Areas Critical to the Production Transition</h1>
+<p>Problem 18.3 asks for four areas where configuration management is crucial as a system moves from development into production, and why. The transition is where CM stops being an engineering convenience and becomes the mechanism that lets production build the right thing: before it, the design is still moving and the people changing it are the people who wrote it; after it, a contract manufacturer, a regulator and a clinical organization all act on the design, and none of them was in the room. The four areas below map onto four of the five CM functions — identification, change management, status accounting and verification — applied to PD-RPM.</p>
+<h2>Area 1 — Configuration identification: the released product baseline</h2>
+<table class="s">
+  <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+  
+  <tr><td class="k">What it covers</td><td>The exact set of artifacts released to production at Critical Design Review: the B-specs, the hierarchical bill of materials, enclosure and board drawings, the firmware image and its build hash, the acceptance test definition, and the packaging design. Each carries a version and a release date.</td></tr>
+<tr><td class="k">Why it is crucial here</td><td>Production builds what the baseline says, not what engineering remembers. Until the transition, "the design" could reasonably live in the heads of the people making it. The moment a contract manufacturer quotes and tools against it, the baseline is the only shared statement of what the product is.</td></tr>
+<tr><td class="k">What breaks without it</td><td>The contract manufacturer quotes against one revision and builds against another. For PD-RPM the sharpest case is the firmware: without an image bound to a build hash, nobody can say which software the pilot lot actually shipped with, and SR-5’s reproducible build and SBOM obligations cannot be met.</td></tr>
+  </table>
+<h2>Area 2 — Change management: control of the design once tooling exists</h2>
+<table class="s">
+  <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+  
+  <tr><td class="k">What it covers</td><td>A change control board with production, regulatory and clinical representation, change classification by impact, and a rule for which changes may proceed without re-opening a review.</td></tr>
+<tr><td class="k">Why it is crucial here</td><td>Before the transition a change costs a drawing revision. After it, the same change may cost a cut tool, a re-certification, or a re-flash of a fielded fleet. The cost of change rises by orders of magnitude across this boundary, which is exactly why the authority to approve one has to move at the same point.</td></tr>
+<tr><td class="k">What breaks without it</td><td>For PD-RPM, two classes of change are dangerous in different ways. An enclosure change after the tool is cut is expensive but visible. A firmware change is cheap to make and invisible, so it is the one that escapes control: an unreviewed change to validation logic alters clinical behavior without anyone treating it as a design change.</td></tr>
+  </table>
+<h2>Area 3 — Interface control: the three interfaces the program does not own</h2>
+<table class="s">
+  <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+  
+  <tr><td class="k">What it covers</td><td>Controlled interface documents for every external interface, with named versions and a notification obligation on both parties. PD-RPM has three: the cycler data port, the carrier network under the private APN, and the health system’s HL7 and FHIR interface.</td></tr>
+<tr><td class="k">Why it is crucial here</td><td>These interfaces are the only part of the configuration a counterparty can change unilaterally. Internal interfaces are protected by the baseline; external ones are protected only by agreement.</td></tr>
+<tr><td class="k">What breaks without it</td><td>A cycler firmware revision that alters the record schema, or an EHR upgrade that changes acceptance semantics, invalidates the acceptance test while every unit still passes it. The failure appears in the field as missing data, which is precisely the condition PD-RPM exists to detect, so it degrades the clinical claim rather than announcing itself.</td></tr>
+  </table>
+<h2>Area 4 — Status accounting and traceability: requirement to test to unit</h2>
+<table class="s">
+  <colgroup><col style="width:22%"><col style="width:78%"></colgroup>
+  
+  <tr><td class="k">What it covers</td><td>A live record of what configuration exists where: the trace from operational requirements and KPPs through the B-specs to the acceptance test that proves each one, and from the acceptance test to the per-unit device history record.</td></tr>
+<tr><td class="k">Why it is crucial here</td><td>This is what converts a working unit into a releasable one. It is also what makes a failure diagnosable: without the trace, a failed acceptance test tells you a unit is bad but not which requirement it violates.</td></tr>
+<tr><td class="k">What breaks without it</td><td>Units that function cannot be released, because release evidence is assembled at the Manufacturing Readiness Review and cannot be reconstructed afterwards. A recall becomes unbounded for the same reason: without unit-level configuration records there is no way to identify which gateways carry an affected firmware version, so the only safe answer is all of them.</td></tr>
+  </table>
+<h2>Why these four and not others</h2>
+<p>The four are chosen because each one guards a different failure mode at this specific boundary. Identification guards against <strong>building the wrong thing</strong>. Change management guards against <strong>the right thing quietly becoming the wrong thing</strong>. Interface control guards against <strong>somebody else changing it</strong>. Status accounting guards against <strong>being unable to prove which thing you built</strong>. Configuration audit, the fifth CM function, is not a separate area so much as the activity that confirms the other four are actually working, and it is performed at the Manufacturing Readiness Review.</p>
+<p>The common thread is that all four fail silently. None of them produces a defective unit on the line; they produce units that work but cannot be trusted, released, or reproduced. That is why the module calls configuration management the glue of systems engineering, and why the discipline has to be in place <strong>before</strong> the transition rather than imposed after the first problem appears.</p>

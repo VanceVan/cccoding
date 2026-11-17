@@ -50,6 +50,35 @@ soffice --headless --convert-to pdf Module_11_Assignment_CPM_Knee.docx
 backward passes, so changing a duration or a predecessor updates the figure,
 both tables and the discussion numbers together.
 
-## Note
-The assignment asks for groups of 2–3. This was completed individually at the
-student's choice, so no team-role material from the Ch. 4 readings is cited.
+## Two-person split (partner: Katelyn Blackwood)
+A partner was found after the solo version was finished. The work was split
+along the rubric's own seam and two handoff files were built:
+
+| File | Built by | Contents |
+|---|---|---|
+| `Module_11_Part1_Completed.docx` / `.pdf` | `part1.py` | Vance's half — device selection, the full 18-activity Table 1 (unshaded; critical-path shading is a Part 2 result), the justification for N–R, the Method section and the references. Covers the 10-point activity item. |
+| `Module_11_Outline_and_Work_Split.docx` / `.pdf` | `outline.py` | The outline sent to Katelyn — merged document structure with ownership marked, a seven-step method for her half, four practical warnings, Ch. 4 team roles, and the merge sequence. |
+
+**Part 2 (Katelyn):** forward pass, backward pass, total float, critical path,
+the network diagram and the six-column table, plus the results discussion.
+That is the 30-point rubric item.
+
+The solved answers are deliberately **withheld** from the outline so the
+partner does her own half. The fully solved version stays in this repo
+(`Module_11_Assignment_CPM_Knee.pdf`) as a check at merge time.
+
+Four warnings carried into the outline, each of which is how this calculation
+usually goes wrong:
+- the table asks for early *start* and late *start*, so float = LS − ES;
+- compute float for every activity rather than tracing the longest path by eye,
+  since more than one chain can tie;
+- **K, L, M and R** are all terminal — all four take LF = project duration;
+- B→H and B→J are transitively redundant and are best drawn dashed.
+
+## Build (handoff files)
+```
+python3.13 part1.py
+python3.13 outline.py
+soffice --headless --convert-to pdf Module_11_Part1_Completed.docx
+soffice --headless --convert-to pdf Module_11_Outline_and_Work_Split.docx
+```
